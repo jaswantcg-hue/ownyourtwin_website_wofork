@@ -1,0 +1,327 @@
+/**
+ * Global Application Styles
+ * AuraAI - Digital Twin Platform
+ */
+
+/* Import custom fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Tailwind CSS v4 - Import base styles */
+@import "tailwindcss";
+
+/* Define custom theme using CSS variables */
+@theme {
+  /* Custom color palette for spiritual/futuristic theme */
+
+  /* Primary colors - Deep cosmic purples */
+  --color-cosmic-50: #f5f3ff;
+  --color-cosmic-100: #ede9fe;
+  --color-cosmic-200: #ddd6fe;
+  --color-cosmic-300: #c4b5fd;
+  --color-cosmic-400: #a78bfa;
+  --color-cosmic-500: #8b5cf6;
+  --color-cosmic-600: #7c3aed;
+  --color-cosmic-700: #6d28d9;
+  --color-cosmic-800: #5b21b6;
+  --color-cosmic-900: #4c1d95;
+  --color-cosmic-950: #2e1065;
+
+  /* Accent colors - Ethereal teals */
+  --color-ethereal-50: #f0fdfa;
+  --color-ethereal-100: #ccfbf1;
+  --color-ethereal-200: #99f6e4;
+  --color-ethereal-300: #5eead4;
+  --color-ethereal-400: #2dd4bf;
+  --color-ethereal-500: #14b8a6;
+  --color-ethereal-600: #0d9488;
+  --color-ethereal-700: #0f766e;
+  --color-ethereal-800: #115e59;
+  --color-ethereal-900: #134e4a;
+  --color-ethereal-950: #042f2e;
+
+  /* Neural/Digital colors - Soft blues */
+  --color-neural-50: #eff6ff;
+  --color-neural-100: #dbeafe;
+  --color-neural-200: #bfdbfe;
+  --color-neural-300: #93c5fd;
+  --color-neural-400: #60a5fa;
+  --color-neural-500: #3b82f6;
+  --color-neural-600: #2563eb;
+  --color-neural-700: #1d4ed8;
+  --color-neural-800: #1e40af;
+  --color-neural-900: #1e3a8a;
+  --color-neural-950: #172554;
+
+  /* Aura/Energy colors - Warm golds */
+  --color-aura-50: #fffbeb;
+  --color-aura-100: #fef3c7;
+  --color-aura-200: #fde68a;
+  --color-aura-300: #fcd34d;
+  --color-aura-400: #fbbf24;
+  --color-aura-500: #f59e0b;
+  --color-aura-600: #d97706;
+  --color-aura-700: #b45309;
+  --color-aura-800: #92400e;
+  --color-aura-900: #78350f;
+  --color-aura-950: #451a03;
+
+  /* Dark background shades */
+  --color-void-50: #f8fafc;
+  --color-void-100: #f1f5f9;
+  --color-void-200: #e2e8f0;
+  --color-void-300: #cbd5e1;
+  --color-void-400: #94a3b8;
+  --color-void-500: #64748b;
+  --color-void-600: #475569;
+  --color-void-700: #334155;
+  --color-void-800: #1e293b;
+  --color-void-900: #0f172a;
+  --color-void-950: #020617;
+
+  /* Custom fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Custom animations */
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-gradient: gradient 8s ease infinite;
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-slide-down: slideDown 0.3s ease-out;
+  --animate-scale-in: scaleIn 0.3s ease-out;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  /* Custom shadows */
+  --shadow-glow-sm: 0 0 15px rgba(139, 92, 246, 0.3);
+  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.4);
+  --shadow-glow-lg: 0 0 50px rgba(139, 92, 246, 0.5);
+  --shadow-ethereal: 0 0 30px rgba(20, 184, 166, 0.3);
+  --shadow-inner-glow: inset 0 0 20px rgba(139, 92, 246, 0.2);
+
+  /* Border radius */
+  --radius-4xl: 2rem;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--color-void-950);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(ellipse at top, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(20, 184, 166, 0.03) 0%, transparent 50%);
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-void-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-void-600);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-void-500);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: none;
+  ring: 2px;
+  ring-color: var(--color-cosmic-500);
+  ring-offset: 2px;
+  ring-offset-color: var(--color-void-900);
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Code styles */
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Custom gradient background */
+.bg-gradient-neural {
+  background: linear-gradient(180deg, var(--color-void-950) 0%, var(--color-void-900) 50%, var(--color-void-800) 100%);
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Animation utility classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-cosmic-400);
+  animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
