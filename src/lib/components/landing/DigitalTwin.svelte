@@ -273,7 +273,7 @@
 
 <div
     bind:this={containerRef}
-    class="glass-panel relative min-h-[680px] p-0 overflow-hidden {className}"
+    class="relative min-h-[680px] p-0 overflow-hidden {className}"
 >
     <!-- Global Flow SVG -->
     <svg
@@ -535,14 +535,6 @@
 </div>
 
 <style>
-    .glass-panel {
-        background: rgba(15, 23, 42, 0.4);
-        backdrop-filter: blur(24px);
-        border: 1px solid rgba(139, 92, 246, 0.12);
-        border-radius: 2rem;
-        box-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
-    }
-
     :global(.flow-line) {
         fill: none;
         stroke-dasharray: 5, 5;
