@@ -32,6 +32,21 @@
     goto('/');
   }
 
+  // Handle logo click - logout if authenticated
+  async function handleLogoClick(e: Event) {
+    e.preventDefault();
+    if ($isAuthenticated) {
+      await authStore.logout();
+    }
+    goto('/');
+  }
+
+  // Handle navigation click
+  function handleNavClick(e: Event, href: string) {
+    e.preventDefault();
+    goto(href);
+  }
+
   // Close menu on outside click
   function handleOutsideClick() {
     showUserMenu = false;
@@ -50,7 +65,11 @@
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
+      <a
+        href="/"
+        onclick={handleLogoClick}
+        class="flex items-center gap-2 group"
+      >
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cosmic-500 to-cosmic-600 flex items-center justify-center group-hover:shadow-glow transition-shadow">
           <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -68,6 +87,7 @@
           {#each navItems as item}
             <a
               href={item.href}
+              onclick={(e) => handleNavClick(e, item.href)}
               class="
                 px-4 py-2 rounded-lg text-sm font-medium
                 transition-all duration-200
@@ -105,6 +125,7 @@
             <div
               class="absolute right-0 mt-2 w-56 bg-void-800 border border-void-700 rounded-xl shadow-xl overflow-hidden animate-slide-down"
               role="menu"
+              tabindex="-1"
               onkeydown={(e) => e.key === 'Escape' && (showUserMenu = false)}
             >
               <div class="p-4 border-b border-void-700">
@@ -115,6 +136,7 @@
               <div class="p-2">
                 <a
                   href="/app/dashboard"
+                  onclick={(e) => handleNavClick(e, '/app/dashboard')}
                   class="flex items-center gap-3 px-3 py-2 rounded-lg text-void-300 hover:text-white hover:bg-void-700 transition-colors"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

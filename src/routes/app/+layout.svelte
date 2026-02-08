@@ -40,8 +40,11 @@
   }
 
   // Load twin data on mount
-  onMount(() => {
-    // Redirect if not authenticated
+  onMount(async () => {
+    // Check auth status first
+    await authStore.checkAuth();
+
+    // Redirect if not authenticated after check
     if (!$isAuthenticated) {
       goto("/login");
       return;
@@ -51,13 +54,6 @@
     twinStore.loadTwin();
     twinStore.loadActivities();
     twinStore.loadEarnings();
-  });
-
-  // Watch auth state
-  $effect(() => {
-    if (!$isAuthenticated) {
-      goto("/login");
-    }
   });
 </script>
 

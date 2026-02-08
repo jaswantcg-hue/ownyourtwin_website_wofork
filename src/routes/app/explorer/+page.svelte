@@ -281,7 +281,7 @@
           placeholder="Example: I'll never be good enough at my job..."
           rows="4"
           class="w-full px-4 py-3 bg-void-800 border border-void-700 rounded-xl text-white placeholder-void-500 resize-none focus:outline-none focus:border-cosmic-500"
-        />
+        ></textarea>
         <div class="flex justify-end mt-4">
           <Button variant="primary" onclick={analyzeThought} disabled={!reframingThought.trim()}>
             Analyze Thought
