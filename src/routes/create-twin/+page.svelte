@@ -230,93 +230,46 @@
 
   <main class="pt-20 pb-12 px-4">
     <div class="max-w-3xl mx-auto">
-      <!-- Enhanced Progress indicator -->
-      <div class="mb-16">
-        <div class="relative">
-          <!-- Progress bar background -->
-          <div class="absolute top-8 left-0 right-0 h-1 bg-void-800 rounded-full mx-auto" style="width: calc(100% - 8rem);"></div>
-
-          <!-- Animated progress bar -->
-          <div
-            class="absolute top-8 left-0 h-1 bg-gradient-to-r from-cosmic-600 to-cosmic-400 rounded-full transition-all duration-700 ease-out"
-            style="width: calc({((currentStep - 1) / (TWIN_CREATION_STEPS.length - 1)) * 100}% * (100% - 8rem) / 100); margin-left: 4rem;"
-          ></div>
-
-          <!-- Steps -->
-          <div class="relative flex items-center justify-between max-w-2xl mx-auto">
-            {#each TWIN_CREATION_STEPS as step, index}
-              <div class="flex flex-col items-center relative z-10">
-                <!-- Step circle -->
-                <div class="relative group">
-                  <div
-                    class="w-16 h-16 rounded-2xl flex items-center justify-center font-bold text-lg
-                      transition-all duration-500 transform
-                      {currentStep > step.id
-                        ? 'bg-gradient-to-br from-cosmic-600 to-cosmic-500 text-white scale-100 shadow-glow'
-                        : currentStep === step.id
-                          ? 'bg-gradient-to-br from-cosmic-600/30 to-cosmic-500/30 border-2 border-cosmic-500 text-cosmic-400 scale-110 animate-pulse-slow shadow-glow-sm'
-                          : 'bg-void-900/80 border-2 border-void-700 text-void-500 scale-90'}"
+      <!-- Progress indicator -->
+      <div class="mb-12">
+        <div class="flex items-center justify-center">
+          {#each TWIN_CREATION_STEPS as step, index}
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center font-medium transition-all duration-300
+                  {currentStep > step.id
+                  ? 'bg-cosmic-500 text-white shadow-glow-sm'
+                  : currentStep === step.id
+                    ? 'bg-cosmic-500/20 border-2 border-cosmic-500 text-cosmic-400'
+                    : 'bg-void-800 text-void-500'}"
+              >
+                {#if currentStep > step.id}
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {#if currentStep > step.id}
-                      <!-- Checkmark for completed steps -->
-                      <svg
-                        class="w-8 h-8 animate-scale-in"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="3"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    {:else if currentStep === step.id}
-                      <!-- Icon for active step -->
-                      {#if step.id === 1}
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      {:else}
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                      {/if}
-                    {:else}
-                      <!-- Number for inactive steps -->
-                      <span class="text-xl">{step.id}</span>
-                    {/if}
-                  </div>
-
-                  <!-- Pulse effect for active step -->
-                  {#if currentStep === step.id}
-                    <div class="absolute inset-0 rounded-2xl bg-cosmic-500/20 animate-ping"></div>
-                  {/if}
-                </div>
-
-                <!-- Step label -->
-                <div class="mt-4 text-center transition-all duration-300">
-                  <div
-                    class="font-semibold text-sm
-                      {currentStep >= step.id ? 'text-white' : 'text-void-500'}"
-                  >
-                    {step.name}
-                  </div>
-                  <div
-                    class="text-xs mt-1
-                      {currentStep === step.id ? 'text-cosmic-400' : 'text-void-600'}"
-                  >
-                    {currentStep > step.id
-                      ? 'Completed'
-                      : currentStep === step.id
-                        ? 'In Progress'
-                        : 'Pending'}
-                  </div>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                {:else}
+                  {step.id}
+                {/if}
               </div>
-            {/each}
-          </div>
+              {#if index < TWIN_CREATION_STEPS.length - 1}
+                <div
+                  class="w-24 md:w-32 h-0.5 mx-3 {currentStep > step.id
+                    ? 'bg-cosmic-500'
+                    : 'bg-void-700'}"
+                ></div>
+              {/if}
+            </div>
+          {/each}
         </div>
       </div>
 
