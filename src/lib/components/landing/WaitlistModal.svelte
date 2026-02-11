@@ -148,7 +148,10 @@
             focus:border-cosmic-500 focus:ring-cosmic-500/20
             resize-none
           "
-        />
+        > </textarea>
+        {#if errors.reason}
+          <p class="mt-1 text-sm text-red-500">{errors.reason}</p>
+        {/if}
       </div>
 
       <div class="flex justify-end gap-3 pt-4">

@@ -83,6 +83,12 @@ function createAuthStore(): AuthStore {
           connectedAccounts: [],
         };
 
+        // Store auth token and user data in localStorage
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('aura_auth_token', 'mock_token_' + Date.now());
+          localStorage.setItem('aura_user', JSON.stringify(mockUser));
+        }
+
         update(state => ({
           ...state,
           user: mockUser,
@@ -136,6 +142,12 @@ function createAuthStore(): AuthStore {
           connectedAccounts: [],
         };
 
+        // Store auth token and user data in localStorage
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('aura_auth_token', 'mock_token_' + Date.now());
+          localStorage.setItem('aura_user', JSON.stringify(mockUser));
+        }
+
         update(state => ({
           ...state,
           user: mockUser,
@@ -164,6 +176,12 @@ function createAuthStore(): AuthStore {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 500));
 
+        // Clear localStorage
+        if (typeof localStorage !== 'undefined') {
+          localStorage.removeItem('aura_auth_token');
+          localStorage.removeItem('aura_user');
+        }
+
         set({ ...initialState, isInitialized: true });
       } catch (error) {
         console.error('Logout error:', error);
@@ -187,12 +205,30 @@ function createAuthStore(): AuthStore {
           : null;
 
         if (storedAuth) {
-          // Mock restore user session
-          update(state => ({
-            ...state,
-            status: 'authenticated',
-            isInitialized: true,
-          }));
+          // Restore user session from localStorage
+          const storedUser = typeof localStorage !== 'undefined'
+            ? localStorage.getItem('aura_user')
+            : null;
+
+          if (storedUser) {
+            const user = JSON.parse(storedUser);
+            // Convert date strings back to Date objects
+            user.createdAt = new Date(user.createdAt);
+            user.lastLogin = new Date(user.lastLogin);
+
+            update(state => ({
+              ...state,
+              user,
+              status: 'authenticated',
+              isInitialized: true,
+            }));
+          } else {
+            update(state => ({
+              ...state,
+              status: 'authenticated',
+              isInitialized: true,
+            }));
+          }
         } else {
           update(state => ({
             ...state,

@@ -4,6 +4,7 @@
  */
 
 export { default as BrainAnimation } from './BrainAnimation.svelte';
+export { default as DigitalTwin } from './DigitalTwin.svelte';
 export { default as Hero } from './Hero.svelte';
 export { default as HowItWorks } from './HowItWorks.svelte';
 export { default as UserStories } from './UserStories.svelte';
