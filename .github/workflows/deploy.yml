@@ -6,10 +6,12 @@ on:
       - main
       - master
       - develop
+      - Sonal_V1 
   pull_request:
     branches:
       - main
       - master
+      - Sonal_V1
 
 env:
   REGISTRY: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
