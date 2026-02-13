@@ -43,9 +43,12 @@ jobs:
         run: |
           mkdir -p deploy
           cp -r .svelte-kit deploy/
+          cp -r dist deploy/ 2>/dev/null || true
           cp -r node_modules deploy/
           cp package.json package-lock.json deploy/
+          # Create a simple server entry point if needed
           cd deploy && zip -r ../release.zip . && cd ..
+      
       
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
