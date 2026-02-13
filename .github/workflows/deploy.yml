@@ -7,11 +7,13 @@ on:
       - master
       - develop
       - remotes/origin/Sonal_V1 
+      - Sonal_V1
   pull_request:
     branches:
       - main
       - master
       - remotes/origin/Sonal_V1
+      - Sonal_V1
 
 jobs:
   build:
