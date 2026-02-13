@@ -1,17 +1,14 @@
-# Azure Deployment Guide for AuraAI
+# Azure Web App Deployment Guide - Simple Setup
 
-This guide provides step-by-step instructions to set up and configure GitHub Actions for automated deployment to Azure.
+Deploy AuraAI directly to Azure Web App with Node.js runtime (no Docker required).
 
 ## Prerequisites
 
 1. **Azure Account** - Active Azure subscription
-2. **GitHub Repository** - Your code pushed to GitHub
-3. **Docker** - For local testing (optional)
-4. **Azure CLI** - For local setup (optional)
+2. **Azure CLI** - [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli)
+3. **GitHub Repository** - Code pushed to GitHub
 
-## Step 1: Set Up Azure Resources
-
-### Create Azure Container Registry
+## Step 1: Create Azure Web App
 
 ```bash
 # Login to Azure
@@ -20,209 +17,159 @@ az login
 # Create resource group
 az group create --name auraai-rg --location eastus
 
-# Create container registry
-az acr create --resource-group auraai-rg --name auraaicr --sku Basic
+# Create App Service Plan (Linux + Node.js)
+az appservice plan create \
+  --name auraai-plan \
+  --resource-group auraai-rg \
+  --sku B1 \
+  --is-linux
+
+# Create Web App
+az webapp create \
+  --resource-group auraai-rg \
+  --plan auraai-plan \
+  --name auraai-app \
+  --runtime "NODE:20-lts"
 ```
 
-### Create Azure Container Instances
+## Step 2: Download Publish Profile
 
 ```bash
-# You can create a container instance manually in Azure Portal or use Azure CLI
-# We'll deploy via GitHub Actions, but you may want to prepare the resource group
+# Download publish profile XML
+az webapp deployment list-publishing-profiles \
+  --resource-group auraai-rg \
+  --name auraai-app \
+  --xml > PublishProfile.xml
 ```
 
-## Step 2: Get Azure Credentials
-
-### Option A: Using Service Principal (Recommended for CI/CD)
-
-```bash
-# Create a service principal with contributor access to the resource group
-az ad sp create-for-rbac \
-  --name auraai-github-sp \
-  --role Contributor \
-  --scopes /subscriptions/{subscription-id}/resourceGroups/auraai-rg
-```
-
-This will output:
-```json
-{
-  "appId": "...",
-  "displayName": "auraai-github-sp",
-  "password": "...",
-  "tenant": "..."
-}
-```
-
-### Option B: Using Registry Credentials
-
-```bash
-# Get container registry credentials
-az acr credential show --name auraaicr --resource-group auraai-rg
-```
-
-This will output:
-```json
-{
-  "passwords": [
-    {
-      "name": "password",
-      "value": "..."
-    }
-  ],
-  "username": "..."
-}
-```
+Or download from [Azure Portal](https://portal.azure.com):
+1. Go to **App Services** → **auraai-app**
+2. Click **Download publish profile** (top right)
 
 ## Step 3: Add GitHub Secrets
 
 In your GitHub repository:
 1. Go to **Settings** → **Secrets and variables** → **Actions**
-2. Add the following secrets:
+2. Add these secrets:
 
 | Secret Name | Value |
 |---|---|
-| `AZURE_REGISTRY_LOGIN_SERVER` | e.g., `auraaicr.azurecr.io` |
-| `AZURE_REGISTRY_USERNAME` | From `az acr credential show` output |
-| `AZURE_REGISTRY_PASSWORD` | From `az acr credential show` output |
-| `AZURE_RESOURCE_GROUP` | `auraai-rg` |
-| `AZURE_CONTAINER_NAME` | e.g., `auraai-container` |
-| `AZURE_SUBSCRIPTION_ID` | Your Azure subscription ID |
+| `AZURE_WEBAPP_NAME` | `auraai-app` |
+| `AZURE_PUBLISH_PROFILE` | Content of PublishProfile.xml (entire XML) |
 
-## Step 4: Update Dockerfile (if needed)
-
-The current Dockerfile runs the dev server. For production, you may want to use this instead:
-
-```dockerfile
-# Build stage
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-# Production stage
-FROM node:20-alpine
-
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY --from=builder /app/build ./build
-
-EXPOSE 3000
-CMD ["node", "-m", "http-server", "build", "-p", "3000"]
-```
-
-## Step 5: GitHub Actions Workflow
-
-The workflow file (`.github/workflows/deploy.yml`) has been created with the following stages:
-
-### Build Stage
-- Checks out code
-- Sets up Node.js
-- Installs dependencies
-- Runs type checks
-- Builds the SvelteKit application
-- Uploads build artifacts
-
-### Deploy Stage (Main/Master only)
-- Downloads build artifacts
-- Logs into Azure Container Registry
-- Builds Docker image
-- Pushes image to registry
-- Deploys to Azure Container Instances
-
-## Step 6: Manual Deployment (Optional)
-
-If you want to deploy manually:
+## Step 4: Configure Web App
 
 ```bash
-# Build Docker image
-docker build -t auraaicr.azurecr.io/auraai:latest .
-
-# Login to Azure Registry
-az acr login --name auraaicr
-
-# Push image
-docker push auraaicr.azurecr.io/auraai:latest
-
-# Deploy to Container Instances
-az container create \
+# Set Node.js startup command
+az webapp config set \
   --resource-group auraai-rg \
-  --name auraai-container \
-  --image auraaicr.azurecr.io/auraai:latest \
-  --registry-login-server auraaicr.azurecr.io \
-  --registry-username <username> \
-  --registry-password <password> \
-  --dns-name-label auraai-container \
-  --ports 3000 \
-  --cpu 1 \
-  --memory 1
+  --name auraai-app \
+  --startup-file "node build"
+
+# Set environment variables
+az webapp config appsettings set \
+  --resource-group auraai-rg \
+  --name auraai-app \
+  --settings NODE_ENV=production \
+              PORT=8080
 ```
 
-## Step 7: Monitor Deployments
+## Step 5: Deploy
 
-### View GitHub Actions
-- Go to your repository → **Actions** tab
-- View workflow runs and logs
+Push code to main branch:
 
-### Check Azure Container
 ```bash
-az container show \
-  --resource-group auraai-rg \
-  --name auraai-container \
-  --query "{State:instanceView.state, FQDN:ipAddress.fqdn, PublicIP:ipAddress.ip}"
+git push origin main
+```
+
+GitHub Actions will:
+1. Install dependencies
+2. Build SvelteKit app
+3. Create deployment package
+4. Deploy to Azure Web App
+
+## Access Your App
+
+Once deployed: `https://auraai-app.azurewebsites.net`
+
+## View Logs
+
+```bash
+# Stream live logs
+az webapp log tail --resource-group auraai-rg --name auraai-app
+
+# View deployment logs
+az webapp deployment log show --resource-group auraai-rg --name auraai-app
 ```
 
 ## Environment Variables
 
-Update the workflow as needed for environment-specific variables:
+Add custom variables:
 
-```yaml
-environment-variables:
-  NODE_ENV=production
-  VITE_API_URL=${{ secrets.API_URL }}
+```bash
+az webapp config appsettings set \
+  --resource-group auraai-rg \
+  --name auraai-app \
+  --settings VITE_API_URL="https://api.example.com" \
+              CUSTOM_VAR="value"
 ```
+
+## Scaling
+
+Upgrade to better performance:
+
+```bash
+# Scale up (higher resources)
+az appservice plan update \
+  --name auraai-plan \
+  --resource-group auraai-rg \
+  --sku S1
+
+# Scale out (multiple instances)
+az appservice plan update \
+  --name auraai-plan \
+  --resource-group auraai-rg \
+  --number-of-workers 2
+```
+
+Available SKUs: `FREE`, `SHARED`, `B1`, `B2`, `B3`, `S1`, `S2`, `S3`, `P1V2`, `P2V2`
 
 ## Troubleshooting
 
 ### Build Fails
-- Check Node.js version compatibility
-- Verify all dependencies are installed
-- Review the `npm run check` output
+- Check Node.js 20+ is available
+- Verify `npm run build` works locally
+- Review GitHub Actions logs
 
-### Push to Registry Fails
-- Verify credentials are correct in GitHub Secrets
-- Check registry exists and is accessible
-- Ensure Container Registry SKU supports the image size
+### Deployment Fails
+- Verify publish profile is correct and not expired
+- Check Web App name matches
+- Ensure App Service plan exists
 
-### Container Fails to Start
-- Check container logs: `az container logs --resource-group auraai-rg --name auraai-container`
-- Verify port 3000 is exposed in the Docker image
-- Check memory and CPU limits
+### App Won't Start
+- Check logs: `az webapp log tail`
+- Verify `build` folder exists
+- Check `node build` command works locally
+- Verify PORT=8080 in app settings
 
-## Security Recommendations
+### Application Errors
+```bash
+# Check runtime version
+az webapp config show --resource-group auraai-rg --name auraai-app
 
-1. Rotate credentials regularly
-2. Use managed identities instead of passwords when possible
-3. Limit container registry access to specific IP ranges
-4. Enable container image scanning for vulnerabilities
-5. Use private endpoints for Azure Container Registry
+# Check app logs in real-time
+az webapp log tail --resource-group auraai-rg --name auraai-app --follow
+```
 
-## Next Steps
+## Cleanup
 
-1. Push this repository to GitHub if not already done
-2. Configure the GitHub Secrets above
-3. Push to main/master branch to trigger the workflow
-4. Monitor the GitHub Actions workflow
-5. Access your deployed application at the Container Instance FQDN
+```bash
+# Delete all resources
+az group delete --name auraai-rg --yes --no-wait
+```
 
 ## Additional Resources
 
-- [Azure Container Registry Documentation](https://docs.microsoft.com/en-us/azure/container-registry/)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [SvelteKit Deployment Guide](https://kit.svelte.dev/docs/adapter-auto)
-- [Azure Container Instances Documentation](https://docs.microsoft.com/en-us/azure/container-instances/)
+- [Azure App Service Documentation](https://docs.microsoft.com/azure/app-service/)
+- [SvelteKit Deployment](https://kit.svelte.dev/docs/adapter-auto)
+- [Node.js on App Service](https://docs.microsoft.com/azure/app-service/configure-language-nodejs)
