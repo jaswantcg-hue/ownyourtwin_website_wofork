@@ -6,12 +6,12 @@ on:
       - main
       - master
       - develop
-      - Sonal_V1 
+      - remotes/origin/Sonal_V1 
   pull_request:
     branches:
       - main
       - master
-      - Sonal_V1
+      - remotes/origin/Sonal_V1
 
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir -p deploy
-          cp -r build deploy/
+          cp -r .svelte-kit deploy/
           cp -r node_modules deploy/
           cp package.json package-lock.json deploy/
           cd deploy && zip -r ../site.zip . && cd ..
@@ -56,7 +56,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: Deploy to Azure Web App
-    if: github.event_name == 'push'
     steps:
       - name: Download deployment package
         uses: actions/download-artifact@v4
