@@ -24,6 +24,12 @@
   function openDemoModal() {
     showDemoModal = true;
   }
+
+  interface Props {
+    data: import("./$types").PageData;
+  }
+
+  let { data }: Props = $props();
 </script>
 
 <svelte:head>
@@ -64,7 +70,7 @@
   <UserStories onDemoClick={openDemoModal} />
 
   <!-- 9. Blog / Insights Preview -->
-  <BlogPreview />
+  <BlogPreview posts={data.recentPosts} />
 </main>
 
 <!-- Footer with Demo CTA -->
