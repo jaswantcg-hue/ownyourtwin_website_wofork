@@ -222,7 +222,7 @@
 </script>
 
 <svelte:head>
-  <title>Create Your Twin - AuraAI</title>
+  <title>Create Your Twin - OwnYourTwin</title>
 </svelte:head>
 
 <div class="min-h-screen bg-void-950">
@@ -282,7 +282,7 @@
               Create Your Account
             </h1>
             <p class="text-void-300 max-w-lg mx-auto">
-              Join AuraAI to create your personalized digital twin that
+              Join OwnYourTwin to create your personalized digital twin that
               understands you.
             </p>
           </div>

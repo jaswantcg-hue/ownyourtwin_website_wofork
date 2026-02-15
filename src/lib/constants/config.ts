@@ -5,11 +5,11 @@
 
 // Application metadata
 export const APP_CONFIG = {
-  name: 'AuraAI',
-  tagline: 'Understand Your Mind via Digital Twin',
-  description: 'A personal space for reflection and feedback through your AI-powered digital twin',
+  name: 'OwnYourTwin',
+  tagline: 'Own Your Data. Earn From It.',
+  description: 'Create an AI-powered Digital Twin that you own, you control, and that earns for you.',
   version: '1.0.0',
-  supportEmail: 'support@auraai.com',
+  supportEmail: 'support@ownyourtwin.com',
 } as const;
 
 // Social platforms available for connection
@@ -83,23 +83,23 @@ export const TWIN_CREATION_STEPS = [
 // How it works steps for landing page
 export const HOW_IT_WORKS = [
   {
-    id: 'reflect',
-    title: 'Reflect',
-    description: 'Share your thoughts, experiences, and emotions through natural conversation',
+    id: 'connect',
+    title: 'Connect',
+    description: 'Link your social profiles or chat via WhatsApp & Telegram. No new apps to learn. Your Twin meets you where you are.',
     icon: 'message-circle',
     color: 'from-cosmic-500 to-cosmic-600',
   },
   {
-    id: 'replicate',
-    title: 'Replicate',
-    description: 'AI builds a dynamic digital twin that evolves with your behaviors and values',
+    id: 'evolve',
+    title: 'Your Twin Evolves',
+    description: 'AI builds a dynamic Digital Twin that learns your preferences, values, and behavior patterns over time.',
     icon: 'users',
     color: 'from-ethereal-500 to-ethereal-600',
   },
   {
     id: 'earn',
-    title: 'Earn',
-    description: 'Monetize your twin by participating in ethical research and feedback sessions',
+    title: 'You Earn',
+    description: 'When businesses need ethical consumer insights, your Twin responds and you get paid directly.',
     icon: 'coins',
     color: 'from-aura-500 to-aura-600',
   },

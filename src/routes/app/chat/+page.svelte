@@ -63,7 +63,7 @@
 </script>
 
 <svelte:head>
-  <title>Journal - AuraAI</title>
+  <title>Journal - OwnYourTwin</title>
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex">

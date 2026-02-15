@@ -63,27 +63,27 @@ export const OAUTH_URLS = {
 // Route metadata for navigation
 export const ROUTE_META = {
   [PUBLIC_ROUTES.HOME]: {
-    title: 'AuraAI - Your Digital Twin',
+    title: 'OwnYourTwin - Your Digital Twin',
     description: 'Understand your mind through your digital twin',
   },
   [PUBLIC_ROUTES.LOGIN]: {
-    title: 'Login - AuraAI',
-    description: 'Sign in to your AuraAI account',
+    title: 'Login - OwnYourTwin',
+    description: 'Sign in to your OwnYourTwin account',
   },
   [PUBLIC_ROUTES.CREATE_TWIN]: {
-    title: 'Create Your Twin - AuraAI',
+    title: 'Create Your Twin - OwnYourTwin',
     description: 'Start building your digital twin',
   },
   [APP_ROUTES.CHAT]: {
-    title: 'Journal - AuraAI',
+    title: 'Journal - OwnYourTwin',
     description: 'Chat-based journaling with your digital twin',
   },
   [APP_ROUTES.DASHBOARD]: {
-    title: 'Dashboard - AuraAI',
+    title: 'Dashboard - OwnYourTwin',
     description: 'View your digital twin insights and activities',
   },
   [APP_ROUTES.EXPLORER]: {
-    title: 'Explorer - AuraAI',
+    title: 'Explorer - OwnYourTwin',
     description: 'Explore services powered by your digital twin',
   },
 } as const;
