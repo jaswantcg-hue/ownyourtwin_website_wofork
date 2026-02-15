@@ -79,7 +79,7 @@
     </div>
 
     <!-- CTA Box -->
-    <div
+    <!-- <div
       class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-cosmic-900/50 to-void-900/50 border border-cosmic-500/20 text-center max-w-3xl mx-auto"
     >
       <h3 class="text-2xl font-bold text-white mb-4">
@@ -95,7 +95,7 @@
       >
         Request a Demo
       </button>
-    </div>
+    </div> -->
   </article>
 </main>
 

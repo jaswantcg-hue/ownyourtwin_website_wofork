@@ -100,7 +100,23 @@
       </div>
     </div>
   </div> -->
-
+  <div
+    class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-cosmic-900/50 to-void-900/50 border border-cosmic-500/20 text-center max-w-3xl mx-auto"
+  >
+    <h3 class="text-2xl font-bold text-white mb-4">
+      See how Digital Twins can work for you.
+    </h3>
+    <p class="text-void-300 mb-8 max-w-lg mx-auto text-lg">
+      Request a live demo to see how OwnYourTwin can help you take control of
+      your data and earn value from it.
+    </p>
+    <button
+      class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg"
+      onclick={onDemoClick}
+    >
+      Request a Demo
+    </button>
+  </div>
   <!-- Main footer content -->
   <div class="container mx-auto px-4 py-12">
     <div class="grid grid-cols-2 md:grid-cols-5 gap-8">

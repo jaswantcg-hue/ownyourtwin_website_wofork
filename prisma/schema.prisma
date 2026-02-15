@@ -17,3 +17,9 @@ model DemoRequest {
   interests String?
   createdAt DateTime @default(now())
 }
+
+model InterestLog {
+  id        String   @id @default(uuid())
+  type      String
+  timestamp DateTime @default(now())
+}

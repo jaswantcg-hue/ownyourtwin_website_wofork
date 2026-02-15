@@ -107,7 +107,7 @@
     </div>
 
     <!-- CTA below testimonials -->
-    <div class="text-center animate-fade-in" style="animation-delay: 300ms">
+    <!-- <div class="text-center animate-fade-in" style="animation-delay: 300ms">
       <button
         onclick={onDemoClick}
         class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cosmic-600 to-cosmic-500 hover:from-cosmic-500 hover:to-cosmic-400 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5"
@@ -127,6 +127,6 @@
         </svg>
         Request a Demo
       </button>
-    </div>
+    </div> -->
   </div>
 </section>

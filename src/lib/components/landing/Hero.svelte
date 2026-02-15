@@ -18,6 +18,29 @@
     const el = document.querySelector("#how-it-works");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+
+  let interestShown = $state(false);
+  let isLoading = $state(false);
+
+  async function handleInterestClick() {
+    isLoading = true;
+    try {
+      const response = await fetch("/api/interest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: "hero_show_interest" }),
+      });
+      if (response.ok) {
+        interestShown = true;
+      }
+    } catch (error) {
+      console.error("Failed to log interest:", error);
+    } finally {
+      isLoading = false;
+    }
+  }
 </script>
 
 <section class="relative min-h-screen flex items-center overflow-hidden">
@@ -83,23 +106,65 @@
         <div
           class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
         >
-          <Button variant="primary" size="lg" onclick={onDemoClick}>
+          <Button
+            variant="primary"
+            size="lg"
+            onclick={handleInterestClick}
+            disabled={interestShown || isLoading}
+          >
             {#snippet icon()}
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-              </svg>
+              {#if interestShown}
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              {:else if isLoading}
+                <svg
+                  class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              {:else}
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              {/if}
             {/snippet}
-            Request a Demo
+            {interestShown ? "Thanks for your interest!" : "Show Interest"}
           </Button>
 
           <Button variant="outline" size="lg" onclick={scrollToHowItWorks}>
