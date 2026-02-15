@@ -1,58 +1,57 @@
 /**
  * Global Application Styles
  * AuraAI - Digital Twin Platform
+ * Theme: Premium & Trustworthy (Navy / Emerald / Gold)
  */
 
 /* Import custom fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* Tailwind CSS v4 - Import base styles */
 @import "tailwindcss";
 
 /* Define custom theme using CSS variables */
 @theme {
-  /* Custom color palette for spiritual/futuristic theme */
+  /* Primary colors - Deep navy blues (trust, authority, premium) */
+  --color-cosmic-50: #eef2ff;
+  --color-cosmic-100: #e0e7ff;
+  --color-cosmic-200: #c7d2fe;
+  --color-cosmic-300: #a5b4fc;
+  --color-cosmic-400: #818cf8;
+  --color-cosmic-500: #6366f1;
+  --color-cosmic-600: #4f46e5;
+  --color-cosmic-700: #4338ca;
+  --color-cosmic-800: #3730a3;
+  --color-cosmic-900: #312e81;
+  --color-cosmic-950: #1e1b4b;
 
-  /* Primary colors - Deep cosmic purples */
-  --color-cosmic-50: #f5f3ff;
-  --color-cosmic-100: #ede9fe;
-  --color-cosmic-200: #ddd6fe;
-  --color-cosmic-300: #c4b5fd;
-  --color-cosmic-400: #a78bfa;
-  --color-cosmic-500: #8b5cf6;
-  --color-cosmic-600: #7c3aed;
-  --color-cosmic-700: #6d28d9;
-  --color-cosmic-800: #5b21b6;
-  --color-cosmic-900: #4c1d95;
-  --color-cosmic-950: #2e1065;
+  /* Accent colors - Emerald greens (safety, growth, trust) */
+  --color-ethereal-50: #ecfdf5;
+  --color-ethereal-100: #d1fae5;
+  --color-ethereal-200: #a7f3d0;
+  --color-ethereal-300: #6ee7b7;
+  --color-ethereal-400: #34d399;
+  --color-ethereal-500: #10b981;
+  --color-ethereal-600: #059669;
+  --color-ethereal-700: #047857;
+  --color-ethereal-800: #065f46;
+  --color-ethereal-900: #064e3b;
+  --color-ethereal-950: #022c22;
 
-  /* Accent colors - Ethereal teals */
-  --color-ethereal-50: #f0fdfa;
-  --color-ethereal-100: #ccfbf1;
-  --color-ethereal-200: #99f6e4;
-  --color-ethereal-300: #5eead4;
-  --color-ethereal-400: #2dd4bf;
-  --color-ethereal-500: #14b8a6;
-  --color-ethereal-600: #0d9488;
-  --color-ethereal-700: #0f766e;
-  --color-ethereal-800: #115e59;
-  --color-ethereal-900: #134e4a;
-  --color-ethereal-950: #042f2e;
+  /* Neural/Digital colors - Cool steel blues */
+  --color-neural-50: #f0f9ff;
+  --color-neural-100: #e0f2fe;
+  --color-neural-200: #bae6fd;
+  --color-neural-300: #7dd3fc;
+  --color-neural-400: #38bdf8;
+  --color-neural-500: #0ea5e9;
+  --color-neural-600: #0284c7;
+  --color-neural-700: #0369a1;
+  --color-neural-800: #075985;
+  --color-neural-900: #0c4a6e;
+  --color-neural-950: #082f49;
 
-  /* Neural/Digital colors - Soft blues */
-  --color-neural-50: #eff6ff;
-  --color-neural-100: #dbeafe;
-  --color-neural-200: #bfdbfe;
-  --color-neural-300: #93c5fd;
-  --color-neural-400: #60a5fa;
-  --color-neural-500: #3b82f6;
-  --color-neural-600: #2563eb;
-  --color-neural-700: #1d4ed8;
-  --color-neural-800: #1e40af;
-  --color-neural-900: #1e3a8a;
-  --color-neural-950: #172554;
-
-  /* Aura/Energy colors - Warm golds */
+  /* Aura/Energy colors - Warm golds (value, premium) */
   --color-aura-50: #fffbeb;
   --color-aura-100: #fef3c7;
   --color-aura-200: #fde68a;
@@ -65,7 +64,7 @@
   --color-aura-900: #78350f;
   --color-aura-950: #451a03;
 
-  /* Dark background shades */
+  /* Dark background shades - Deep slate */
   --color-void-50: #f8fafc;
   --color-void-100: #f1f5f9;
   --color-void-200: #e2e8f0;
@@ -79,9 +78,9 @@
   --color-void-950: #020617;
 
   /* Custom fonts */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   /* Custom animations */
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -95,12 +94,12 @@
   --animate-scale-in: scaleIn 0.3s ease-out;
   --animate-shimmer: shimmer 2s linear infinite;
 
-  /* Custom shadows */
-  --shadow-glow-sm: 0 0 15px rgba(139, 92, 246, 0.3);
-  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.4);
-  --shadow-glow-lg: 0 0 50px rgba(139, 92, 246, 0.5);
-  --shadow-ethereal: 0 0 30px rgba(20, 184, 166, 0.3);
-  --shadow-inner-glow: inset 0 0 20px rgba(139, 92, 246, 0.2);
+  /* Custom shadows - Updated for navy/emerald theme */
+  --shadow-glow-sm: 0 0 15px rgba(99, 102, 241, 0.3);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.4);
+  --shadow-glow-lg: 0 0 50px rgba(99, 102, 241, 0.5);
+  --shadow-ethereal: 0 0 30px rgba(16, 185, 129, 0.3);
+  --shadow-inner-glow: inset 0 0 20px rgba(99, 102, 241, 0.2);
 
   /* Border radius */
   --radius-4xl: 2rem;
@@ -118,8 +117,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image:
-    radial-gradient(ellipse at top, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(20, 184, 166, 0.03) 0%, transparent 50%);
+    radial-gradient(
+      ellipse at top,
+      rgba(99, 102, 241, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(16, 185, 129, 0.03) 0%,
+      transparent 50%
+    );
   min-height: 100vh;
 }
 
@@ -144,7 +151,7 @@ body {
 
 /* Selection color */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
+  background: rgba(99, 102, 241, 0.3);
   color: white;
 }
 
@@ -158,25 +165,37 @@ body {
 }
 
 /* Heading styles */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.025em;
 }
 
 /* Code styles */
-code, pre {
+code,
+pre {
   font-family: var(--font-mono);
 }
 
 /* Custom gradient background */
 .bg-gradient-neural {
-  background: linear-gradient(180deg, var(--color-void-950) 0%, var(--color-void-900) 50%, var(--color-void-800) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-void-950) 0%,
+    var(--color-void-900) 50%,
+    var(--color-void-800) 100%
+  );
 }
 
 /* Keyframe animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -186,15 +205,16 @@ code, pre {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
   }
   100% {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
   }
 }
 
 @keyframes gradient {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -254,7 +274,9 @@ code, pre {
 }
 
 @keyframes typing {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
     opacity: 0.6;
   }
