@@ -14,10 +14,10 @@
   let interval: ReturnType<typeof setInterval>;
 
   const theme = {
-    bg: "#05070a", // This might need adjustment if used on light bg, but keeping consistent with request
-    human: "#6366f1", // Aura Blue
-    twin: "#4ade80", // Aura Green
-    cyan: "#22d3ee",
+    bg: "var(--color-void-950)",
+    human: "var(--color-cosmic-500)", // Aura Blue
+    twin: "var(--color-ethereal-400)", // Aura Green
+    cyan: "var(--color-neural-400)",
     white: "#ffffff",
   };
 
@@ -60,7 +60,7 @@
   <div class="relative {sizeClasses[size]}">
     <!-- Background Neural Glow -->
     <div
-      class="absolute inset-0 bg-indigo-500/10 blur-[20px] rounded-full transition-opacity duration-1000 {isHovered
+      class="absolute inset-0 bg-cosmic-500/10 blur-[20px] rounded-full transition-opacity duration-1000 {isHovered
         ? 'opacity-100'
         : 'opacity-40'}"
     ></div>
@@ -179,20 +179,20 @@
           size
         ]} font-bold tracking-tighter text-white leading-none"
       >
-        OWN<span class="text-slate-500 font-light">YOUR</span><span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400"
+        OWN<span class="text-void-400 font-light">YOUR</span><span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-ethereal-400 to-neural-400"
           >TWIN</span
         >
       </h1>
       {#if size === "xl" || size === "lg"}
         <div class="mt-1 flex items-center gap-2">
-          <div class="h-[1px] w-4 bg-indigo-500/20"></div>
+          <div class="h-[1px] w-4 bg-cosmic-500/20"></div>
           <span
-            class="text-[0.6rem] font-medium tracking-[0.2em] text-slate-500 uppercase leading-none"
+            class="text-[0.6rem] font-medium tracking-[0.2em] text-void-400 uppercase leading-none"
           >
-            The <span class="text-emerald-500/80">Neural</span> Income Protocol
+            The <span class="text-ethereal-500/80">Neural</span> Income Protocol
           </span>
-          <div class="h-[1px] w-4 bg-emerald-500/20"></div>
+          <div class="h-[1px] w-4 bg-ethereal-500/20"></div>
         </div>
       {/if}
     </div>
