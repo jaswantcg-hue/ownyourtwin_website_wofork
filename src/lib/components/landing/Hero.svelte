@@ -72,7 +72,7 @@
         <p
           class="text-lg md:text-xl text-void-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
         >
-          Every day, your data powers billion-dollar decisions — yet you see
+          Every day, your data powers billion-dollar decisions, yet you see none
           none of the value. We're changing that. Create an AI-powered Digital
           Twin that <strong class="text-white">you own</strong>,
           <strong class="text-white">you control</strong>, and that

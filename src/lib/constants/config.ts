@@ -85,7 +85,7 @@ export const HOW_IT_WORKS = [
   {
     id: 'connect',
     title: 'Connect',
-    description: 'Link your social profiles or chat via WhatsApp & Telegram. No new apps to learn — your Twin meets you where you are.',
+    description: 'Link your social profiles or chat via WhatsApp & Telegram. No new apps to learn. Your Twin meets you where you are.',
     icon: 'message-circle',
     color: 'from-cosmic-500 to-cosmic-600',
   },
@@ -99,7 +99,7 @@ export const HOW_IT_WORKS = [
   {
     id: 'earn',
     title: 'You Earn',
-    description: 'When businesses need ethical consumer insights, your Twin responds — and you get paid directly.',
+    description: 'When businesses need ethical consumer insights, your Twin responds and you get paid directly.',
     icon: 'coins',
     color: 'from-aura-500 to-aura-600',
   },

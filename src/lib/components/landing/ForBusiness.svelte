@@ -1,6 +1,6 @@
 <!--
   For Business Section
-  Value proposition for businesses — ethical market intelligence
+  Value proposition for businesses: ethical market intelligence
 -->
 <script lang="ts">
   const benefits = [

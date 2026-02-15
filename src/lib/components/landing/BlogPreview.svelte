@@ -8,7 +8,7 @@
       id: "death-of-survey",
       title: "The Death of the Survey",
       excerpt:
-        "Why traditional market research fails — and how AI-driven behavioral twins provide a more truthful representation of what consumers actually want.",
+        "Why traditional market research fails, and how AI-driven behavioral twins provide a more truthful representation of what consumers actually want.",
       category: "Market Research",
       readTime: "6 min read",
       gradient: "from-red-500/10 to-red-600/5",
@@ -32,7 +32,7 @@
       id: "ai-behavioral-modeling",
       title: "AI & Behavioral Modeling",
       excerpt:
-        "How machine learning understands human motivation — from shopping patterns to cognitive reframing — and delivers personalized well-being services.",
+        "How machine learning understands human motivation, from shopping patterns to cognitive reframing, and delivers personalized well-being services.",
       category: "AI Science",
       readTime: "7 min read",
       gradient: "from-ethereal-500/10 to-ethereal-600/5",
@@ -44,7 +44,7 @@
       id: "future-twin-economy",
       title: "The Future of the Twin Economy",
       excerpt:
-        "Predicting a world where digital twins handle our administrative, commercial, and social interactions — and what it means for you.",
+        "Predicting a world where digital twins handle our administrative, commercial, and social interactions, and what it means for you.",
       category: "Future",
       readTime: "5 min read",
       gradient: "from-aura-500/10 to-aura-600/5",

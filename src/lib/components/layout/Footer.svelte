@@ -74,7 +74,7 @@
             Ready to take control of your data?
           </h3>
           <p class="text-void-400">
-            See how Digital Twins can work for you — request a live demo.
+            See how Digital Twins can work for you. Request a live demo.
           </p>
         </div>
         <button

@@ -22,7 +22,7 @@
           >
         </h2>
         <p class="text-lg text-void-300 max-w-2xl mx-auto">
-          Watch how your Digital Twin works — from connecting your data to
+          Watch how your Digital Twin works, from connecting your data to
           earning from your insights.
         </p>
       </div>

@@ -43,8 +43,8 @@
         >
       </h2>
       <p class="text-lg text-void-300 max-w-3xl mx-auto">
-        Every product you love — from your favorite app to the shoes on your
-        feet — was shaped by consumer data. The problem? You've never been part
+        Every product you love, from your favorite app to the shoes on your
+        feet, was shaped by consumer data. The problem? You've never been part
         of that value chain. Until now.
       </p>
     </div>
@@ -100,7 +100,7 @@
 
           <div class="p-4 rounded-xl bg-void-800/40 border border-void-700/30">
             <h4 class="text-sm font-semibold text-red-400 mb-1">
-              Your data is already being used — without you
+              Your data is already being used without you
             </h4>
             <p class="text-void-400 text-sm leading-relaxed">
               Platforms like Facebook and Google harvest your behavioral data
@@ -144,8 +144,8 @@
               Behavioral truth, not stated intent
             </h4>
             <p class="text-void-300 text-sm leading-relaxed">
-              Your Twin learns from your actual patterns — clicks, purchases,
-              preferences — not from what you type in a survey box. Businesses
+              Your Twin learns from your actual patterns: clicks, purchases,
+              preferences, not from what you type in a survey box. Businesses
               get the truth. You stay in control.
             </p>
           </div>
@@ -187,7 +187,7 @@
       <p class="text-void-400 text-sm max-w-2xl mx-auto mb-2">
         The best products aren't built in a vacuum. They're built with <strong
           class="text-white">authentic human insight</strong
-        > — and that starts with you.
+        > and that starts with you.
       </p>
     </div>
   </div>

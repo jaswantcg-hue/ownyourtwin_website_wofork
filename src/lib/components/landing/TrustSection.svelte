@@ -8,14 +8,14 @@
       icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
       title: "Privacy by Design",
       description:
-        "Your data is encrypted at rest and in transit. We never access your raw data — only your Twin does.",
+        "Your data is encrypted at rest and in transit. We never access your raw data. Only your Twin does.",
       color: "from-cosmic-500 to-cosmic-600",
     },
     {
       icon: "M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2",
       title: "You Own Your Data",
       description:
-        "Your Digital Twin belongs to you — not us, not advertisers. You hold the keys to your digital self.",
+        "Your Digital Twin belongs to you, not us, not advertisers. You hold the keys to your digital self.",
       color: "from-ethereal-500 to-ethereal-600",
     },
     {
@@ -132,8 +132,8 @@
       <p class="text-void-400 text-sm max-w-lg mx-auto">
         We believe the future of data is <strong class="text-void-200"
           >user-first</strong
-        >. Your Twin is your representative in the digital economy — and it
-        works for <em>you</em>.
+        >. Your Twin is your representative in the digital economy, and it works
+        for <em>you</em>.
       </p>
     </div>
   </div>
