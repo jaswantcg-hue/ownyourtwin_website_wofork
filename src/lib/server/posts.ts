@@ -41,7 +41,7 @@ export function getPosts(): BlogPost[] {
         title: data.title || 'Untitled',
         excerpt: data.excerpt || '',
         date: data.date || '',
-        author: data.author || 'AuraAI',
+        author: data.author || 'OwnYourTwin',
         category: data.category || 'General',
         readTime: data.readTime || '5 min read',
         image: data.image || '',

@@ -67,7 +67,7 @@
 
 <footer class="relative bg-void-950 border-t border-void-800">
   <!-- Top CTA strip -->
-  <div class="border-b border-void-800">
+  <!-- <div class="border-b border-void-800">
     <div class="container mx-auto px-4 py-12">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
@@ -99,7 +99,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Main footer content -->
   <div class="container mx-auto px-4 py-12">

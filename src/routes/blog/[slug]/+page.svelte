@@ -1,6 +1,7 @@
 <script lang="ts">
   import Header from "$lib/components/layout/Header.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import WaitlistModal from "$lib/components/landing/WaitlistModal.svelte";
   import { onMount } from "svelte";
 
   interface Props {
@@ -10,7 +11,7 @@
   let { data }: Props = $props();
 
   // Demo modal state (needed for Header/Footer compatibility)
-  let showDemoModal = false;
+  let showDemoModal = $state(false);
 
   function openDemoModal() {
     showDemoModal = true;
@@ -18,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>{data.title} | AuraAI Blog</title>
+  <title>{data.title} | OwnYourTwin Blog</title>
   <meta name="description" content={data.title} />
 </svelte:head>
 
@@ -94,7 +95,7 @@
       </h3>
       <p class="text-void-300 mb-8 max-w-lg mx-auto text-lg">
         Stop relying on outdated surveys. Start getting truthful, behavioral
-        intelligence with AuraAI.
+        intelligence with OwnYourTwin.
       </p>
       <button
         class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg"
@@ -107,6 +108,8 @@
 </main>
 
 <Footer onDemoClick={openDemoModal} />
+
+<WaitlistModal bind:open={showDemoModal} />
 
 <style>
   /* Custom prose styling for premium feel */

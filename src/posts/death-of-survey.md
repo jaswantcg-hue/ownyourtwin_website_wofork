@@ -2,7 +2,7 @@
 title: "The Death of the Survey: The Rise of AI Behavioral Twins"
 excerpt: "Why traditional market research fails — and how AI-driven behavioral twins provide a more truthful representation of what consumers actually want."
 date: "2025-02-24"
-author: "AuraAI Research"
+author: "OwnYourTwin Research"
 category: "Market Research"
 readTime: "6 min read"
 image: "/images/blog/survey-death.jpg"

@@ -168,7 +168,7 @@
           </ul>
         </div>
 
-        <!-- AuraAI -->
+        <!-- OwnYourTwin -->
         <div
           class="p-6 rounded-2xl bg-ethereal-500/5 border border-ethereal-500/20"
         >

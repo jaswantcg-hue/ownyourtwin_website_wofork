@@ -1,5 +1,5 @@
 <!--
-  AuraAI Landing Page
+  OwnYourTwin Landing Page
   Premium, trust-building landing page for Digital Twin concept validation
 -->
 <script lang="ts">

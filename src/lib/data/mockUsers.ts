@@ -8,7 +8,7 @@ import type { User, WaitlistEntry } from '$lib/types';
 // Mock authenticated user
 export const mockUser: User = {
   id: 'user_demo_123',
-  email: 'demo@auraai.com',
+  email: 'demo@OwnYourTwin.com',
   name: 'Alex Rivera',
   avatar: '/avatars/demo-user.jpg',
   createdAt: new Date('2023-12-01'),
@@ -58,7 +58,7 @@ export const userStories = [
     name: 'Sarah Chen',
     role: 'Product Designer',
     avatar: '/avatars/sarah.jpg',
-    quote: "AuraAI helped me understand patterns in my creative process I never noticed before. My digital twin has become my most honest mirror.",
+    quote: "OwnYourTwin helped me understand patterns in my creative process I never noticed before. My digital twin has become my most honest mirror.",
     rating: 5,
     earnings: 320,
   },
@@ -76,7 +76,7 @@ export const userStories = [
     name: 'Elena Rodriguez',
     role: 'Therapist',
     avatar: '/avatars/elena.jpg',
-    quote: "As a mental health professional, I appreciate how AuraAI approaches self-reflection. It's a beautiful blend of technology and introspection.",
+    quote: "As a mental health professional, I appreciate how OwnYourTwin approaches self-reflection. It's a beautiful blend of technology and introspection.",
     rating: 5,
     earnings: 275,
   },
