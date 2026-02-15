@@ -27,14 +27,6 @@
 
 <main class="pt-32 pb-24 min-h-screen relative overflow-hidden">
   <!-- Dynamic Background (reusing the app theme) -->
-  <div class="fixed inset-0 z-0 pointer-events-none">
-    <div class="absolute inset-0 bg-void-950"></div>
-    <div class="absolute inset-0 bg-gradient-neural opacity-80"></div>
-    <!-- Ambient glow -->
-    <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-cosmic-600/10 rounded-full blur-[120px]"
-    ></div>
-  </div>
 
   <article class="relative z-10 container mx-auto px-4 max-w-5xl">
     <!-- Back Link -->
