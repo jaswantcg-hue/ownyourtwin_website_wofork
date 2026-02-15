@@ -187,8 +187,8 @@ pre {
   background: linear-gradient(
     180deg,
     var(--color-void-950) 0%,
-    var(--color-void-900) 50%,
-    var(--color-void-800) 100%
+    var(--color-void-900) 40%,
+    var(--color-void-950) 100%
   );
 }
 
