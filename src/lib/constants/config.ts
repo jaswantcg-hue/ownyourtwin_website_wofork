@@ -5,11 +5,11 @@
 
 // Application metadata
 export const APP_CONFIG = {
-  name: 'AuraAI',
+  name: 'OwnYourTwin',
   tagline: 'Own Your Data. Earn From It.',
   description: 'Create an AI-powered Digital Twin that you own, you control, and that earns for you.',
   version: '1.0.0',
-  supportEmail: 'support@auraai.com',
+  supportEmail: 'support@ownyourtwin.com',
 } as const;
 
 // Social platforms available for connection

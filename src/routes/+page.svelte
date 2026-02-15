@@ -33,7 +33,9 @@
 </script>
 
 <svelte:head>
-  <title>AuraAI - Own Your Data. Earn From It. | Digital Twin Platform</title>
+  <title
+    >OwnYourTwin - Own Your Data. Earn From It. | Digital Twin Platform</title
+  >
   <meta
     name="description"
     content="Create an AI-powered Digital Twin that you own, you control, and that earns for you. Ethical consumer insights for businesses. Data sovereignty for individuals."

@@ -175,7 +175,7 @@
           <h4
             class="text-sm font-semibold text-ethereal-400 uppercase tracking-wider mb-3"
           >
-            With AuraAI Twins
+            With OwnYourTwin
           </h4>
           <ul class="space-y-2">
             <li class="flex items-center gap-2 text-sm text-void-300">
