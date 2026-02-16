@@ -1,35 +1,23 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { prisma } from '$lib/server/prisma';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, phone, interests } = data;
+    const { name, email } = data;
 
+    // Basic validation
     if (!name || !email) {
       return json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    const demoRequest = await prisma.demoRequest.create({
-      data: {
-        name,
-        email,
-        phone,
-        interests,
-      },
-    });
+    // Logic removed as per request.
+    // Database insertion code deleted.
+    console.log('Demo request received (no-op):', { name, email });
 
-    return json({ success: true, data: demoRequest });
+    return json({ success: true, message: 'Request received' });
   } catch (error) {
-    console.error('Error creating demo request:', error);
-    
-    // Handle unique constraint violation for email if needed
-    // But for now, just return specific or generic error
-    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
-        return json({ error: 'This email has already requested a demo.' }, { status: 409 });
-    }
-
-    return json({ error: 'Failed to create request' }, { status: 500 });
+    console.error('Error processing demo request:', error);
+    return json({ error: 'Failed to process request' }, { status: 500 });
   }
 };
