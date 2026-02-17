@@ -1,0 +1,13 @@
+services:
+  aura-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aura-ai-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://neondb_owner:npg_osx0vfHE5kcm@ep-autumn-block-ai2ynpki-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    restart: unless-stopped

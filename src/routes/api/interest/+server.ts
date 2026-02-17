@@ -1,15 +1,11 @@
 import { json } from '@sveltejs/kit';
-import { prisma } from '$lib/server/prisma';
 
 export async function POST({ request }) {
   try {
     const { type = 'general' } = await request.json();
 
-    await prisma.interestLog.create({
-      data: {
-        type,
-      },
-    });
+    // Database removed — log interest type for debugging
+    console.log('Interest logged:', type);
 
     return json({ success: true });
   } catch (error) {

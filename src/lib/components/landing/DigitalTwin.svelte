@@ -272,7 +272,7 @@
 
 <div
   bind:this={containerRef}
-  class="relative min-h-[680px] p-0 overflow-hidden {className}"
+  class="relative w-full h-full p-0 overflow-hidden {className}"
 >
   <!-- Global Flow SVG -->
   <svg

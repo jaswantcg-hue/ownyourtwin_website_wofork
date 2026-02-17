@@ -16,7 +16,7 @@
   };
 </script>
 
-<section id="how-it-works" class="py-24 relative overflow-hidden">
+<section id="how-it-works" class="py-16 md:py-24 relative overflow-hidden">
   <!-- Background -->
   <div class="absolute inset-0 bg-void-950"></div>
   <div
@@ -33,18 +33,18 @@
 
   <div class="container mx-auto px-4 relative z-10">
     <!-- Section header -->
-    <div class="text-center mb-16 animate-fade-in">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+    <div class="text-center mb-12 md:mb-16 animate-fade-in">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
         How It Works
       </h2>
-      <p class="text-lg text-void-300 max-w-2xl mx-auto">
+      <p class="text-base sm:text-lg text-void-300 max-w-2xl mx-auto">
         Three simple steps to create your Digital Twin and start owning the
         value of your data.
       </p>
     </div>
 
     <!-- Steps -->
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
       {#each HOW_IT_WORKS as step, index}
         <div
           class="relative group animate-fade-in"
