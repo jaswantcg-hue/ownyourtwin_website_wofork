@@ -1,3 +1,3 @@
 [config]
-command = npm ci --omit=dev
+SCM_DO_BUILD_DURING_DEPLOYMENT=false
 

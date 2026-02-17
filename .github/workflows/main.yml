@@ -31,6 +31,9 @@ jobs:
       - name: Build SvelteKit app
         run: npm run build
 
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
