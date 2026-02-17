@@ -62,9 +62,9 @@
   </div>
 
   <div class="container mx-auto px-4 py-12 md:py-20 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Text content -->
-      <div class="text-center lg:text-left animate-fade-in order-2 lg:order-1">
+      <div class="text-center lg:text-left animate-fade-in">
         <!-- Badge -->
         <div
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cosmic-500/10 border border-cosmic-500/30 mb-8"
@@ -246,7 +246,7 @@
 
       <!-- Digital Twin Visualization -->
       <div
-        class="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] w-full animate-fade-in order-1 lg:order-2"
+        class="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] w-full animate-fade-in"
         style="animation-delay: 0.3s;"
       >
         <!-- Digital Twin with embedded HUD -->
