@@ -1,7 +1,7 @@
 # Empowering the Individual: The Digital Twin Revolution
 
 ## Purpose
-Our platform bridges the gap between personal data sovereignty and corporate market intelligence. By leveraging "Digital Twins," we empower users to reclaim ownership of their digital footprint while providing businesses with high-fidelity, ethical consumer insights.
+Our platform bridges the gap between personal data sovereignty and corporate market intelligence. By leveraging "Digital Twins," we empower users to reclaim ownership of their digital footprint while providing businesses with high-fidelity, ethical consumer insights..
 
 ---
 
