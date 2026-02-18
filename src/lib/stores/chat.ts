@@ -74,10 +74,55 @@ const initialState: ChatState = {
 
 /**
  * Generate a contextual twin response based on user message
+ * 
+ * This function first attempts to call the LLM API endpoint.
+ * If the API call fails, it falls back to local mock responses.
+ * 
+ * @param messages - Array of previous messages in the conversation
+ * @returns Promise resolving to the twin's response string
  */
-function generateTwinResponse(userMessage: string): string {
+async function generateTwinResponse(messages: ChatMessage[]): Promise<string> {
+  try {
+    // Call the chat API endpoint
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages: messages.map(m => ({
+          role: m.role === 'twin' ? 'assistant' : m.role,
+          content: m.content,
+        })),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+
+    const data = await response.json();
+    return data.content;
+
+  } catch (error) {
+    // Fallback to local mock responses if API fails
+    console.warn('LLM API failed, using fallback:', error);
+    return generateFallbackResponse(messages);
+  }
+}
+
+/**
+ * Generate a fallback response when the API is unavailable
+ * 
+ * @param messages - Array of messages for context
+ * @returns A mock response string
+ */
+function generateFallbackResponse(messages: ChatMessage[]): string {
+  const lastUserMessage = messages.slice().reverse().find(m => m.role === 'user');
+  const userContent = lastUserMessage?.content || '';
+
   const responses = [
-    `That's really insightful. I notice you mentioned "${userMessage.slice(0, 20)}..." - can you tell me more about what prompted that thought?`,
+    `That's really insightful. I notice you mentioned "${userContent.slice(0, 20)}..." - can you tell me more about what prompted that thought?`,
     "I hear you. How does reflecting on this make you feel right now?",
     "Thank you for sharing that with me. What do you think this reveals about what matters to you?",
     "That's interesting. I'm curious - how has your perspective on this evolved over time?",
@@ -370,12 +415,21 @@ function createChatStore(): ChatStore {
         update(state => ({ ...state, isTyping: true }));
         await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1500));
 
-        // Generate twin response
+        // Generate twin response using LLM API
+        // Get current messages for context
+        let currentMessages: ChatMessage[] = [];
+        update(state => {
+          currentMessages = state.messages;
+          return state;
+        });
+
+        const responseContent = await generateTwinResponse(currentMessages);
+
         const twinResponse: ChatMessage = {
           id: `msg_${Date.now() + 1}`,
           conversationId: 'current',
           role: 'twin',
-          content: generateTwinResponse(content),
+          content: responseContent,
           contentType: 'text',
           timestamp: new Date(),
         };

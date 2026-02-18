@@ -3,15 +3,20 @@
   Interactive chat-based journaling with the digital twin
 -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { chatStore, currentMessages, twinIsTyping, recentInsights } from '$lib/stores/chat';
-  import { twinStore } from '$lib/stores/twin';
-  import { formatRelativeTime } from '$lib/utils';
-  import { Card, Avatar, Button } from '$lib/components/common';
-  import { mockSuggestions } from '$lib/data';
+  import { onMount } from "svelte";
+  import {
+    chatStore,
+    currentMessages,
+    twinIsTyping,
+    recentInsights,
+  } from "$lib/stores/chat";
+  import { twinStore } from "$lib/stores/twin";
+  import { formatRelativeTime } from "$lib/utils";
+  import { Card, Avatar, Button } from "$lib/components/common";
+  import { mockSuggestions } from "$lib/data";
 
   // Message input state
-  let messageInput = $state('');
+  let messageInput = $state("");
   let isRecording = $state(false);
   let chatContainer: HTMLDivElement;
 
@@ -36,13 +41,13 @@
     if (!messageInput.trim()) return;
 
     const content = messageInput;
-    messageInput = '';
+    messageInput = "";
     await chatStore.sendMessage(content);
   }
 
   // Handle key press
   function handleKeyPress(event: KeyboardEvent) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -58,17 +63,33 @@
 </script>
 
 <svelte:head>
-  <title>Journal - AuraAI</title>
+  <title>Journal - OwnYourTwin</title>
 </svelte:head>
 
 <div class="h-[calc(100vh-64px)] flex">
   <!-- Sidebar - Conversations -->
-  <aside class="hidden lg:flex w-80 flex-col border-r border-void-800 bg-void-900/50">
+  <aside
+    class="hidden lg:flex w-80 flex-col border-r border-void-800 bg-void-900/50"
+  >
     <div class="p-4 border-b border-void-800">
-      <Button variant="primary" fullWidth onclick={() => chatStore.startNewConversation()}>
+      <Button
+        variant="primary"
+        fullWidth
+        onclick={() => chatStore.startNewConversation()}
+      >
         {#snippet icon()}
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
           </svg>
         {/snippet}
         New Conversation
@@ -76,20 +97,27 @@
     </div>
 
     <div class="flex-1 overflow-y-auto p-4 space-y-2">
-      {#each $chatStore.conversations.filter(c => !c.isArchived) as conversation}
+      {#each $chatStore.conversations.filter((c) => !c.isArchived) as conversation}
         <button
           class="w-full p-3 rounded-xl text-left transition-all duration-200
             {$chatStore.currentConversation?.id === conversation.id
-              ? 'bg-cosmic-500/20 border border-cosmic-500/30'
-              : 'bg-void-800/50 hover:bg-void-800 border border-transparent'}"
+            ? 'bg-cosmic-500/20 border border-cosmic-500/30'
+            : 'bg-void-800/50 hover:bg-void-800 border border-transparent'}"
           onclick={() => chatStore.selectConversation(conversation.id)}
         >
-          <div class="font-medium text-white text-sm truncate">{conversation.title}</div>
-          <div class="text-xs text-void-400 mt-1">{formatRelativeTime(conversation.lastMessageAt)}</div>
+          <div class="font-medium text-white text-sm truncate">
+            {conversation.title}
+          </div>
+          <div class="text-xs text-void-400 mt-1">
+            {formatRelativeTime(conversation.lastMessageAt)}
+          </div>
           {#if conversation.tags.length > 0}
             <div class="flex flex-wrap gap-1 mt-2">
               {#each conversation.tags.slice(0, 3) as tag}
-                <span class="px-2 py-0.5 text-xs bg-void-700 text-void-300 rounded-full">{tag}</span>
+                <span
+                  class="px-2 py-0.5 text-xs bg-void-700 text-void-300 rounded-full"
+                  >{tag}</span
+                >
               {/each}
             </div>
           {/if}
@@ -112,26 +140,42 @@
         >
           <!-- Avatar -->
           <div class="flex-shrink-0">
-            {#if message.role === 'user'}
+            {#if message.role === "user"}
               <Avatar name="You" size="sm" />
             {:else}
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cosmic-500 to-ethereal-500 flex items-center justify-center">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-cosmic-500 to-ethereal-500 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
                 </svg>
               </div>
             {/if}
           </div>
 
           <!-- Message content -->
-          <div class="max-w-[75%] {message.role === 'user' ? 'text-right' : ''}">
+          <div
+            class="max-w-[75%] {message.role === 'user' ? 'text-right' : ''}"
+          >
             <div
               class="inline-block px-4 py-3 rounded-2xl
                 {message.role === 'user'
-                  ? 'bg-cosmic-600 text-white rounded-br-md'
-                  : 'bg-void-800 text-void-100 rounded-bl-md'}"
+                ? 'bg-cosmic-600 text-white rounded-br-md'
+                : 'bg-void-800 text-void-100 rounded-bl-md'}"
             >
-              <p class="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+              <p class="text-sm leading-relaxed whitespace-pre-wrap">
+                {message.content}
+              </p>
             </div>
             <div class="text-xs text-void-500 mt-1 px-1">
               {formatRelativeTime(message.timestamp)}
@@ -143,9 +187,21 @@
       <!-- Typing indicator -->
       {#if $twinIsTyping}
         <div class="flex gap-3">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cosmic-500 to-ethereal-500 flex items-center justify-center">
-            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          <div
+            class="w-8 h-8 rounded-full bg-gradient-to-br from-cosmic-500 to-ethereal-500 flex items-center justify-center"
+          >
+            <svg
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
             </svg>
           </div>
           <div class="bg-void-800 px-4 py-3 rounded-2xl rounded-bl-md">
@@ -164,9 +220,15 @@
       <div class="px-4 md:px-6 py-2 border-t border-void-800 bg-void-900/50">
         <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {#each $recentInsights as insight}
-            <div class="flex-shrink-0 px-3 py-2 bg-cosmic-500/10 border border-cosmic-500/20 rounded-lg">
-              <div class="text-xs font-medium text-cosmic-400">{insight.title}</div>
-              <div class="text-xs text-void-300 mt-0.5">{insight.description}</div>
+            <div
+              class="flex-shrink-0 px-3 py-2 bg-cosmic-500/10 border border-cosmic-500/20 rounded-lg"
+            >
+              <div class="text-xs font-medium text-cosmic-400">
+                {insight.title}
+              </div>
+              <div class="text-xs text-void-300 mt-0.5">
+                {insight.description}
+              </div>
             </div>
           {/each}
         </div>
@@ -192,12 +254,24 @@
       <div class="flex items-end gap-3">
         <!-- Audio record button -->
         <button
-          class="p-3 rounded-xl {isRecording ? 'bg-red-500 text-white' : 'bg-void-800 text-void-400 hover:text-white'} transition-colors"
-          onclick={() => isRecording = !isRecording}
-          title={isRecording ? 'Stop recording' : 'Start voice recording'}
+          class="p-3 rounded-xl {isRecording
+            ? 'bg-red-500 text-white'
+            : 'bg-void-800 text-void-400 hover:text-white'} transition-colors"
+          onclick={() => (isRecording = !isRecording)}
+          title={isRecording ? "Stop recording" : "Start voice recording"}
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+            />
           </svg>
         </button>
 
@@ -209,7 +283,7 @@
             placeholder="Share your thoughts..."
             rows="1"
             class="w-full px-4 py-3 bg-void-800 border border-void-700 rounded-xl text-white placeholder-void-400 resize-none focus:outline-none focus:border-cosmic-500 focus:ring-1 focus:ring-cosmic-500/20"
-          />
+          ></textarea>
         </div>
 
         <!-- Send button -->
@@ -219,8 +293,18 @@
           disabled={!messageInput.trim()}
         >
           {#snippet icon()}
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
             </svg>
           {/snippet}
         </Button>
@@ -229,31 +313,14 @@
   </div>
 
   <!-- Right sidebar - Insights panel -->
-  <aside class="hidden xl:flex w-80 flex-col border-l border-void-800 bg-void-900/50 p-4">
-    <h3 class="text-sm font-medium text-void-300 uppercase tracking-wider mb-4">Quick Insights</h3>
+  <aside
+    class="hidden xl:flex w-80 flex-col border-l border-void-800 bg-void-900/50 p-4"
+  >
+    <h3 class="text-sm font-medium text-void-300 uppercase tracking-wider mb-4">
+      Quick Insights
+    </h3>
 
-    <!-- Twin status -->
-    {#if twin}
-      <Card variant="glass" padding="md" class="mb-4">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cosmic-500 to-ethereal-500 flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-          </div>
-          <div>
-            <div class="text-sm font-medium text-white">Your Twin</div>
-            <div class="text-xs text-void-400">{twin.completionScore}% Complete</div>
-          </div>
-        </div>
-        <div class="w-full h-2 bg-void-700 rounded-full overflow-hidden">
-          <div
-            class="h-full bg-gradient-to-r from-cosmic-500 to-ethereal-500 rounded-full transition-all duration-500"
-            style="width: {twin.completionScore}%"
-          />
-        </div>
-      </Card>
-    {/if}
+    <!-- Twin status removed as per user request (moved to global header) -->
 
     <!-- Recent patterns -->
     <div class="space-y-3">
@@ -261,26 +328,32 @@
 
       <div class="p-3 bg-void-800/50 rounded-xl">
         <div class="flex items-center gap-2 mb-1">
-          <div class="w-2 h-2 rounded-full bg-emerald-400" />
+          <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
           <span class="text-sm text-void-200">Positive Trend</span>
         </div>
-        <p class="text-xs text-void-400">Your morning entries show increased optimism this week.</p>
+        <p class="text-xs text-void-400">
+          Your morning entries show increased optimism this week.
+        </p>
       </div>
 
       <div class="p-3 bg-void-800/50 rounded-xl">
         <div class="flex items-center gap-2 mb-1">
-          <div class="w-2 h-2 rounded-full bg-cosmic-400" />
+          <div class="w-2 h-2 rounded-full bg-cosmic-400"></div>
           <span class="text-sm text-void-200">Topic Interest</span>
         </div>
-        <p class="text-xs text-void-400">You've been reflecting more on career growth lately.</p>
+        <p class="text-xs text-void-400">
+          You've been reflecting more on career growth lately.
+        </p>
       </div>
 
       <div class="p-3 bg-void-800/50 rounded-xl">
         <div class="flex items-center gap-2 mb-1">
-          <div class="w-2 h-2 rounded-full bg-amber-400" />
+          <div class="w-2 h-2 rounded-full bg-amber-400"></div>
           <span class="text-sm text-void-200">Suggestion</span>
         </div>
-        <p class="text-xs text-void-400">Try exploring your creative hobbies this week.</p>
+        <p class="text-xs text-void-400">
+          Try exploring your creative hobbies this week.
+        </p>
       </div>
     </div>
   </aside>
@@ -310,7 +383,9 @@
   }
 
   @keyframes typing {
-    0%, 60%, 100% {
+    0%,
+    60%,
+    100% {
       transform: translateY(0);
       opacity: 0.6;
     }

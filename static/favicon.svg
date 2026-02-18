@@ -1,12 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8b5cf6"/>
-      <stop offset="100%" style="stop-color:#6d28d9"/>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#38bdf8" />
     </linearGradient>
+    <filter id="neon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
   </defs>
-  <rect width="32" height="32" rx="8" fill="url(#grad)"/>
-  <path d="M16 6v1.5M21.364 8.636l-1.06 1.06M24 14h-1.5M21.364 19.364l-1.06-1.06M16 22.5V24M10.636 19.364l1.06-1.06M8 14h1.5M10.636 8.636l1.06 1.06" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
-  <circle cx="16" cy="14" r="4" fill="white"/>
-  <path d="M13 20.5c0-0.828 1.343-1.5 3-1.5s3 0.672 3 1.5v1.5c0 0.828-0.672 1.5-1.5 1.5h-3c-0.828 0-1.5-0.672-1.5-1.5v-1.5z" fill="white"/>
+
+  <!-- LEFT HALF: THE SOVEREIGN MIND -->
+  <path
+    d="M100 35 C70 35, 40 60, 40 100 C40 140, 70 165, 100 165 L100 145 C80 145, 60 125, 60 100 C60 75, 80 55, 100 55 Z"
+    fill="url(#brainGrad)"
+    opacity="0.9"
+  />
+
+  <!-- RIGHT HALF: THE DIGITAL TWIN -->
+  <g>
+    <path
+      d="M100 35 C140 35, 170 60, 170 100 C170 140, 140 165, 100 165"
+      stroke="#34d399"
+      stroke-width="1.5"
+      stroke-dasharray="4 4"
+      fill="none"
+      opacity="0.3"
+    />
+    
+    <!-- Representative Static Nodes -->
+    <!-- Top Right -->
+    <circle cx="145.96" cy="54.04" r="1.5" fill="#34d399" />
+    <line x1="100" y1="100" x2="145.96" y2="54.04" stroke="#34d399" stroke-width="0.5" opacity="0.1" />
+
+    <!-- Right -->
+    <circle cx="165" cy="100" r="1.5" fill="#34d399" />
+    <line x1="100" y1="100" x2="165" y2="100" stroke="#34d399" stroke-width="0.5" opacity="0.1" />
+
+    <!-- Bottom Right -->
+    <circle cx="145.96" cy="145.96" r="1.5" fill="#34d399" />
+    <line x1="100" y1="100" x2="145.96" y2="145.96" stroke="#34d399" stroke-width="0.5" opacity="0.1" />
+  </g>
+
+  <!-- CENTRAL SYNC CORE -->
+  <circle cx="100" cy="100" r="15" fill="#020617" stroke="#ffffff" stroke-width="1" />
+  <circle cx="100" cy="100" r="6" fill="#ffffff" filter="url(#neon)" />
 </svg>

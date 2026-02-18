@@ -29,7 +29,12 @@
   let renderer: THREE.WebGLRenderer;
   let particles: THREE.Points;
   let connections: THREE.LineSegments;
+  let pulseConnections: THREE.LineSegments;
   let time = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetMouseX = 0;
+  let targetMouseY = 0;
 
   // Convert hex to RGB
   function hexToRgb(hex: string): { r: number; g: number; b: number } {
@@ -71,13 +76,20 @@
     // Start animation
     animate();
 
-    // Handle resize
+    // Handle resize and mouse movement
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+  }
+
+  // Handle mouse movement for interactive rotation
+  function handleMouseMove(event: MouseEvent) {
+    targetMouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    targetMouseY = -(event.clientY / window.innerHeight) * 2 + 1;
   }
 
   // Create particle system representing neurons
   function createParticles() {
-    const particleCount = 800;
+    const particleCount = 1200;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -92,22 +104,33 @@
       // Spherical distribution with brain-like shape
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-      const radius = 1.5 + Math.random() * 0.8;
+      const radius = 1.2 + Math.random() * 0.6;
 
-      // Add some variation for brain lobes
-      const lobeFactor = Math.sin(phi * 2) * 0.3;
+      // Create more pronounced brain lobes (left & right hemispheres)
+      const lobeFactor = Math.sin(phi * 3) * 0.4 + Math.cos(theta * 2) * 0.2;
+      const hemisphereGap = Math.abs(Math.cos(theta)) < 0.1 ? -0.15 : 0;
 
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta) * (1 + lobeFactor);
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.8;
-      positions[i3 + 2] = radius * Math.cos(phi);
+      // More organic brain shape with wrinkles
+      const wrinkleFactor = Math.sin(theta * 5) * Math.cos(phi * 3) * 0.1;
 
-      // Varying colors
-      const colorVariation = 0.2 + Math.random() * 0.3;
-      colors[i3] = rgb.r * colorVariation + 0.5;
-      colors[i3 + 1] = rgb.g * colorVariation + 0.3;
-      colors[i3 + 2] = rgb.b * colorVariation + 0.7;
+      positions[i3] = radius * Math.sin(phi) * Math.cos(theta) * (1 + lobeFactor) + hemisphereGap;
+      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.7 + wrinkleFactor;
+      positions[i3 + 2] = radius * Math.cos(phi) * (1 + Math.sin(theta * 2) * 0.2);
 
-      sizes[i] = Math.random() * 3 + 1;
+      // Better color distribution - darker base with gradient
+      const distanceFromCenter = Math.sqrt(positions[i3] ** 2 + positions[i3 + 1] ** 2 + positions[i3 + 2] ** 2);
+      const normalizedDist = (distanceFromCenter - 1.2) / 0.6;
+
+      // Core is darker, outer is brighter with purple/pink gradient
+      const coreBrightness = 0.3 + normalizedDist * 0.4;
+      const variation = Math.random() * 0.15;
+
+      colors[i3] = Math.min(1, rgb.r * (coreBrightness + variation));
+      colors[i3 + 1] = Math.min(1, rgb.g * (coreBrightness + variation * 0.5));
+      colors[i3 + 2] = Math.min(1, rgb.b * (coreBrightness + variation) + 0.2);
+
+      // Smaller particles with variation
+      sizes[i] = Math.random() * 2.5 + 0.8;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -131,9 +154,9 @@
         void main() {
           vColor = color;
 
-          // Pulsing effect
-          float pulse = sin(time * 2.0 + position.x * 3.0) * 0.5 + 0.5;
-          vAlpha = 0.6 + pulse * 0.4;
+          // Pulsing effect with varied timing
+          float pulse = sin(time * 1.5 + position.x * 2.0 + position.z) * 0.3 + 0.7;
+          vAlpha = 0.5 + pulse * 0.3;
 
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
           gl_PointSize = size * pixelRatio * (200.0 / -mvPosition.z);
@@ -145,16 +168,23 @@
         varying float vAlpha;
 
         void main() {
-          // Circular particle with soft edges
-          float dist = length(gl_PointCoord - vec2(0.5));
+          // Circular particle with soft glow
+          vec2 center = gl_PointCoord - vec2(0.5);
+          float dist = length(center);
           if (dist > 0.5) discard;
 
-          float alpha = smoothstep(0.5, 0.1, dist) * vAlpha;
-          gl_FragColor = vec4(vColor, alpha);
+          // Stronger falloff for more defined particles
+          float alpha = smoothstep(0.5, 0.0, dist) * vAlpha * 0.75;
+
+          // Add inner glow
+          float glow = smoothstep(0.5, 0.2, dist);
+          vec3 finalColor = vColor * (0.6 + glow * 0.4);
+
+          gl_FragColor = vec4(finalColor, alpha);
         }
       `,
       transparent: true,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
       depthWrite: false,
     });
 
@@ -164,10 +194,12 @@
 
   // Create neural connections between particles
   function createConnections() {
-    const connectionCount = 400;
+    const connectionCount = 600;
     const positions = particles.geometry.attributes.position.array as Float32Array;
     const linePositions = new Float32Array(connectionCount * 6);
     const lineColors = new Float32Array(connectionCount * 6);
+    const pulsePositions = new Float32Array(150 * 6);
+    const pulseColors = new Float32Array(150 * 6);
 
     const rgb = hexToRgb(color);
     const particleCount = positions.length / 3;
@@ -179,15 +211,15 @@
       const idx1 = Math.floor(Math.random() * particleCount);
       let idx2 = Math.floor(Math.random() * particleCount);
 
-      // Ensure they're relatively close
-      const attempts = 10;
+      // Ensure they're relatively close for realistic neural connections
+      const attempts = 15;
       for (let a = 0; a < attempts; a++) {
         idx2 = Math.floor(Math.random() * particleCount);
         const dx = positions[idx1 * 3] - positions[idx2 * 3];
         const dy = positions[idx1 * 3 + 1] - positions[idx2 * 3 + 1];
         const dz = positions[idx1 * 3 + 2] - positions[idx2 * 3 + 2];
         const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (dist < 1.0) break;
+        if (dist < 0.8) break;
       }
 
       linePositions[i6] = positions[idx1 * 3];
@@ -197,16 +229,38 @@
       linePositions[i6 + 4] = positions[idx2 * 3 + 1];
       linePositions[i6 + 5] = positions[idx2 * 3 + 2];
 
-      // Connection colors
-      const alpha = 0.3 + Math.random() * 0.2;
-      lineColors[i6] = rgb.r * alpha;
-      lineColors[i6 + 1] = rgb.g * alpha;
-      lineColors[i6 + 2] = rgb.b * alpha;
-      lineColors[i6 + 3] = rgb.r * alpha;
-      lineColors[i6 + 4] = rgb.g * alpha;
-      lineColors[i6 + 5] = rgb.b * alpha;
+      // Connection colors - subtle and darker
+      const alpha = 0.2 + Math.random() * 0.15;
+      lineColors[i6] = rgb.r * alpha * 0.6;
+      lineColors[i6 + 1] = rgb.g * alpha * 0.6;
+      lineColors[i6 + 2] = rgb.b * alpha * 0.6;
+      lineColors[i6 + 3] = rgb.r * alpha * 0.6;
+      lineColors[i6 + 4] = rgb.g * alpha * 0.6;
+      lineColors[i6 + 5] = rgb.b * alpha * 0.6;
     }
 
+    // Create pulse connections (brighter, animated)
+    for (let i = 0; i < 150; i++) {
+      const sourceIdx = i * 4;
+      const i6 = i * 6;
+
+      pulsePositions[i6] = linePositions[sourceIdx * 6];
+      pulsePositions[i6 + 1] = linePositions[sourceIdx * 6 + 1];
+      pulsePositions[i6 + 2] = linePositions[sourceIdx * 6 + 2];
+      pulsePositions[i6 + 3] = linePositions[sourceIdx * 6 + 3];
+      pulsePositions[i6 + 4] = linePositions[sourceIdx * 6 + 4];
+      pulsePositions[i6 + 5] = linePositions[sourceIdx * 6 + 5];
+
+      // Brighter pulse colors
+      pulseColors[i6] = rgb.r * 0.8;
+      pulseColors[i6 + 1] = rgb.g * 0.6;
+      pulseColors[i6 + 2] = rgb.b;
+      pulseColors[i6 + 3] = rgb.r * 0.8;
+      pulseColors[i6 + 4] = rgb.g * 0.6;
+      pulseColors[i6 + 5] = rgb.b;
+    }
+
+    // Static connections
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
@@ -214,12 +268,28 @@
     const material = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.4,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.25,
+      blending: THREE.NormalBlending,
     });
 
     connections = new THREE.LineSegments(geometry, material);
     scene.add(connections);
+
+    // Animated pulse connections
+    const pulseGeometry = new THREE.BufferGeometry();
+    pulseGeometry.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
+    pulseGeometry.setAttribute('color', new THREE.BufferAttribute(pulseColors, 3));
+
+    const pulseMaterial = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending,
+      linewidth: 2,
+    });
+
+    pulseConnections = new THREE.LineSegments(pulseGeometry, pulseMaterial);
+    scene.add(pulseConnections);
   }
 
   // Animation loop
@@ -228,22 +298,42 @@
 
     time += 0.01 * intensity;
 
+    // Smooth mouse tracking
+    mouseX += (targetMouseX * 0.3 - mouseX) * 0.05;
+    mouseY += (targetMouseY * 0.3 - mouseY) * 0.05;
+
     // Update shader uniforms
     if (particles.material instanceof THREE.ShaderMaterial) {
       particles.material.uniforms.time.value = time;
     }
 
-    // Gentle rotation
-    particles.rotation.y = time * 0.1;
-    particles.rotation.x = Math.sin(time * 0.2) * 0.1;
+    // Interactive rotation with mouse + gentle auto-rotation
+    const autoRotationY = time * 0.08;
+    const autoRotationX = Math.sin(time * 0.15) * 0.1;
 
-    connections.rotation.y = time * 0.1;
-    connections.rotation.x = Math.sin(time * 0.2) * 0.1;
+    particles.rotation.y = autoRotationY + mouseX * 0.5;
+    particles.rotation.x = autoRotationX + mouseY * 0.3;
+
+    connections.rotation.y = autoRotationY + mouseX * 0.5;
+    connections.rotation.x = autoRotationX + mouseY * 0.3;
+
+    // Pulse connections animation
+    if (pulseConnections) {
+      pulseConnections.rotation.y = autoRotationY + mouseX * 0.5;
+      pulseConnections.rotation.x = autoRotationX + mouseY * 0.3;
+
+      // Animated pulse opacity
+      const pulseMaterial = pulseConnections.material as THREE.LineBasicMaterial;
+      pulseMaterial.opacity = 0.3 + Math.sin(time * 2) * 0.25;
+    }
 
     // Breathing effect
-    const breathe = 1 + Math.sin(time * 0.5) * 0.05;
+    const breathe = 1 + Math.sin(time * 0.4) * 0.04;
     particles.scale.set(breathe, breathe, breathe);
     connections.scale.set(breathe, breathe, breathe);
+    if (pulseConnections) {
+      pulseConnections.scale.set(breathe, breathe, breathe);
+    }
 
     renderer.render(scene, camera);
   }
@@ -270,6 +360,7 @@
     }
 
     window.removeEventListener('resize', handleResize);
+    window.removeEventListener('mousemove', handleMouseMove);
 
     if (renderer) {
       renderer.dispose();
@@ -283,6 +374,11 @@
     if (connections) {
       connections.geometry.dispose();
       (connections.material as THREE.Material).dispose();
+    }
+
+    if (pulseConnections) {
+      pulseConnections.geometry.dispose();
+      (pulseConnections.material as THREE.Material).dispose();
     }
   }
 

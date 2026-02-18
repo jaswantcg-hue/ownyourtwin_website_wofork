@@ -4,6 +4,7 @@
   Supports icons, loading states, and full customization
 -->
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import type { Snippet } from 'svelte';
 
   // Props
@@ -94,6 +95,14 @@
   let computedClasses = $derived(
     `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${fullWidth ? 'w-full' : ''} ${className}`
   );
+
+  // Handle navigation for href links
+  function handleNavigation(e: MouseEvent) {
+    e.preventDefault();
+    if (href && !loading && !disabled) {
+      goto(href);
+    }
+  }
 </script>
 
 {#if href && !disabled}
@@ -101,6 +110,7 @@
     {href}
     class={computedClasses}
     class:pointer-events-none={loading}
+    onclick={handleNavigation}
   >
     {#if loading}
       <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -5,11 +5,11 @@
 
 // Application metadata
 export const APP_CONFIG = {
-  name: 'AuraAI',
-  tagline: 'Understand Your Mind via Digital Twin',
-  description: 'A personal space for reflection and feedback through your AI-powered digital twin',
+  name: 'OwnYourTwin',
+  tagline: 'Own Your Data. Earn From It.',
+  description: 'Create an AI-powered Digital Twin that you own, you control, and that earns for you.',
   version: '1.0.0',
-  supportEmail: 'support@auraai.com',
+  supportEmail: 'support@ownyourtwin.com',
 } as const;
 
 // Social platforms available for connection
@@ -23,28 +23,28 @@ export const SOCIAL_PLATFORMS = [
     color: '#0A66C2',
   },
   {
-    id: 'github',
-    name: 'GitHub',
-    icon: 'github',
-    description: 'Coding patterns and project interests',
-    dataTypes: ['repositories', 'contributions', 'interests'],
-    color: '#181717',
+    id: 'instagram',
+    name: 'Instagram',
+    icon: 'instagram',
+    description: 'Photos, stories, and visual interests',
+    dataTypes: ['posts', 'interests', 'engagement'],
+    color: '#E4405F',
   },
   {
-    id: 'notion',
-    name: 'Notion',
-    icon: 'file-text',
-    description: 'Notes, thoughts, and organization style',
-    dataTypes: ['notes', 'databases', 'writing_style'],
-    color: '#000000',
+    id: 'reddit',
+    name: 'Reddit',
+    icon: 'reddit',
+    description: 'Communities and discussion patterns',
+    dataTypes: ['subreddits', 'comments', 'interests'],
+    color: '#FF4500',
   },
   {
-    id: 'obsidian',
-    name: 'Obsidian',
-    icon: 'diamond',
-    description: 'Knowledge graphs and thinking patterns',
-    dataTypes: ['notes', 'links', 'knowledge_graph'],
-    color: '#7C3AED',
+    id: 'facebook',
+    name: 'Facebook',
+    icon: 'facebook',
+    description: 'Social connections and interests',
+    dataTypes: ['profile', 'likes', 'connections'],
+    color: '#1877F2',
   },
   {
     id: 'twitter',
@@ -55,63 +55,51 @@ export const SOCIAL_PLATFORMS = [
     color: '#1DA1F2',
   },
   {
-    id: 'spotify',
-    name: 'Spotify',
-    icon: 'music',
-    description: 'Music preferences and mood patterns',
-    dataTypes: ['listening_history', 'playlists', 'preferences'],
-    color: '#1DB954',
+    id: 'github',
+    name: 'GitHub',
+    icon: 'github',
+    description: 'Coding patterns and project interests',
+    dataTypes: ['repositories', 'contributions', 'interests'],
+    color: '#181717',
   },
 ] as const;
 
-// Twin creation steps
+// Twin creation steps - New order: Register first, then Connect, then finish
 export const TWIN_CREATION_STEPS = [
   {
     id: 1,
-    name: 'Connect',
-    description: 'Link your accounts to gather data',
-    icon: 'link',
+    name: 'Register',
+    description: 'Create your account',
+    icon: 'user-plus',
   },
   {
     id: 2,
-    name: 'Process',
-    description: 'AI analyzes your behavioral patterns',
-    icon: 'cpu',
-  },
-  {
-    id: 3,
-    name: 'Learn',
-    description: 'Building your unique digital twin',
-    icon: 'brain',
-  },
-  {
-    id: 4,
-    name: 'Consent',
-    description: 'Review and accept data governance',
-    icon: 'shield',
+    name: 'Connect',
+    description: 'Link your social accounts',
+    icon: 'link',
   },
 ] as const;
 
 // How it works steps for landing page
 export const HOW_IT_WORKS = [
   {
-    id: 'reflect',
-    title: 'Reflect',
-    description: 'Share your thoughts, experiences, and emotions through natural conversation',
+    id: 'connect',
+    title: 'Connect',
+    description: 'Link your social profiles or chat via WhatsApp & Telegram. No new apps to learn. Your Twin meets you where you are.',
     icon: 'message-circle',
     color: 'from-cosmic-500 to-cosmic-600',
   },
   {
-    id: 'replicate',
-    title: 'Replicate',
-    description: 'AI builds a dynamic digital twin that evolves with your behaviors and values',
+    id: 'evolve',
+    title: 'Your Twin Evolves',
+    description: 'AI builds a dynamic Digital Twin that learns your preferences, values, and behavior patterns over time.',
     icon: 'users',
     color: 'from-ethereal-500 to-ethereal-600',
   },
   {
     id: 'earn',
-    title: 'Earn',
-    description: 'Monetize your twin by participating in ethical research and feedback sessions',
+    title: 'You Earn',
+    description: 'When businesses need ethical consumer insights, your Twin responds and you get paid directly.',
     icon: 'coins',
     color: 'from-aura-500 to-aura-600',
   },
