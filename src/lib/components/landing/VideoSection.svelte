@@ -27,50 +27,22 @@
         </p>
       </div>
 
-      <!-- Video placeholder -->
+      <!-- Video Section -->
       <div
         class="relative aspect-video bg-void-800/50 rounded-2xl border border-void-700/50 overflow-hidden group cursor-pointer animate-fade-in"
         style="animation-delay: 200ms"
       >
-        <!-- Gradient overlay -->
-        <div
-          class="absolute inset-0 bg-gradient-to-br from-cosmic-600/10 to-ethereal-600/10 group-hover:from-cosmic-600/15 group-hover:to-ethereal-600/15 transition-all duration-500"
-        ></div>
-
-        <!-- Grid pattern -->
-        <div
-          class="absolute inset-0 opacity-5"
-          style="background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 40px 40px;"
-        ></div>
-
-        <!-- Play button -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div
-            class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300"
-          >
-            <svg
-              class="w-8 h-8 text-white ml-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-
-        <!-- Corner labels -->
-        <div
-          class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-900/70 backdrop-blur-sm border border-void-700/50"
+        <video
+          id="explainer-video"
+          src="/OwnYourTwin.mp4"
+          class="w-full h-full object-cover"
+          poster="/video-poster.jpg"
+          playsinline
+          controls
         >
-          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-          <span class="text-xs text-void-300 font-medium">Coming Soon</span>
-        </div>
-
-        <div
-          class="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-void-900/70 backdrop-blur-sm border border-void-700/50"
-        >
-          <span class="text-xs text-void-300 font-mono">2:30</span>
-        </div>
+          <track kind="captions" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       <!-- Caption -->
@@ -78,7 +50,7 @@
         class="mt-6 text-sm text-void-500 animate-fade-in"
         style="animation-delay: 300ms"
       >
-        Explainer video coming soon. Request a demo to see it live.
+        Watch our vision for the Digital Twin economy.
       </p>
     </div>
   </div>
