@@ -40,7 +40,7 @@
   };
 </script>
 
-<section id="for-individuals" class="py-24 relative overflow-hidden">
+<section id="for-individuals" class="py-16 md:py-24 relative overflow-hidden">
   <!-- Background -->
   <div
     class="absolute inset-0 bg-gradient-to-b from-void-950 via-void-900 to-void-950"
@@ -75,17 +75,17 @@
         </svg>
         <span class="text-sm text-cosmic-300 font-medium">For Individuals</span>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
         Your Digital Companion
       </h2>
-      <p class="text-lg text-void-300 max-w-2xl mx-auto">
+      <p class="text-base sm:text-lg text-void-300 max-w-2xl mx-auto">
         Connect once, benefit forever. Your Twin works for you around the clock
         with no effort required after setup.
       </p>
     </div>
 
     <!-- Benefits cards -->
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
       {#each benefits as benefit, index}
         <div
           class="group relative p-8 rounded-2xl bg-void-800/40 border border-void-700/50 {accentBorders[

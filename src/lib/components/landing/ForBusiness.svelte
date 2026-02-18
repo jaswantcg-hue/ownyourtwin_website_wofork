@@ -25,7 +25,7 @@
   ];
 </script>
 
-<section id="for-business" class="py-24 relative overflow-hidden">
+<section id="for-business" class="py-16 md:py-24 relative overflow-hidden">
   <!-- Background -->
   <div class="absolute inset-0 bg-void-950"></div>
   <div
@@ -42,7 +42,7 @@
 
   <div class="container mx-auto px-4 relative z-10">
     <!-- Section header -->
-    <div class="text-center mb-16 animate-fade-in">
+    <div class="text-center mb-12 md:mb-16 animate-fade-in">
       <div
         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ethereal-500/10 border border-ethereal-500/30 mb-6"
       >
@@ -62,10 +62,10 @@
         <span class="text-sm text-ethereal-300 font-medium">For Businesses</span
         >
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
         Real-Time Market Intelligence
       </h2>
-      <p class="text-lg text-void-300 max-w-2xl mx-auto">
+      <p class="text-base sm:text-lg text-void-300 max-w-2xl mx-auto">
         Stop guessing what your customers want. Access ethical, consent-based
         consumer insights that are faster, cheaper, and more accurate than any
         survey.
@@ -73,7 +73,7 @@
     </div>
 
     <!-- Benefits cards -->
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
       {#each benefits as benefit, index}
         <div
           class="group p-8 rounded-2xl bg-void-800/30 border border-ethereal-500/10 hover:border-ethereal-500/30 transition-all duration-300 hover:-translate-y-2 animate-fade-in"
