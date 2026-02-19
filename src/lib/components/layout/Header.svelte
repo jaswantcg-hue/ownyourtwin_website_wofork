@@ -36,7 +36,7 @@
     { label: "How It Works", href: "#how-it-works" },
     { label: "For You", href: "#for-individuals" },
     { label: "For Business", href: "#for-business" },
-    { label: "Insights", href: "#insights" },
+    { label: "Blogs", href: "/blog" },
   ];
 
   // Handle logout
@@ -214,7 +214,13 @@
           {#each landingNavItems as item}
             <a
               href={item.href}
-              onclick={(e) => handleSmoothScroll(e, item.href)}
+              onclick={(e) => {
+                if (item.href.startsWith("#")) {
+                  handleSmoothScroll(e, item.href);
+                } else {
+                  handleNavClick(e, item.href);
+                }
+              }}
               class="text-sm text-void-300 hover:text-white transition-colors font-medium"
             >
               {item.label}

@@ -62,9 +62,18 @@
   </div>
 
   <div class="container mx-auto px-4 py-12 md:py-20 relative z-10">
-    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-      <!-- Text content -->
-      <div class="text-center lg:text-left animate-fade-in">
+    <div class="flex flex-col items-center gap-12 lg:gap-16">
+      <!-- Digital Twin Visualization (Now first and zoomed) -->
+      <div
+        class="relative h-[400px] sm:h-[500px] md:h-[650px] lg:h-[850px] w-full animate-fade-in transform scale-105 lg:scale-110"
+        style="animation-delay: 0.3s;"
+      >
+        <!-- Digital Twin with embedded HUD -->
+        <DigitalTwin class="relative z-10 w-full h-full" />
+      </div>
+
+      <!-- Text content (Now second and centered) -->
+      <div class="text-center animate-fade-in max-w-4xl mx-auto">
         <!-- Badge -->
         <div
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cosmic-500/10 border border-cosmic-500/30 mb-8"
@@ -78,10 +87,10 @@
 
         <!-- Headline -->
         <h1
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 leading-tight"
         >
           <span class="text-white">Your Data.</span>
-          <br />
+          <br class="sm:hidden" />
           <span class="text-white">Your Value.</span>
           <br />
           <span
@@ -93,7 +102,7 @@
 
         <!-- Subtitle - trust-building copy -->
         <p
-          class="text-base sm:text-lg md:text-xl text-void-300 mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+          class="text-base sm:text-lg md:text-xl text-void-300 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed"
         >
           Every day, your data powers billion-dollar decisions, yet you see none
           none of the value. We're changing that. Create an AI-powered Digital
@@ -103,9 +112,7 @@
         </p>
 
         <!-- CTA Buttons -->
-        <div
-          class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-        >
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             variant="primary"
             size="lg"
@@ -189,7 +196,7 @@
 
         <!-- Trust signals -->
         <div
-          class="mt-8 sm:mt-12 flex items-center gap-3 sm:gap-6 justify-center lg:justify-start flex-wrap text-xs sm:text-sm"
+          class="mt-12 sm:mt-16 flex items-center gap-3 sm:gap-6 justify-center flex-wrap text-xs sm:text-sm"
         >
           <div class="flex items-center gap-2 text-sm text-void-400">
             <svg
@@ -242,15 +249,6 @@
             <span>You Earn, We Don't Sell</span>
           </div>
         </div>
-      </div>
-
-      <!-- Digital Twin Visualization -->
-      <div
-        class="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] w-full animate-fade-in"
-        style="animation-delay: 0.3s;"
-      >
-        <!-- Digital Twin with embedded HUD -->
-        <DigitalTwin class="relative z-10 w-full h-full" />
       </div>
     </div>
 

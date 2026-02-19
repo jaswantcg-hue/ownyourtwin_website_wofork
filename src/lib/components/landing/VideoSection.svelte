@@ -34,12 +34,16 @@
       >
         <video
           id="explainer-video"
-          src="/OwnYourTwin.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
           class="w-full h-full object-cover"
           poster="/video-poster.jpg"
-          playsinline
           controls
         >
+          <source src="/OwnYourTwin.mp4" type="video/mp4" />
           <track kind="captions" />
           Your browser does not support the video tag.
         </video>

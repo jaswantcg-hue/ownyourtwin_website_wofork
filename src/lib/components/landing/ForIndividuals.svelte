@@ -41,9 +41,22 @@
 </script>
 
 <section id="for-individuals" class="py-16 md:py-24 relative overflow-hidden">
-  <!-- Background -->
+  <!-- Background Video -->
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
+    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 pointer-events-none"
+  >
+    <source src="/Wave.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Background Overlay -->
   <div
-    class="absolute inset-0 bg-gradient-to-b from-void-950 via-void-900 to-void-950"
+    class="absolute inset-0 bg-gradient-to-b from-void-950/60 via-void-900/30 to-void-950/60 z-0"
   ></div>
 
   <!-- Decorative orbs -->
@@ -85,7 +98,9 @@
     </div>
 
     <!-- Benefits cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto"
+    >
       {#each benefits as benefit, index}
         <div
           class="group relative p-8 rounded-2xl bg-void-800/40 border border-void-700/50 {accentBorders[

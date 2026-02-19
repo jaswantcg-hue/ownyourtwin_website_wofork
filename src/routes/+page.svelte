@@ -14,7 +14,6 @@
     ForBusiness,
     VideoSection,
     UserStories,
-    BlogPreview,
     WaitlistModal,
   } from "$lib/components/landing";
 
@@ -70,9 +69,6 @@
 
   <!-- 8. Testimonials -->
   <UserStories onDemoClick={openDemoModal} />
-
-  <!-- 9. Blog / Insights Preview -->
-  <BlogPreview posts={data.recentPosts} />
 </main>
 
 <!-- Footer with Demo CTA -->
