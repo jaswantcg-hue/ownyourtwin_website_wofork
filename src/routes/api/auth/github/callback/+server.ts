@@ -75,7 +75,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
         const userResponse = await fetch('https://api.github.com/user', {
             headers: {
                 'Authorization': `Bearer ${tokens.access_token}`,
-                'User-Agent': 'AuraAI-App',
+                'User-Agent': 'OwnYourTwin-App',
             },
         });
 
@@ -91,7 +91,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
             const emailResponse = await fetch('https://api.github.com/user/emails', {
                 headers: {
                     'Authorization': `Bearer ${tokens.access_token}`,
-                    'User-Agent': 'AuraAI-App',
+                    'User-Agent': 'OwnYourTwin-App',
                 },
             });
 

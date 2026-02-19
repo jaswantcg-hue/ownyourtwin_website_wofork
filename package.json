@@ -1,5 +1,5 @@
 {
-	"name": "auraai",
+	"name": "OwnYourTwin",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -7,6 +7,7 @@
 		"dev": "vite dev --host 0.0.0.0 --port 5173",
 		"build": "vite build",
 		"preview": "vite preview",
+		"start": "node build",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -16,8 +17,11 @@
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"@tailwindcss/forms": "^0.5.11",
 		"@tailwindcss/postcss": "^4.1.18",
+		"@types/node": "^25.2.3",
+		"@types/pg": "^8.16.0",
 		"autoprefixer": "^10.4.23",
 		"postcss": "^8.5.6",
+		"prisma": "^7.4.0",
 		"svelte": "^5.45.6",
 		"svelte-check": "^4.3.4",
 		"tailwindcss": "^4.1.18",
@@ -25,14 +29,16 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
-		"@sveltejs/adapter-node": "^5.2.2",
+		"@prisma/adapter-pg": "^7.4.0",
+		"@prisma/client": "^7.4.0",
+		"@sveltejs/adapter-node": "^5.5.3",
 		"@types/three": "^0.182.0",
 		"chart.js": "^4.5.1",
-		"drizzle-orm": "^0.45.1",
-		"drizzle-zod": "^0.8.3",
-		"express": "^4.21.2",
+		"dotenv": "^17.3.1",
+		"gray-matter": "^4.0.3",
 		"lucide-svelte": "^0.563.0",
-		"three": "^0.182.0",
-		"zod": "^4.3.6"
+		"marked": "^17.0.2",
+		"pg": "^8.18.0",
+		"three": "^0.182.0"
 	}
 }

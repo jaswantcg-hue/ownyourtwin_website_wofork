@@ -252,7 +252,7 @@ export async function createChatCompletionWithProvider(
 export function getTwinSystemPrompt(): ChatMessage {
     return {
         role: 'system',
-        content: `You are a thoughtful digital twin assistant for AuraAI, a personal reflection and self-discovery platform. 
+        content: `You are a thoughtful digital twin assistant for OwnYourTwin, a personal reflection and self-discovery platform. 
 
 Your role is to:
 - Help users explore their thoughts and emotions through compassionate dialogue

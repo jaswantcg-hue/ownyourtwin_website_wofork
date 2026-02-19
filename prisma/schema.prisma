@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model DemoRequest {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  interests String?
+  createdAt DateTime @default(now())
+}
+
+model InterestLog {
+  id        String   @id @default(uuid())
+  type      String
+  timestamp DateTime @default(now())
+}

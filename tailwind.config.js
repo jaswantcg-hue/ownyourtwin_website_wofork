@@ -3,51 +3,47 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
-      // Custom color palette for spiritual/futuristic theme
+      /* Primary colors - Deep navy blues (trust, authority, premium) */
       colors: {
-        // Primary colors - Deep cosmic purples
         cosmic: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+          950: '#1e1b4b',
         },
-        // Accent colors - Ethereal teals
         ethereal: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-          950: '#042f2e',
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
         },
-        // Neural/Digital colors - Soft blues
         neural: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49',
         },
-        // Aura/Energy colors - Warm golds
         aura: {
           50: '#fffbeb',
           100: '#fef3c7',
@@ -61,7 +57,6 @@ export default {
           900: '#78350f',
           950: '#451a03',
         },
-        // Dark background shades
         void: {
           50: '#f8fafc',
           100: '#f1f5f9',
@@ -76,13 +71,11 @@ export default {
           950: '#020617',
         },
       },
-      // Custom fonts
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
-      // Custom animations
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
@@ -101,8 +94,8 @@ export default {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' },
-          '100%': { boxShadow: '0 0 40px rgba(139, 92, 246, 0.6)' },
+          '0%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)' },
+          '100%': { boxShadow: '0 0 40px rgba(99, 102, 241, 0.6)' },
         },
         gradient: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
@@ -129,27 +122,23 @@ export default {
           '100%': { backgroundPosition: '200% 0' },
         },
       },
-      // Custom shadows for depth
       boxShadow: {
-        'glow-sm': '0 0 15px rgba(139, 92, 246, 0.3)',
-        'glow': '0 0 30px rgba(139, 92, 246, 0.4)',
-        'glow-lg': '0 0 50px rgba(139, 92, 246, 0.5)',
-        'ethereal': '0 0 30px rgba(20, 184, 166, 0.3)',
-        'inner-glow': 'inset 0 0 20px rgba(139, 92, 246, 0.2)',
+        'glow-sm': '0 0 15px rgba(99, 102, 241, 0.3)',
+        'glow': '0 0 30px rgba(99, 102, 241, 0.4)',
+        'glow-lg': '0 0 50px rgba(99, 102, 241, 0.5)',
+        'ethereal': '0 0 30px rgba(16, 185, 129, 0.3)',
+        'inner-glow': 'inset 0 0 20px rgba(99, 102, 241, 0.2)',
       },
-      // Custom backdrop blur
       backdropBlur: {
         xs: '2px',
       },
-      // Border radius
       borderRadius: {
         '4xl': '2rem',
       },
-      // Background images
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-cosmic': 'linear-gradient(135deg, #4c1d95 0%, #1e3a8a 50%, #134e4a 100%)',
-        'gradient-ethereal': 'linear-gradient(135deg, #7c3aed 0%, #2dd4bf 100%)',
+        'gradient-cosmic': 'linear-gradient(135deg, #312e81 0%, #0c4a6e 50%, #064e3b 100%)',
+        'gradient-ethereal': 'linear-gradient(135deg, #4f46e5 0%, #34d399 100%)',
         'gradient-neural': 'linear-gradient(180deg, #020617 0%, #0f172a 50%, #1e293b 100%)',
       },
     },
