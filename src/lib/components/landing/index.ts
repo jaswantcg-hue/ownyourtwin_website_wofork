@@ -4,7 +4,6 @@
  */
 
 export { default as BrainAnimation } from './BrainAnimation.svelte';
-export { default as Hero } from './Dashboard.svelte';
 // Landing page components
 export { default as Hero } from './Hero.svelte';
 
