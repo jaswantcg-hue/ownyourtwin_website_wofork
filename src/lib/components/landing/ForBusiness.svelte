@@ -73,7 +73,9 @@
     </div>
 
     <!-- Benefits cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto"
+    >
       {#each benefits as benefit, index}
         <div
           class="group p-8 rounded-2xl bg-void-800/30 border border-ethereal-500/10 hover:border-ethereal-500/30 transition-all duration-300 hover:-translate-y-2 animate-fade-in"

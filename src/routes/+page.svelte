@@ -9,11 +9,8 @@
     Hero,
     HowItWorks,
     TrustSection,
-    MarketResearch,
     ForIndividuals,
-    ForBusiness,
-    VideoSection,
-    UserStories,
+    MediaTestimonials,
     WaitlistModal,
   } from "$lib/components/landing";
 
@@ -55,20 +52,11 @@
   <!-- 3. Trust Section: Data privacy pillars -->
   <TrustSection />
 
-  <!-- 4. Market Research: Why businesses need data (the insight economy) -->
-  <MarketResearch />
-
   <!-- 5. For Individuals: Value proposition for end users -->
   <ForIndividuals />
 
-  <!-- 6. For Business: Value proposition for enterprises -->
-  <ForBusiness />
-
-  <!-- 7. Video Explainer -->
-  <VideoSection />
-
-  <!-- 8. Testimonials -->
-  <UserStories onDemoClick={openDemoModal} />
+  <!-- 7. Media & Testimonials -->
+  <MediaTestimonials onDemoClick={openDemoModal} />
 </main>
 
 <!-- Footer with Demo CTA -->

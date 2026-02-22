@@ -105,8 +105,8 @@
           class="text-base sm:text-lg md:text-xl text-void-300 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed"
         >
           Every day, your data powers billion-dollar decisions, yet you see none
-          none of the value. We're changing that. Create an AI-powered Digital
-          Twin that <strong class="text-white">you own</strong>,
+          of the value. We're changing that. Create an AI-powered Digital Twin
+          that <strong class="text-white">you own</strong>,
           <strong class="text-white">you control</strong>, and that
           <strong class="text-white">earns for you</strong>.
         </p>

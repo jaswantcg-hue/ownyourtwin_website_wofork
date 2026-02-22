@@ -5,6 +5,7 @@
 <script lang="ts">
   import { APP_CONFIG } from "$lib/constants";
   import { Logo } from "$lib/components/common";
+  import NetworkGlobe from "../landing/NetworkGlobe.svelte";
 
   interface Props {
     /** Handler for opening demo request modal */
@@ -101,21 +102,42 @@
     </div>
   </div> -->
   <div
-    class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-cosmic-900/50 to-void-900/50 border border-cosmic-500/20 text-center max-w-3xl mx-auto"
+    class="relative mt-20 mb-20 p-12 md:p-20 rounded-4xl bg-void-950 border border-void-800 text-center max-w-6xl mx-auto overflow-hidden group"
   >
-    <h3 class="text-2xl font-bold text-white mb-4">
-      See how Digital Twins can work for you.
-    </h3>
-    <p class="text-void-300 mb-8 max-w-lg mx-auto text-lg">
-      Request a live demo to see how OwnYourTwin can help you take control of
-      your data and earn value from it.
-    </p>
-    <button
-      class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg"
-      onclick={onDemoClick}
+    <!-- Background Decorations -->
+    <div
+      class="absolute inset-0 bg-gradient-radial from-cosmic-500/10 via-transparent to-transparent opacity-50"
+    ></div>
+
+    <!-- Wireframe Sphere Left -->
+    <div
+      class="absolute -left-20 top-1/2 -translate-y-1/2 w-[350px] h-[350px] opacity-40 pointer-events-none transition-transform duration-1000 group-hover:scale-105"
     >
-      Request a Demo
-    </button>
+      <NetworkGlobe />
+    </div>
+
+    <!-- Wireframe Sphere Right -->
+    <div
+      class="absolute -right-20 top-1/2 -translate-y-1/2 w-[350px] h-[350px] opacity-40 pointer-events-none transition-transform duration-1000 group-hover:scale-105"
+    >
+      <NetworkGlobe />
+    </div>
+
+    <div class="relative z-10">
+      <h3 class="text-1xl md:text-4xl font-bold text-white mb-6">
+        See how Digital Twins can work for you.
+      </h3>
+      <p class="text-void-300 mb-10 max-w-2xl mx-auto text-lg md:text-xl">
+        Request a live demo to see how OwnYourTwin can help you take control of
+        your data and earn value from it.
+      </p>
+      <button
+        class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg transform hover:-translate-y-1"
+        onclick={onDemoClick}
+      >
+        Request a Demo
+      </button>
+    </div>
   </div>
   <!-- Main footer content -->
   <div class="container mx-auto px-4 py-12">
@@ -240,9 +262,12 @@
         protected, and always yours.
       </p>
       <p class="text-xs text-void-500">
-        <a href="#" class="hover:text-white transition-colors">Privacy</a> ·
-        <a href="#" class="hover:text-white transition-colors">Terms</a> ·
-        <a href="#" class="hover:text-white transition-colors">Cookies</a>
+        <a href="/privacy" class="hover:text-white transition-colors">Privacy</a
+        >
+        ·
+        <a href="/terms" class="hover:text-white transition-colors">Terms</a> ·
+        <a href="/cookies" class="hover:text-white transition-colors">Cookies</a
+        >
       </p>
     </div>
   </div>

@@ -35,7 +35,7 @@
   const landingNavItems = [
     { label: "How It Works", href: "#how-it-works" },
     { label: "For You", href: "#for-individuals" },
-    { label: "For Business", href: "#for-business" },
+    { label: "For Business", href: "/forBusiness" },
     { label: "Blogs", href: "/blog" },
   ];
 
