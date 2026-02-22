@@ -102,7 +102,8 @@
     </div>
   </div> -->
   <div
-    class="relative mt-20 mb-20 p-12 md:p-20 rounded-4xl bg-void-950 border border-void-800 text-center max-w-6xl mx-auto overflow-hidden group"
+    class="relative mt-20 mb-20 p-12 md:p-20 rounded-4xl border border-void-800 text-center max-w-6xl mx-auto overflow-hidden group"
+    style="background-color: rgba(15, 23, 42, 0.6)"
   >
     <!-- Background Decorations -->
     <div

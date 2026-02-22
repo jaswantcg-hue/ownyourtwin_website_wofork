@@ -30,3 +30,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 /../generated/prisma
+testsprite_tests/*

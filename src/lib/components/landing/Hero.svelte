@@ -65,7 +65,7 @@
     <div class="flex flex-col items-center gap-12 lg:gap-16">
       <!-- Digital Twin Visualization (Now first and zoomed) -->
       <div
-        class="relative h-[400px] sm:h-[500px] md:h-[650px] lg:h-[850px] w-full animate-fade-in transform scale-105 lg:scale-110"
+        class="relative h-[300px] sm:h-[400px] md:h-[650px] lg:h-[850px] w-full animate-fade-in lg:transform lg:scale-110"
         style="animation-delay: 0.3s;"
       >
         <!-- Digital Twin with embedded HUD -->
@@ -250,26 +250,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div
-      class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
-    >
-      <span class="text-sm text-void-400">Scroll to explore</span>
-      <svg
-        class="w-6 h-6 text-void-400"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 14l-7 7m0 0l-7-7m7 7V3"
-        />
-      </svg>
     </div>
   </div>
 </section>

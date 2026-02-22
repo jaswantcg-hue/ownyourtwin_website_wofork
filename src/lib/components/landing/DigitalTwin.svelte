@@ -97,9 +97,9 @@
         `;
 
     const biX = neuralIn.left - svgRect.left + neuralIn.width / 2;
-    const biY = neuralIn.top - svgRect.top + neuralIn.height / 2;
+    const biY = svgRect.height / 2;
     const boX = neuralOut.left - svgRect.left + neuralOut.width / 2;
-    const boY = neuralOut.top - svgRect.top + neuralOut.height / 2;
+    const boY = svgRect.height / 2;
 
     // 1. Human Direct to Brain (Active Feedback - prominent)
     if (humanOrigin) {
@@ -273,12 +273,12 @@
 
 <div
   bind:this={containerRef}
-  class="relative w-full min-h-[700px] lg:h-full p-4 lg:p-0 overflow-hidden {className}"
+  class="relative w-full min-h-[350px] lg:min-h-[700px] lg:h-full p-4 lg:p-0 overflow-hidden {className}"
 >
   <!-- Global Flow SVG -->
   <svg
     bind:this={svgRef}
-    class="absolute inset-0 w-full h-full pointer-events-none z-0"
+    class="absolute inset-0 w-full h-full pointer-events-none z-0 hidden lg:block"
   ></svg>
 
   <div
@@ -287,7 +287,7 @@
     <!-- LEFT: Feedback Loop - Human Direct + Social Sources -->
     <div
       bind:this={socialNodesRef}
-      class="lg:col-span-1 p-6 lg:p-10 flex flex-col justify-center gap-6 border-b lg:border-b-0 lg:border-r border-cosmic-500/10"
+      class="hidden lg:flex lg:col-span-1 p-6 lg:p-10 flex-col justify-center gap-6 border-b lg:border-b-0 lg:border-r border-cosmic-500/10"
     >
       <div class="mb-4">
         <h3
@@ -394,7 +394,7 @@
 
     <!-- CENTER: Neural Brain + Earnings -->
     <div
-      class="lg:col-span-2 relative flex flex-col items-center justify-center py-10 min-h-[500px]"
+      class="col-span-1 lg:col-span-2 relative flex flex-col items-center justify-center py-4 lg:py-10 min-h-[300px] lg:min-h-[500px]"
     >
       <!-- Brain Canvas & Ports Wrapper -->
       <div
@@ -406,11 +406,11 @@
         <!-- Neural input/output points -->
         <div
           bind:this={neuralInRef}
-          class="neural-port left-16 lg:left-24"
+          class="neural-port left-12 lg:left-32 hidden lg:block"
         ></div>
         <div
           bind:this={neuralOutRef}
-          class="neural-port right-16 lg:right-24"
+          class="neural-port right-12 lg:right-32 hidden lg:block"
         ></div>
 
         <!-- Brain Canvas -->
@@ -418,7 +418,7 @@
       </div>
 
       <!-- Earnings Display -->
-      <div class="z-20 mt-4 flex flex-col items-center w-full px-6">
+      <div class="z-20 mt-4 hidden lg:flex flex-col items-center w-full px-6">
         <div class="earnings-display mb-8 w-full max-w-sm">
           <p
             class="text-[10px] text-ethereal-400/80 uppercase font-bold tracking-[0.4em] mb-2 text-center"
@@ -454,7 +454,7 @@
     <!-- RIGHT: Strategic Processing -->
     <div
       bind:this={strategyCardsRef}
-      class="lg:col-span-1 p-6 lg:p-10 flex flex-col justify-center gap-6 border-t lg:border-t-0 lg:border-l border-ethereal-500/10"
+      class="hidden lg:flex lg:col-span-1 p-6 lg:p-10 flex-col justify-center gap-6 border-t lg:border-t-0 lg:border-l border-ethereal-500/10"
     >
       <div class="mb-4 lg:text-right">
         <h3
@@ -682,9 +682,10 @@
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 50%;
-    border: 1.5px solid rgba(99, 102, 241, 0.3);
-    background: rgba(99, 102, 241, 0.1);
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    border: 1.5px solid rgba(99, 102, 241, 0.5);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    z-index: 50;
   }
 
   .strategy-card {
