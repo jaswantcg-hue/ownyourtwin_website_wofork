@@ -396,19 +396,26 @@
     <div
       class="lg:col-span-2 relative flex flex-col items-center justify-center py-10 min-h-[500px]"
     >
-      <!-- Neural glow background -->
-      <div class="neural-glow"></div>
-
-      <!-- Neural input/output points -->
-      <div bind:this={neuralInRef} class="neural-port left-6 lg:left-12"></div>
+      <!-- Brain Canvas & Ports Wrapper -->
       <div
-        bind:this={neuralOutRef}
-        class="neural-port right-6 lg:right-12"
-      ></div>
+        class="relative w-full flex-1 min-h-[300px] max-h-[300px] flex items-center justify-center"
+      >
+        <!-- Neural glow background -->
+        <div class="neural-glow"></div>
 
-      <!-- Brain Canvas -->
-      <canvas bind:this={canvasRef} class="w-full h-full max-h-[300px] z-10"
-      ></canvas>
+        <!-- Neural input/output points -->
+        <div
+          bind:this={neuralInRef}
+          class="neural-port left-16 lg:left-24"
+        ></div>
+        <div
+          bind:this={neuralOutRef}
+          class="neural-port right-16 lg:right-24"
+        ></div>
+
+        <!-- Brain Canvas -->
+        <canvas bind:this={canvasRef} class="w-full h-full z-10"></canvas>
+      </div>
 
       <!-- Earnings Display -->
       <div class="z-20 mt-4 flex flex-col items-center w-full px-6">

@@ -125,7 +125,7 @@
 
     <div class="relative z-10">
       <h3 class="text-1xl md:text-4xl font-bold text-white mb-6">
-        See how Digital Twins can work for you.
+        See how Digital Twins can work for you
       </h3>
       <p class="text-void-300 mb-10 max-w-2xl mx-auto text-lg md:text-xl">
         Request a live demo to see how OwnYourTwin can help you take control of

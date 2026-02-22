@@ -75,7 +75,7 @@
   --color-void-700: #334155;
   --color-void-800: #1e293b;
   --color-void-900: #0f172a;
-  --color-void-950: #020617;
+  --color-void-950: #001f3f;
 
   /* Custom fonts */
   --font-sans: "Inter", system-ui, sans-serif;
@@ -117,16 +117,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image:
-    radial-gradient(
-      ellipse at top,
+    radial-gradient(ellipse at top,
       rgba(99, 102, 241, 0.04) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at bottom right,
+      transparent 50%),
+    radial-gradient(ellipse at bottom right,
       rgba(16, 185, 129, 0.03) 0%,
-      transparent 50%
-    );
+      transparent 50%);
   min-height: 100vh;
 }
 
@@ -184,20 +180,20 @@ pre {
 
 /* Custom gradient background */
 .bg-gradient-neural {
-  background: linear-gradient(
-    180deg,
-    var(--color-void-950) 0%,
-    var(--color-void-900) 40%,
-    var(--color-void-950) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--color-void-950) 0%,
+      var(--color-void-900) 40%,
+      var(--color-void-950) 100%);
 }
 
 /* Keyframe animations */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -207,16 +203,19 @@ pre {
   0% {
     box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
   }
+
   100% {
     box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
   }
 }
 
 @keyframes gradient {
+
   0%,
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -226,6 +225,7 @@ pre {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -236,6 +236,7 @@ pre {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -247,6 +248,7 @@ pre {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -258,6 +260,7 @@ pre {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -268,18 +271,21 @@ pre {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 @keyframes typing {
+
   0%,
   60%,
   100% {
     transform: translateY(0);
     opacity: 0.6;
   }
+
   30% {
     transform: translateY(-4px);
     opacity: 1;

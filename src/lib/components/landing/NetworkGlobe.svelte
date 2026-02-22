@@ -66,7 +66,7 @@
 
             // Draw connections
             ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 5;
 
             for (let i = 0; i < projectedPoints.length; i++) {
                 for (let j = i + 1; j < projectedPoints.length; j++) {
