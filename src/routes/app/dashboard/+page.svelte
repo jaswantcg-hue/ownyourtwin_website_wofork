@@ -314,7 +314,7 @@
                 <div
                   class="h-full bg-ethereal-500 rounded-full"
                   style="width: {values[i]}%"
-                />
+                >
               </div>
               </div>
               <div class="h-1.5 bg-void-700 rounded-full overflow-hidden">
