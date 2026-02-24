@@ -31,8 +31,6 @@
   let earnings = $state(1250.78);
 
   // Element refs for flow connections
-  let neuralInRef: HTMLDivElement;
-  let neuralOutRef: HTMLDivElement;
   let humanOriginRef: HTMLDivElement;
   let socialNodesRef: HTMLDivElement;
   let strategyCardsRef: HTMLDivElement;
@@ -44,22 +42,22 @@
     const rx = 350; // 144 * 1.4
     const ry = 250; // 108 * 1.4
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 500; i++) {
       const angle = Math.random() * Math.PI * 2;
       const r = Math.sqrt(Math.random());
       let px = Math.cos(angle) * r * rx;
       let py = Math.sin(angle) * r * ry;
       // Create brain-like indent
-      if (Math.abs(px) < 20) py *= 0.85;
+      if (Math.abs(px) < 25) py *= 0.8;
 
       brainPoints.push({
         x: cx + px,
         y: cy + py,
         origX: cx + px,
         origY: cy + py,
-        alpha: 0.15 + Math.random() * 0.4,
-        size: 0.8 + Math.random() * 1.0,
-        pulseSpeed: 0.02 + Math.random() * 0.03,
+        alpha: 0.1 + Math.random() * 0.45,
+        size: 0.66 + Math.random() * 5.2,
+        pulseSpeed: 0.015 + Math.random() * 0.035,
       });
     }
   }
@@ -70,13 +68,9 @@
     const svgRect = containerRef.getBoundingClientRect();
 
     // Get element positions
-    const neuralIn = neuralInRef?.getBoundingClientRect();
-    const neuralOut = neuralOutRef?.getBoundingClientRect();
     const humanOrigin = humanOriginRef?.getBoundingClientRect();
     const socialNodes = socialNodesRef?.querySelectorAll(".social-node");
     const strategyCards = strategyCardsRef?.querySelectorAll(".strategy-card");
-
-    if (!neuralIn || !neuralOut) return;
 
     // Clear existing paths
     svgRef.innerHTML = `
@@ -96,9 +90,10 @@
             </defs>
         `;
 
-    const biX = neuralIn.left - svgRect.left + neuralIn.width / 2;
+    // Targeted brain entry/exit points (relative to SVG/Container)
+    const biX = svgRect.width * (window.innerWidth < 1024 ? 0.3 : 0.38);
     const biY = svgRect.height / 2;
-    const boX = neuralOut.left - svgRect.left + neuralOut.width / 2;
+    const boX = svgRect.width * (window.innerWidth < 1024 ? 0.7 : 0.62);
     const boY = svgRect.height / 2;
 
     // 1. Human Direct to Brain (Active Feedback - prominent)
@@ -165,7 +160,7 @@
       "http://www.w3.org/2000/svg",
       "circle",
     );
-    circle.setAttribute("r", "2");
+    circle.setAttribute("r", "2.2");
     circle.setAttribute("fill", color);
     circle.style.filter = `drop-shadow(0 0 4px ${color})`;
 
@@ -184,8 +179,18 @@
   function init() {
     if (!canvasRef) return;
 
-    width = canvasRef.width = canvasRef.offsetWidth;
-    height = canvasRef.height = canvasRef.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvasRef.getBoundingClientRect();
+
+    width = canvasRef.width = rect.width * dpr;
+    height = canvasRef.height = rect.height * dpr;
+
+    const ctx = canvasRef.getContext("2d");
+    if (ctx) ctx.scale(dpr, dpr);
+
+    // UI logical dimensions
+    width = rect.width;
+    height = rect.height;
 
     generateBrain();
 
@@ -203,15 +208,14 @@
 
     // Draw neural connections
     ctx.beginPath();
-    ctx.lineWidth = 0.4;
-    for (let i = 0; i < brainPoints.length; i += 5) {
-      for (let j = i + 1; j < brainPoints.length; j += 15) {
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < brainPoints.length; i += 6) {
+      for (let j = i + 1; j < brainPoints.length; j += 18) {
         const dx = brainPoints[i].x - brainPoints[j].x;
         const dy = brainPoints[i].y - brainPoints[j].y;
         const dist = dx * dx + dy * dy;
-        if (dist < 3390) {
-          // 1728 * 1.4^2
-          ctx.strokeStyle = `rgba(99, 102, 241, ${0.12 * (1 - dist / 3390)})`;
+        if (dist < 3200) {
+          ctx.strokeStyle = `rgba(99, 102, 241, ${0.15 * (1 - dist / 3200)})`;
           ctx.moveTo(brainPoints[i].x, brainPoints[i].y);
           ctx.lineTo(brainPoints[j].x, brainPoints[j].y);
         }
@@ -287,11 +291,11 @@
     <!-- LEFT: Feedback Loop - Human Direct + Social Sources -->
     <div
       bind:this={socialNodesRef}
-      class="hidden lg:flex lg:col-span-1 p-6 lg:p-10 flex-col justify-center gap-6 border-b lg:border-b-0 lg:border-r border-cosmic-500/10"
+      class="hidden lg:flex lg:col-span-1 p-7 lg:p-10 flex-col justify-center gap-6 border-b lg:border-b-0 lg:border-r border-cosmic-500/10"
     >
-      <div class="mb-4">
+      <div class="mb-1">
         <h3
-          class="text-xs tracking-[0.3em] uppercase text-cosmic-400 font-bold"
+          class="text-lg tracking-[0.2em] uppercase text-cosmic-400 font-bold"
         >
           Feedback Loop
         </h3>
@@ -403,16 +407,6 @@
         <!-- Neural glow background -->
         <div class="neural-glow"></div>
 
-        <!-- Neural input/output points -->
-        <div
-          bind:this={neuralInRef}
-          class="neural-port left-12 lg:left-32 hidden lg:block"
-        ></div>
-        <div
-          bind:this={neuralOutRef}
-          class="neural-port right-12 lg:right-32 hidden lg:block"
-        ></div>
-
         <!-- Brain Canvas -->
         <canvas bind:this={canvasRef} class="w-full h-full z-10"></canvas>
       </div>
@@ -458,7 +452,7 @@
     >
       <div class="mb-4 lg:text-right">
         <h3
-          class="text-xs tracking-[0.3em] uppercase text-ethereal-400 font-bold"
+          class="text-lg tracking-[0.2em] uppercase text-ethereal-400 font-bold"
         >
           Strategic Processing
         </h3>
@@ -673,19 +667,6 @@
       opacity: 0.8;
       transform: translate(-50%, -50%) scale(1.15);
     }
-  }
-
-  .neural-port {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 50%;
-    border: 1.5px solid rgba(99, 102, 241, 0.5);
-    background: rgba(15, 23, 42, 0.9);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-    z-index: 50;
   }
 
   .strategy-card {

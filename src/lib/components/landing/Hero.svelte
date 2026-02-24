@@ -44,28 +44,16 @@
 </script>
 
 <section class="relative min-h-screen flex items-center overflow-hidden">
-  <!-- Background gradient -->
-  <div class="absolute inset-0 bg-gradient-neural"></div>
+  <!-- Background Face image -->
+  <div class="hero-bg-image"></div>
+  <!-- Dark overlay for readability -->
+  <div class="absolute inset-0 bg-void-950/60"></div>
 
-  <!-- Ambient gradient orbs -->
-  <div class="absolute inset-0 opacity-30">
-    <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 bg-cosmic-600/20 rounded-full blur-[100px] animate-pulse-slow"
-    ></div>
-    <div
-      class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-ethereal-600/15 rounded-full blur-[100px] animate-pulse-slow"
-      style="animation-delay: 1s;"
-    ></div>
-    <div
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cosmic-500/10 rounded-full blur-[150px]"
-    ></div>
-  </div>
-
-  <div class="container mx-auto px-4 py-12 md:py-20 relative z-10">
+  <div class="container mx-auto px-4 pt-0 pb-12 md:pt-4 md:pb-20 relative z-10">
     <div class="flex flex-col items-center gap-12 lg:gap-16">
       <!-- Digital Twin Visualization (Now first and zoomed) -->
       <div
-        class="relative h-[300px] sm:h-[400px] md:h-[650px] lg:h-[850px] w-full animate-fade-in lg:transform lg:scale-110"
+        class="relative h-[300px] sm:h-[400px] md:h-[650px] lg:h-[850px] w-full animate-fade-in -mt-8 lg:-mt-16 lg:transform lg:scale-110"
         style="animation-delay: 0.3s;"
       >
         <!-- Digital Twin with embedded HUD -->
@@ -267,5 +255,22 @@
 
   .animate-gradient {
     animation: gradient 6s ease infinite;
+  }
+
+  .hero-bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url("/Face.png");
+    background-size: 155%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-bg-image {
+      background-position: center top;
+    }
   }
 </style>
