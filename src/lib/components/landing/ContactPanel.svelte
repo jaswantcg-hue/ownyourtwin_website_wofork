@@ -50,7 +50,9 @@
 
         <div class="relative z-10">
             <h2 class="text-3xl font-bold text-white mb-2 leading-tight">
-                Contact Echora - <span class="text-cosmic-400">Minimalist</span>
+                Contact OwnYourTwin - <span class="text-cosmic-400"
+                    >Minimalist</span
+                >
             </h2>
             <p class="text-void-400 text-sm mb-10 leading-relaxed">
                 Reach out to our digital proxy team for seamless integration and
@@ -72,7 +74,7 @@
                         <a
                             href="mailto:hello@echora.io"
                             class="text-void-400 text-sm hover:text-cosmic-400 transition-colors"
-                            >hello@echora.io</a
+                            >contact@ownyourtwin.com</a
                         >
                     </div>
                 </div>
@@ -88,8 +90,8 @@
                             Visit Us
                         </h4>
                         <p class="text-void-400 text-sm">
-                            Void Slate Environment, Suite 404<br />
-                            Digital District, NY 10001
+                            OwnYourTwin<br />
+                            Bangalore, KA ,India
                         </p>
                     </div>
                 </div>
