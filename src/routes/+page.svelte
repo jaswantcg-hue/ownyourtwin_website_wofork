@@ -12,6 +12,7 @@
     ForIndividuals,
     MediaTestimonials,
     WaitlistModal,
+    ContactPanel,
   } from "$lib/components/landing";
 
   // Demo modal state
@@ -61,6 +62,9 @@
 
 <!-- Footer with Demo CTA -->
 <Footer onDemoClick={openDemoModal} />
+
+<!-- Hover Contact Panel -->
+<ContactPanel />
 
 <!-- Request a Demo Modal -->
 <WaitlistModal bind:open={showDemoModal} />

@@ -231,7 +231,7 @@
         <div class="hidden md:flex items-center gap-3">
           <Button variant="ghost" href="/login">Login</Button>
           <Button variant="primary" onclick={onDemoClick}>
-            Request a Demo
+            Sign Up for Early Access
           </Button>
         </div>
       {/if}
@@ -284,7 +284,7 @@
         <div class="flex flex-col gap-2 px-4">
           <Button variant="ghost" href="/login">Login</Button>
           <Button variant="primary" onclick={onDemoClick}>
-            Request a Demo
+            Sign Up for Early Access
           </Button>
         </div>
       </div>

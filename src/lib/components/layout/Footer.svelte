@@ -136,7 +136,7 @@
         class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg transform hover:-translate-y-1"
         onclick={onDemoClick}
       >
-        Request a Demo
+        Sign Up for Early Access
       </button>
     </div>
   </div>

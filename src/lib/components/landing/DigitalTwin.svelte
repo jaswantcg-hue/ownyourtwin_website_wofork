@@ -109,7 +109,8 @@
       directPath.setAttribute("d", dHumanDirect);
       directPath.setAttribute("class", "flow-line");
       directPath.setAttribute("stroke", "url(#grad-direct)");
-      directPath.setAttribute("stroke-width", "2");
+      directPath.setAttribute("stroke-width", "3");
+      directPath.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(directPath);
       addPulse(dHumanDirect, "#a78bfa", 3.5);
     }
@@ -128,15 +129,16 @@
       path.setAttribute("d", d);
       path.setAttribute("class", "flow-line");
       path.setAttribute("stroke", "url(#grad-social)");
-      path.setAttribute("stroke-width", "1");
+      path.setAttribute("stroke-width", "3");
+      path.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(path);
-      addPulse(d, "rgba(99, 102, 241, 0.4)", 5 + Math.random() * 2);
+      addPulse(d, "rgba(99, 102, 241, 0.4)", 5 + Math.random() * 1);
     });
 
     // 3. Brain to Strategy Cards (Output Processing)
     strategyCards?.forEach((card) => {
       const r = card.getBoundingClientRect();
-      const nx = r.left - svgRect.left;
+      const nx = r.left - svgRect.left - 4;
       const ny = r.top - svgRect.top + r.height / 2;
       const d = `M ${boX} ${boY} C ${boX + (nx - boX) * 0.5} ${boY}, ${boX + (nx - boX) * 0.5} ${ny}, ${nx} ${ny}`;
 
@@ -147,7 +149,7 @@
       path.setAttribute("d", d);
       path.setAttribute("class", "flow-line");
       path.setAttribute("stroke", "url(#grad-out)");
-      path.setAttribute("stroke-width", "1.5");
+      path.setAttribute("stroke-width", "3");
       svgRef.appendChild(path);
       addPulse(d, "#2dd4bf", 4 + Math.random() * 2);
     });

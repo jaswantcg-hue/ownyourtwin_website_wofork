@@ -164,10 +164,7 @@
                                 poster="/video-poster.jpg"
                                 controls
                             >
-                                <source
-                                    src="/OwnYourTwin.mp4"
-                                    type="video/mp4"
-                                />
+                                <source src="/Wave.mp4" type="video/mp4" />
                                 <track kind="captions" />
                                 Your browser does not support the video tag.
                             </video>
