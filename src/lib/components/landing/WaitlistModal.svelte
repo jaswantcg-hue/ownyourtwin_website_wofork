@@ -1,5 +1,5 @@
 <!--
-  Request a Demo Modal (formerly WaitlistModal)
+  Sign Up for Early Access Modal (formerly WaitlistModal)
   Collects demo request with name, email, phone, and interests
 -->
 <script lang="ts">
@@ -100,7 +100,7 @@
 
 <Modal
   bind:open
-  title={isSubmitted ? "" : "Request a Demo"}
+  title={isSubmitted ? "" : "Sign Up for Early Access"}
   size="md"
   onclose={handleClose}
   closeOnBackdrop={!isSubmitting}
@@ -315,7 +315,7 @@
               />
             </svg>
           {/snippet}
-          Request Demo
+          Sign Up for Early Access
         </Button>
       </div>
     </form>

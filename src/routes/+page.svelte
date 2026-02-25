@@ -66,5 +66,5 @@
 <!-- Hover Contact Panel -->
 <ContactPanel />
 
-<!-- Request a Demo Modal -->
+<!-- Sign Up for Early Access Modal -->
 <WaitlistModal bind:open={showDemoModal} />

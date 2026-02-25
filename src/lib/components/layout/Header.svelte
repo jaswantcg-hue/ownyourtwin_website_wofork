@@ -1,6 +1,6 @@
 <!--
   Header Component
-  Main navigation header with in-page nav links, Login, and Request a Demo CTA
+  Main navigation header with in-page nav links, Login, and Sign Up for Early Access CTA
 -->
 <script lang="ts">
   import { page } from "$app/stores";
@@ -209,7 +209,7 @@
           {/if}
         </div>
       {:else}
-        <!-- Public nav - Landing page links + Login + Request a Demo -->
+        <!-- Public nav - Landing page links + Login + Sign Up for Early Access -->
         <nav class="hidden md:flex items-center gap-6">
           {#each landingNavItems as item}
             <a
@@ -274,7 +274,14 @@
           {#each landingNavItems as item}
             <a
               href={item.href}
-              onclick={(e) => handleSmoothScroll(e, item.href)}
+              onclick={(e) => {
+                if (item.href.startsWith("#")) {
+                  handleSmoothScroll(e, item.href);
+                } else {
+                  mobileMenuOpen = false;
+                  handleNavClick(e, item.href);
+                }
+              }}
               class="px-4 py-2 text-sm text-void-300 hover:text-white transition-colors font-medium rounded-lg hover:bg-void-800/50"
             >
               {item.label}

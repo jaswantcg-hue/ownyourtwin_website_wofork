@@ -70,7 +70,7 @@ To provide a dual-sided ecosystem:
 
 ### Get a Demo
 
-* **Call to Action:** Instead of "Get Started" and "Create My Twin" we invite you to **"Request a Demo."** , it will ask for user contact information (email, phone number, etc.) and a short description of what they are looking for. This data and website visit analytics helps us to identify their interest in such ideas so we can develop this furhter.
+* **Call to Action:** Instead of "Get Started" and "Create My Twin" we invite you to **"Sign Up for Early Access."** , it will ask for user contact information (email, phone number, etc.) and a short description of what they are looking for. This data and website visit analytics helps us to identify their interest in such ideas so we can develop this furhter.
 * **Show your interest:** Share your contact details and a brief description of what you are looking.
 
 Implement full fucntionality of the website.
