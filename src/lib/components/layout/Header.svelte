@@ -62,11 +62,17 @@
 
   // Handle smooth scroll for landing page nav
   function handleSmoothScroll(e: Event, href: string) {
-    e.preventDefault();
     mobileMenuOpen = false;
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if ($page.url.pathname === "/") {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      // If not on home page, navigate to root + anchor
+      e.preventDefault();
+      goto("/" + href);
     }
   }
 
