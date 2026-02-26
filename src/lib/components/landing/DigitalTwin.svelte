@@ -135,10 +135,10 @@
       addPulse(d, "rgba(99, 102, 241, 0.4)", 5 + Math.random() * 1);
     });
 
-    // 3. Brain to Strategy Cards (Output Processing)
-    strategyCards?.forEach((card) => {
-      const r = card.getBoundingClientRect();
-      const nx = r.left - svgRect.left - 4;
+    // 3. Brain to Strategy Cards (Symmetrical Curved Flows)
+    strategyCards?.forEach((node) => {
+      const r = node.getBoundingClientRect();
+      const nx = r.left - svgRect.left - 120;
       const ny = r.top - svgRect.top + r.height / 2;
       const d = `M ${boX} ${boY} C ${boX + (nx - boX) * 0.5} ${boY}, ${boX + (nx - boX) * 0.5} ${ny}, ${nx} ${ny}`;
 
@@ -150,8 +150,9 @@
       path.setAttribute("class", "flow-line");
       path.setAttribute("stroke", "url(#grad-out)");
       path.setAttribute("stroke-width", "3");
+      path.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(path);
-      addPulse(d, "#2dd4bf", 4 + Math.random() * 2);
+      addPulse(d, "#2dd4bf", 5 + Math.random() * 2);
     });
   }
 

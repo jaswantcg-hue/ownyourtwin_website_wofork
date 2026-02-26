@@ -29,7 +29,7 @@
 >
     <!-- Trigger Icon (Floating) -->
     <div
-        class="w-14 h-14 bg-void-900/80 backdrop-blur-xl border border-cosmic-500/30 rounded-l-2xl flex items-center justify-center text-cosmic-400 cursor-pointer pointer-events-auto shadow-glow-sm hover:shadow-glow transition-all duration-300 group-hover:bg-cosmic-600 group-hover:text-white"
+        class="w-14 h-14 bg-gradient-to-r from-cosmic-600 to-cosmic-500 border border-cosmic-400/30 rounded-l-2xl flex items-center justify-center text-white cursor-pointer pointer-events-auto shadow-glow-sm hover:shadow-glow hover:from-cosmic-500 hover:to-cosmic-400 transition-all duration-300"
     >
         <MessageSquare class="w-6 h-6" />
     </div>
@@ -63,7 +63,7 @@
             <div class="space-y-6 mb-12">
                 <div class="flex items-start gap-4">
                     <div
-                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-orange-500"
+                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-cosmic-500"
                     >
                         <Mail class="w-5 h-5" />
                     </div>
@@ -81,7 +81,7 @@
 
                 <div class="flex items-start gap-4">
                     <div
-                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-orange-500"
+                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-cosmic-500"
                     >
                         <MapPin class="w-5 h-5" />
                     </div>
@@ -91,7 +91,11 @@
                         </h4>
                         <p class="text-void-400 text-sm">
                             OwnYourTwin<br />
-                            Bangalore, KA ,India
+                            Bangalore, KA, India
+                            <br />
+                            Seattle, WA, US
+                            <br />
+                            Toronto, ON, Canada
                         </p>
                     </div>
                 </div>
