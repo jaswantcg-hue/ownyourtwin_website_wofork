@@ -55,6 +55,14 @@
 
   // Handle URL params for OAuth callbacks
   onMount(() => {
+    // Restriction: Registration is closed
+    showError(
+      "Registration Closed",
+      "Account creation is currently restricted.",
+    );
+    setTimeout(() => goto("/login"), 2000);
+    return;
+
     const googleAuth = $page.url.searchParams.get("google_auth");
     const githubAuth = $page.url.searchParams.get("github_auth");
     const linkedinConnected = $page.url.searchParams.get("linkedin");

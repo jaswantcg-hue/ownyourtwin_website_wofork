@@ -77,6 +77,14 @@ export const GET: RequestHandler = async ({ url }) => {
         // For now, redirect to create-twin with success indicator
         // The frontend will handle the mock user creation
 
+        const allowedEmail = env.ALLOWED_EMAIL;
+
+        // Check for specific restriction
+        if (!allowedEmail || userInfo.email !== allowedEmail) {
+            console.warn(`Unauthorized login attempt from Google: ${userInfo.email}`);
+            throw redirect(302, '/login?error=unauthorized');
+        }
+
         const params = new URLSearchParams({
             google_auth: 'success',
             email: userInfo.email,

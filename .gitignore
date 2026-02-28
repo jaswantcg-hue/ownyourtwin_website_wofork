@@ -31,3 +31,6 @@ vite.config.ts.timestamp-*
 
 /../generated/prisma
 testsprite_tests/*
+
+#Username and password -Login
+.env 

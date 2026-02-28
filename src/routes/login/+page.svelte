@@ -182,15 +182,7 @@
             </button>
           </div>
 
-          <!-- Forgot password link -->
-          <div class="flex justify-end">
-            <a
-              href="/forgot-password"
-              class="text-sm text-cosmic-400 hover:text-cosmic-300"
-            >
-              Forgot password?
-            </a>
-          </div>
+          <!-- Forgot password link removed for restricted access -->
 
           <!-- Submit button -->
           <Button
@@ -203,53 +195,10 @@
           </Button>
         </form>
 
-        <!-- Divider -->
-        <div class="relative my-6">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-void-700"></div>
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-void-800/40 text-void-400"
-              >or continue with</span
-            >
-          </div>
-        </div>
-
-        <!-- Social login buttons -->
-        <div class="grid grid-cols-2 gap-3">
-          <button
-            class="flex items-center justify-center gap-2 px-4 py-2.5 bg-void-700 hover:bg-void-600 rounded-xl transition-colors"
-          >
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-              />
-            </svg>
-            <span class="text-sm text-white">GitHub</span>
-          </button>
-          <button
-            class="flex items-center justify-center gap-2 px-4 py-2.5 bg-void-700 hover:bg-void-600 rounded-xl transition-colors"
-          >
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M22.23 5.924c-.806.358-1.67.6-2.577.708a4.515 4.515 0 001.98-2.49 9.017 9.017 0 01-2.86 1.095 4.504 4.504 0 00-7.677 4.108 12.78 12.78 0 01-9.29-4.71 4.504 4.504 0 001.394 6.014 4.48 4.48 0 01-2.04-.563v.057a4.504 4.504 0 003.616 4.415 4.52 4.52 0 01-2.034.077 4.505 4.505 0 004.207 3.13 9.038 9.038 0 01-5.6 1.93c-.364 0-.724-.021-1.08-.063a12.746 12.746 0 006.904 2.023c8.28 0 12.81-6.86 12.81-12.81 0-.195-.004-.39-.013-.583a9.172 9.172 0 002.252-2.336"
-              />
-            </svg>
-            <span class="text-sm text-white">Google</span>
-          </button>
-        </div>
+        <!-- Social login disabled -->
       </Card>
 
-      <!-- Sign up link -->
-      <p class="text-center mt-6 text-void-400">
-        Don't have an account?
-        <a
-          href="/create-twin"
-          class="text-cosmic-400 hover:text-cosmic-300 font-medium"
-        >
-          Create your twin
-        </a>
-      </p>
+      <!-- Registration link removed -->
     </div>
   </main>
 </div>
