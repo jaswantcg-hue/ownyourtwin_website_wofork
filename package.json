@@ -36,6 +36,7 @@
 		"@typescript-eslint/eslint-plugin": "^6.9.0"
 	},
 	"dependencies": {
+		"@analytics/google-analytics": "^1.1.0",
 		"@prisma/adapter-pg": "^7.4.0",
 		"@prisma/client": "^7.4.0",
 		"@types/three": "^0.182.0",
