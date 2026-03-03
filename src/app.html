@@ -21,7 +21,32 @@
     </script>
     %sveltekit.head%
   </head>
-  <body data-sveltekit-preload-data="hover" class="bg-void-950 text-white">
-    <div style="display: contents">%sveltekit.body%</div>
-  </body>
+ <body data-sveltekit-preload-data="hover" class="bg-void-950 text-white">
+  <div style="display: contents">%sveltekit.body%</div>
+
+  <button id="myBtn" onclick="getLocation()">Get Location</button> 
+  <p id="output"></p> 
+  <script>
+    function getLocation() { 
+      if (navigator.geolocation) { 
+        navigator.geolocation.getCurrentPosition(showPosition, showError); 
+      } else { 
+        document.getElementById("output").innerHTML = "Geolocation not supported."; 
+      } 
+    } 
+
+    function showPosition(position) { 
+      document.getElementById("output").innerHTML = 
+        "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude; 
+    } 
+
+    function showError(error) { 
+      document.getElementById("output").innerHTML = "Error: " + error.message; 
+    } 
+
+    // Run automatically when the page loads
+    window.onload = getLocation;
+  </script>
+</body>
 </html>
