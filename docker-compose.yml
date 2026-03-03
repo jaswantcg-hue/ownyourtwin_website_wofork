@@ -1,0 +1,13 @@
+services:
+  aura-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aura-ai-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=${DATABASE_URL}
+    restart: unless-stopped
