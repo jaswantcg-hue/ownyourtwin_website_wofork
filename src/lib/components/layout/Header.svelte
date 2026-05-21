@@ -1,20 +1,16 @@
 <!--
-  Header Component
-  Main navigation header with in-page nav links, Login, and Sign Up for Early Access CTA
+  Header Component — OwnYourTwin Redesign
+  Monochrome editorial: transparent over hero, white on scroll
 -->
 <script lang="ts">
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { isAuthenticated, currentUser, authStore } from "$lib/stores/auth";
-  import { uiStore } from "$lib/stores/ui";
-  import Button from "../common/Button.svelte";
   import Avatar from "../common/Avatar.svelte";
   import Logo from "../common/Logo.svelte";
 
   interface Props {
-    /** Transparent header (for landing page) */
     transparent?: boolean;
-    /** Handler for opening demo request modal */
     onDemoClick?: () => void;
   }
 
@@ -24,250 +20,179 @@
   let scrolled = $state(false);
   let mobileMenuOpen = $state(false);
 
-  // Navigation items for authenticated users
   const navItems = [
-    { label: "Journal", href: "/app/chat", icon: "message-circle" },
-    { label: "Dashboard", href: "/app/dashboard", icon: "layout-dashboard" },
-    { label: "Explorer", href: "/app/explorer", icon: "compass" },
+    { label: "Journal", href: "/app/chat" },
+    { label: "Dashboard", href: "/app/dashboard" },
+    { label: "Explorer", href: "/app/explorer" },
   ];
 
-  // Landing page nav links (smooth scroll)
   const landingNavItems = [
     { label: "How It Works", href: "#how-it-works" },
     { label: "For You", href: "#for-individuals" },
     { label: "For Business", href: "/forBusiness" },
-    { label: "Blogs", href: "/blog" },
+    { label: "Blog", href: "/blog" },
   ];
 
-  // Handle logout
   async function handleLogout() {
     await authStore.logout();
     goto("/");
   }
 
-  // Handle logo click - logout if authenticated
   async function handleLogoClick(e: Event) {
     e.preventDefault();
-    if ($isAuthenticated) {
-      await authStore.logout();
-    }
+    if ($isAuthenticated) await authStore.logout();
     goto("/");
   }
 
-  // Handle navigation click
   function handleNavClick(e: Event, href: string) {
     e.preventDefault();
     goto(href);
   }
 
-  // Handle smooth scroll for landing page nav
   function handleSmoothScroll(e: Event, href: string) {
     mobileMenuOpen = false;
     if ($page.url.pathname === "/") {
       e.preventDefault();
       const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      // If not on home page, navigate to root + anchor
       e.preventDefault();
       goto("/" + href);
     }
   }
 
-  // Close menu on outside click
   function handleOutsideClick() {
     showUserMenu = false;
   }
 
-  // Track scroll for header background
   function handleScroll() {
-    scrolled = window.scrollY > 50;
+    scrolled = window.scrollY > 40;
   }
 </script>
 
 <svelte:window onclick={handleOutsideClick} onscroll={handleScroll} />
 
 <header
-  class="
-    fixed top-0 left-0 right-0 z-50
-    transition-all duration-300
-    {transparent && !scrolled
-    ? 'bg-transparent'
-    : 'bg-void-900/90 backdrop-blur-xl border-b border-void-800'}
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  style="
+    background-color: {transparent && !scrolled ? 'transparent' : 'rgba(255,255,255,0.97)'};
+    backdrop-filter: {scrolled ? 'blur(12px)' : 'none'};
+    border-bottom: {scrolled ? '1px solid #e0e0e0' : '1px solid transparent'};
   "
 >
-  <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
+  <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; height:64px;">
+
       <!-- Logo -->
-      <a
-        href="/"
-        onclick={handleLogoClick}
-        class="flex items-center gap-2 group"
-      >
+      <a href="/" onclick={handleLogoClick} style="display:flex; align-items:center; gap:8px; text-decoration:none;">
         <Logo size="md" />
       </a>
 
-      <!-- Navigation -->
+      <!-- Nav -->
       {#if $isAuthenticated}
-        <!-- Authenticated nav -->
-        <nav class="hidden md:flex items-center gap-1">
+        <nav style="display:flex; align-items:center; gap:4px;">
           {#each navItems as item}
             <a
               href={item.href}
               onclick={(e) => handleNavClick(e, item.href)}
-              class="
-                px-4 py-2 rounded-lg text-sm font-medium
-                transition-all duration-200
-                {$page.url.pathname === item.href
-                ? 'text-white bg-void-700/80'
-                : 'text-void-300 hover:text-white hover:bg-void-800/50'}
+              style="
+                padding:8px 16px;
+                border-radius:9999px;
+                font-family:'Montserrat',sans-serif;
+                font-size:0.875rem;
+                font-weight:500;
+                text-decoration:none;
+                transition:all 0.2s;
+                color:{$page.url.pathname === item.href ? '#111111' : '#888888'};
+                background:{$page.url.pathname === item.href ? '#efefef' : 'transparent'};
               "
-            >
-              {item.label}
-            </a>
+            >{item.label}</a>
           {/each}
         </nav>
-
         <!-- User menu -->
-        <div class="relative">
+        <div style="position:relative;">
           <button
-            class="flex items-center gap-3 p-2 rounded-xl hover:bg-void-800/50 transition-colors"
-            onclick={(e) => {
-              e.stopPropagation();
-              showUserMenu = !showUserMenu;
-            }}
+            style="display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:9999px; border:none; background:transparent; cursor:pointer; transition:background 0.2s;"
+            onmouseenter={(e) => (e.currentTarget as HTMLElement).style.background = '#f0f0f0'}
+            onmouseleave={(e) => (e.currentTarget as HTMLElement).style.background = 'transparent'}
+            onclick={(e) => { e.stopPropagation(); showUserMenu = !showUserMenu; }}
           >
             <Avatar name={$currentUser?.name || ""} size="sm" status="online" />
-            <span class="hidden md:block text-sm text-void-200">
-              {$currentUser?.name || "User"}
-            </span>
-            <svg
-              class="w-4 h-4 text-void-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+            <span style="font-family:'Montserrat',sans-serif; font-size:0.875rem; font-weight:500; color:#555555;">{$currentUser?.name || "User"}</span>
           </button>
-
-          <!-- Dropdown menu -->
           {#if showUserMenu}
             <div
-              class="absolute right-0 mt-2 w-56 bg-void-800 border border-void-700 rounded-xl shadow-xl overflow-hidden animate-slide-down"
+              class="animate-slide-down"
               role="menu"
               tabindex="-1"
               onkeydown={(e) => e.key === "Escape" && (showUserMenu = false)}
+              style="position:absolute; right:0; top:calc(100% + 8px); width:220px; background:#ffffff; border:1px solid #e0e0e0; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.1); overflow:hidden;"
             >
-              <div class="p-4 border-b border-void-700">
-                <div class="font-medium text-white">{$currentUser?.name}</div>
-                <div class="text-sm text-void-400">{$currentUser?.email}</div>
+              <div style="padding:16px; border-bottom:1px solid #f0f0f0;">
+                <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:0.9rem; color:#111111;">{$currentUser?.name}</div>
+                <div style="font-family:'Lora',serif; font-size:0.8rem; color:#aaaaaa;">{$currentUser?.email}</div>
               </div>
-              <div class="p-2">
+              <div style="padding:8px;">
                 <a
                   href="/app/dashboard"
                   onclick={(e) => handleNavClick(e, "/app/dashboard")}
-                  class="flex items-center gap-3 px-3 py-2 rounded-lg text-void-300 hover:text-white hover:bg-void-700 transition-colors"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                  Account Settings
-                </a>
+                  style="display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; text-decoration:none; transition:all 0.2s;"
+                  onmouseenter={(e) => { (e.currentTarget as HTMLElement).style.background='#f8f8f6'; (e.currentTarget as HTMLElement).style.color='#111111'; }}
+                  onmouseleave={(e) => { (e.currentTarget as HTMLElement).style.background='transparent'; (e.currentTarget as HTMLElement).style.color='#555555'; }}
+                >Account Settings</a>
                 <button
-                  class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-void-300 hover:text-white hover:bg-void-700 transition-colors"
                   onclick={handleLogout}
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    />
-                  </svg>
-                  Sign Out
-                </button>
+                  style="width:100%; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; background:none; border:none; cursor:pointer; transition:all 0.2s; text-align:left;"
+                  onmouseenter={(e) => { (e.currentTarget as HTMLElement).style.background='#f8f8f6'; (e.currentTarget as HTMLElement).style.color='#111111'; }}
+                  onmouseleave={(e) => { (e.currentTarget as HTMLElement).style.background='transparent'; (e.currentTarget as HTMLElement).style.color='#555555'; }}
+                >Sign Out</button>
               </div>
             </div>
           {/if}
         </div>
+
       {:else}
-        <!-- Public nav - Landing page links + Login + Sign Up for Early Access -->
-        <nav class="hidden md:flex items-center gap-6">
+        <!-- Public nav -->
+        <nav class="hidden md:flex" style="align-items:center; gap:8px;">
           {#each landingNavItems as item}
             <a
               href={item.href}
               onclick={(e) => {
-                if (item.href.startsWith("#")) {
-                  handleSmoothScroll(e, item.href);
-                } else {
-                  handleNavClick(e, item.href);
-                }
+                if (item.href.startsWith("#")) handleSmoothScroll(e, item.href);
+                else handleNavClick(e, item.href);
               }}
-              class="text-sm text-void-300 hover:text-white transition-colors font-medium"
-            >
-              {item.label}
-            </a>
+              style="padding:8px 14px; font-family:'Montserrat',sans-serif; font-size:0.875rem; font-weight:500; color:#888888; text-decoration:none; border-radius:9999px; transition:all 0.2s;"
+              onmouseenter={(e) => { (e.currentTarget as HTMLElement).style.color='#111111'; }}
+              onmouseleave={(e) => { (e.currentTarget as HTMLElement).style.color='#888888'; }}
+            >{item.label}</a>
           {/each}
         </nav>
 
-        <div class="hidden md:flex items-center gap-3">
-          <Button variant="ghost" href="/login">Login</Button>
-          <Button variant="primary" onclick={onDemoClick}>
-            Sign Up for Early Access
-          </Button>
+        <div class="hidden md:flex" style="align-items:center; gap:10px;">
+          <a
+            href="/login"
+            onclick={(e) => handleNavClick(e, "/login")}
+            class="btn-ghost-nav"
+            style="text-decoration:none;"
+          >Login</a>
+          <button class="btn-clay" onclick={onDemoClick}>
+            Get Early Access
+          </button>
         </div>
       {/if}
 
-      <!-- Mobile menu button -->
+      <!-- Mobile hamburger -->
       <button
-        class="md:hidden p-2 rounded-lg text-void-300 hover:text-white hover:bg-void-800"
+        class="md:hidden"
+        style="padding:8px; border:none; background:transparent; cursor:pointer; border-radius:8px;"
         onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
-        aria-label="Toggle mobile menu"
+        aria-label="Toggle menu"
       >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg width="22" height="22" fill="none" stroke="#555555" stroke-width="2" viewBox="0 0 24 24">
           {#if mobileMenuOpen}
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           {:else}
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           {/if}
         </svg>
       </button>
@@ -275,49 +200,29 @@
 
     <!-- Mobile menu -->
     {#if mobileMenuOpen && !$isAuthenticated}
-      <div class="md:hidden py-4 border-t border-void-800 animate-slide-down">
-        <nav class="flex flex-col gap-2 mb-4">
+      <div
+        class="md:hidden animate-slide-down"
+        style="padding:16px 0 24px; border-top:1px solid #e0e0e0;"
+      >
+        <nav style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
           {#each landingNavItems as item}
             <a
               href={item.href}
               onclick={(e) => {
-                if (item.href.startsWith("#")) {
-                  handleSmoothScroll(e, item.href);
-                } else {
-                  mobileMenuOpen = false;
-                  handleNavClick(e, item.href);
-                }
+                if (item.href.startsWith("#")) handleSmoothScroll(e, item.href);
+                else { mobileMenuOpen = false; handleNavClick(e, item.href); }
               }}
-              class="px-4 py-2 text-sm text-void-300 hover:text-white transition-colors font-medium rounded-lg hover:bg-void-800/50"
-            >
-              {item.label}
-            </a>
+              style="padding:10px 12px; font-family:'Montserrat',sans-serif; font-size:0.9rem; font-weight:500; color:#555555; text-decoration:none; border-radius:8px; transition:background 0.2s;"
+              onmouseenter={(e) => (e.currentTarget as HTMLElement).style.background='#f8f8f6'}
+              onmouseleave={(e) => (e.currentTarget as HTMLElement).style.background='transparent'}
+            >{item.label}</a>
           {/each}
         </nav>
-        <div class="flex flex-col gap-2 px-4">
-          <Button variant="ghost" href="/login">Login</Button>
-          <Button variant="primary" onclick={onDemoClick}>
-            Sign Up for Early Access
-          </Button>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a href="/login" onclick={(e) => handleNavClick(e, "/login")} class="btn-ghost-nav" style="text-decoration:none; text-align:center; justify-content:center;">Login</a>
+          <button class="btn-clay" onclick={onDemoClick} style="width:100%;">Get Early Access</button>
         </div>
       </div>
     {/if}
   </div>
 </header>
-
-<style>
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-slide-down {
-    animation: slideDown 0.2s ease-out;
-  }
-</style>

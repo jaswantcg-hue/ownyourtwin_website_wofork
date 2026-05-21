@@ -1,136 +1,108 @@
+<!--
+  Contact Panel — OwnYourTwin Redesign
+  Slide-out panel on right edge, updated to monochrome + clay theme
+-->
 <script lang="ts">
-    import {
-        Mail,
-        MapPin,
-        Share2,
-        Globe,
-        Network,
-        MessageSquare,
-    } from "lucide-svelte";
-    import { slide, fade } from "svelte/transition";
-    import { quintOut } from "svelte/easing";
-
-    let isHovered = $state(false);
-
-    // Social links from provided design
-    const socials = [
-        { icon: Share2, label: "Share" },
-        { icon: Globe, label: "Web" },
-        { icon: Network, label: "Network" },
-    ];
+  let isHovered = $state(false);
 </script>
 
 <div
-    class="fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex items-center group pointer-events-none"
-    role="complementary"
-    aria-label="Contact information"
-    onmouseenter={() => (isHovered = true)}
-    onmouseleave={() => (isHovered = false)}
+  class="fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex items-center"
+  role="complementary"
+  aria-label="Contact information"
+  onmouseenter={() => (isHovered = true)}
+  onmouseleave={() => (isHovered = false)}
 >
-    <!-- Trigger Icon (Floating) -->
-    <div
-        class="w-14 h-14 bg-gradient-to-r from-cosmic-600 to-cosmic-500 border border-cosmic-400/30 rounded-l-2xl flex items-center justify-center text-white cursor-pointer pointer-events-auto shadow-glow-sm hover:shadow-glow hover:from-cosmic-500 hover:to-cosmic-400 transition-all duration-300"
-    >
-        <MessageSquare class="w-6 h-6" />
+  <!-- Tab trigger -->
+  <div style="
+    width:48px; height:48px;
+    background:#111111;
+    border-radius:10px 0 0 10px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    box-shadow:-4px 0 16px rgba(0,0,0,0.15);
+    transition:background 0.2s;
+  "
+  onmouseenter={(e) => (e.currentTarget as HTMLElement).style.background = '#c4856a'}
+  onmouseleave={(e) => (e.currentTarget as HTMLElement).style.background = '#111111'}
+  >
+    <svg width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </div>
+
+  <!-- Slide-out panel -->
+  <div style="
+    position:fixed;
+    right:0;
+    top:50%;
+    transform: translateY(-50%) translateX({isHovered ? '0' : '100%'});
+    opacity:{isHovered ? '1' : '0'};
+    visibility:{isHovered ? 'visible' : 'hidden'};
+    width:320px;
+    background:#ffffff;
+    border:1px solid #e0e0e0;
+    border-radius:16px 0 0 16px;
+    padding:32px 28px;
+    box-shadow:-8px 0 32px rgba(0,0,0,0.1);
+    transition:transform 0.35s ease, opacity 0.35s ease;
+    z-index:100;
+  ">
+    <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.1rem; color:#111111; margin-bottom:6px;">
+      Get in Touch
+    </h2>
+    <p style="font-family:'Lora',serif; font-style:italic; font-size:0.85rem; color:#888888; margin-bottom:24px; line-height:1.6;">
+      Reach out to our team for questions, support, or just to say hello.
+    </p>
+
+    <!-- Email -->
+    <div style="display:flex; align-items:flex-start; gap:14px; margin-bottom:20px;">
+      <div style="
+        width:38px; height:38px; flex-shrink:0;
+        border-radius:9px; background:#f0f0f0;
+        display:flex; align-items:center; justify-content:center;
+      ">
+        <svg width="16" height="16" fill="none" stroke="#555555" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:3px;">Email</div>
+        <a href="mailto:contact@ownyourtwin.com" style="font-family:'Lora',serif; font-size:0.85rem; color:#555555; text-decoration:none; transition:color 0.2s;"
+           onmouseenter={(e) => (e.currentTarget as HTMLElement).style.color='#c4856a'}
+           onmouseleave={(e) => (e.currentTarget as HTMLElement).style.color='#555555'}
+        >contact@ownyourtwin.com</a>
+      </div>
     </div>
 
-    <!-- Slide-out Panel -->
-    <div
-        class="fixed right-0 h-auto max-h-[80vh] w-[350px] bg-void-950/90 backdrop-blur-2xl border-l border-y border-cosmic-500/20 rounded-l-3xl p-8 shadow-2xl transition-all duration-500 ease-quint-out pointer-events-auto"
-        style="transform: translateX({isHovered
-            ? '0'
-            : '100%'}); opacity: {isHovered ? '1' : '0'}; visibility: {isHovered
-            ? 'visible'
-            : 'hidden'}"
-    >
-        <!-- Background Gradient Glow -->
-        <div
-            class="absolute inset-0 bg-gradient-to-br from-cosmic-500/5 via-transparent to-ethereal-500/5 pointer-events-none"
-        ></div>
-
-        <div class="relative z-10">
-            <h2 class="text-3xl font-bold text-white mb-2 leading-tight">
-                Contact OwnYourTwin - <span class="text-cosmic-400"
-                    >Minimalist</span
-                >
-            </h2>
-            <p class="text-void-400 text-sm mb-10 leading-relaxed">
-                Reach out to our digital proxy team for seamless integration and
-                support.
-            </p>
-
-            <!-- Contact Items -->
-            <div class="space-y-6 mb-12">
-                <div class="flex items-start gap-4">
-                    <div
-                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-cosmic-500"
-                    >
-                        <Mail class="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-semibold text-white">
-                            Email Us
-                        </h4>
-                        <a
-                            href="mailto:hello@echora.io"
-                            class="text-void-400 text-sm hover:text-cosmic-400 transition-colors"
-                            >contact@ownyourtwin.com</a
-                        >
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-4">
-                    <div
-                        class="w-10 h-10 rounded-xl bg-void-900 border border-void-800 flex items-center justify-center text-cosmic-500"
-                    >
-                        <MapPin class="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-semibold text-white">
-                            Visit Us
-                        </h4>
-                        <p class="text-void-400 text-sm">
-                            OwnYourTwin<br />
-                            Bangalore, KA, India
-                            <br />
-                            Seattle, WA, US
-                            <br />
-                            Toronto, ON, Canada
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Socials -->
-            <div>
-                <h4 class="text-sm font-semibold text-white mb-4">
-                    Follow the Proxy
-                </h4>
-                <div class="flex gap-3">
-                    {#each socials as { icon: Icon, label }}
-                        <button
-                            class="w-10 h-10 rounded-full bg-void-900 border border-void-800 flex items-center justify-center text-void-400 hover:text-white hover:bg-void-800 hover:border-cosmic-500/30 transition-all duration-300"
-                            aria-label={label}
-                        >
-                            <Icon class="w-5 h-5" />
-                        </button>
-                    {/each}
-                </div>
-            </div>
-        </div>
+    <!-- Location -->
+    <div style="display:flex; align-items:flex-start; gap:14px; margin-bottom:24px;">
+      <div style="
+        width:38px; height:38px; flex-shrink:0;
+        border-radius:9px; background:#f0f0f0;
+        display:flex; align-items:center; justify-content:center;
+      ">
+        <svg width="16" height="16" fill="none" stroke="#555555" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:3px;">Offices</div>
+        <p style="font-family:'Lora',serif; font-size:0.85rem; color:#555555; line-height:1.6; margin:0;">
+          Bangalore, India<br/>
+          Seattle, WA, US<br/>
+          Toronto, ON, Canada
+        </p>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+
+    <!-- CTA -->
+    <button class="btn-clay" style="width:100%; justify-content:center; font-size:0.875rem; padding:0.7rem 1rem;">
+      Send a Message
+    </button>
+  </div>
 </div>
-
-<style>
-    :global(.shadow-glow-sm) {
-        box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
-    }
-
-    :global(.shadow-glow) {
-        box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
-    }
-
-    .ease-quint-out {
-        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-    }
-</style>

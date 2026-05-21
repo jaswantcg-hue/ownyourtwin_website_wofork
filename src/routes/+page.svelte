@@ -1,13 +1,15 @@
 <!--
   OwnYourTwin Landing Page
-  Premium, trust-building landing page for Digital Twin concept validation
+  Monochrome editorial redesign — Montserrat + Lora
 -->
 <script lang="ts">
   import Header from "$lib/components/layout/Header.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
   import {
     Hero,
+    ProblemSection,
     HowItWorks,
+    StatsStrip,
     TrustSection,
     ForIndividuals,
     MediaTestimonials,
@@ -15,7 +17,6 @@
     ContactPanel,
   } from "$lib/components/landing";
 
-  // Demo modal state
   let showDemoModal = $state(false);
 
   function openDemoModal() {
@@ -30,41 +31,45 @@
 </script>
 
 <svelte:head>
-  <title
-    >OwnYourTwin - Own Your Data. Earn From It. | Digital Twin Platform</title
-  >
+  <title>OwnYourTwin — Own Your Data. Earn From It.</title>
   <meta
     name="description"
     content="Create an AI-powered Digital Twin that you own, you control, and that earns for you. Ethical consumer insights for businesses. Data sovereignty for individuals."
   />
 </svelte:head>
 
-<!-- Header with transparent mode for hero -->
+<!-- Header -->
 <Header transparent={true} onDemoClick={openDemoModal} />
 
 <!-- Main landing sections -->
 <main>
-  <!-- 1. Hero: Headline + DigitalTwin visualization -->
+  <!-- 1. Hero: Editorial headline + ghost figure -->
   <Hero onDemoClick={openDemoModal} />
 
-  <!-- 2. How It Works: Connect → Twin Evolves → Earn -->
+  <!-- 2. Problem: Old World vs New World comparison -->
+  <ProblemSection />
+
+  <!-- 3. How It Works: 01/02/03 editorial steps -->
   <HowItWorks />
 
-  <!-- 3. Trust Section: Data privacy pillars -->
+  <!-- 4. Stats Strip: Key numbers on black -->
+  <StatsStrip />
+
+  <!-- 5. Trust Section: 5 privacy pillars -->
   <TrustSection />
 
-  <!-- 5. For Individuals: Value proposition for end users -->
+  <!-- 6. For Individuals: Benefits + contained video -->
   <ForIndividuals />
 
-  <!-- 7. Media & Testimonials -->
+  <!-- 7. Testimonials: 3 clean quote cards on charcoal -->
   <MediaTestimonials onDemoClick={openDemoModal} />
 </main>
 
-<!-- Footer with Demo CTA -->
+<!-- Footer with CTA strip -->
 <Footer onDemoClick={openDemoModal} />
 
-<!-- Hover Contact Panel -->
+<!-- Contact Panel -->
 <ContactPanel />
 
-<!-- Sign Up for Early Access Modal -->
+<!-- Early Access Modal -->
 <WaitlistModal bind:open={showDemoModal} />
