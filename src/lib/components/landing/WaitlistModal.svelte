@@ -46,7 +46,14 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (!response.ok) throw new Error("Failed to submit");
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        if (response.status === 409 && body.field === 'email') {
+          errors = { ...errors, email: 'This email is already registered' };
+          return;
+        }
+        throw new Error("Failed to submit");
+      }
       isSubmitted = true;
       showSuccess("We've received your request!", "Our team will reach out to you shortly.");
       setTimeout(() => {

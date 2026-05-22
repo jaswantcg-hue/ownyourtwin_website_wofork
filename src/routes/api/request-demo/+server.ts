@@ -1,27 +1,29 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import mssql from 'mssql';
+import prisma from '$lib/server/prisma';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const data = await request.json();
-    console.log('Received request data:', data);
-    const { name, email,phone,interests } = data;
+    const { name, email, phone, interests } = data;
 
-    // Basic validation
     if (!name || !email) {
       return json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    console.log('Demo request received (no-op):', { name, email });
-    const connectionString = 'Server=tcp:sqlserverscm.database.windows.net,1433;Initial Catalog=free-sql-db-3057187;Persist Security Info=False;User ID=jaswant;Password=Password@01;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;';
+    const existing = await prisma.demoRequest.findUnique({ where: { email: String(email) } });
+    if (existing) {
+      return json({ error: 'Email already registered', field: 'email' }, { status: 409 });
+    }
 
-    const pool = new mssql.ConnectionPool(connectionString);
-
-    await pool.connect();
-    const query = pool.request();
-    await query.query(`INSERT INTO ConsultationRequests (Application,name, email,phone,description) VALUES ('OwnYourTwin', '${name}', '${email}', '${phone}', '${interests}')`);
-    await pool.close();
+    await prisma.demoRequest.create({
+      data: {
+        name: String(name),
+        email: String(email),
+        phone: phone ? String(phone) : null,
+        interests: interests ? String(interests) : null,
+      },
+    });
 
     return json({ success: true, message: 'Request received' });
   } catch (error) {
