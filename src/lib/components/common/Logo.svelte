@@ -1,3 +1,7 @@
+<!--
+  Logo — OwnYourTwin Redesign
+  Updated for monochrome + clay palette (removed old dark theme vars)
+-->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
 
@@ -5,195 +9,143 @@
     size?: "sm" | "md" | "lg" | "xl";
     showText?: boolean;
     class?: string;
+    invertForDark?: boolean;
   }
 
-  let { size = "md", showText = true, class: className = "" }: Props = $props();
+  let { size = "md", showText = true, class: className = "", invertForDark = false }: Props = $props();
 
   let isHovered = $state(false);
   let activeNodes = $state<number[]>([]);
   let interval: ReturnType<typeof setInterval>;
 
-  const theme = {
-    bg: "var(--color-void-950)",
-    human: "var(--color-cosmic-500)", // Aura Blue
-    twin: "var(--color-ethereal-400)", // Aura Green
-    cyan: "var(--color-neural-400)",
-    white: "#ffffff",
-  };
-
   onMount(() => {
     interval = setInterval(() => {
-      const nodes = Array.from({ length: 5 }, () =>
-        Math.floor(Math.random() * 12),
-      );
-      activeNodes = nodes;
-    }, 800);
+      activeNodes = Array.from({ length: 4 }, () => Math.floor(Math.random() * 12));
+    }, 900);
   });
 
-  onDestroy(() => {
-    if (interval) clearInterval(interval);
-  });
+  onDestroy(() => { if (interval) clearInterval(interval); });
 
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-10 h-10",
-    lg: "w-16 h-16",
-    xl: "w-24 h-24",
+  const sizeMap = {
+    sm: { svg: 32, text: "1.1rem" },
+    md: { svg: 40, text: "1.25rem" },
+    lg: { svg: 56, text: "1.6rem" },
+    xl: { svg: 80, text: "2.2rem" },
   };
 
-  const textSizes = {
-    sm: "text-lg",
-    md: "text-xl",
-    lg: "text-2xl",
-    xl: "text-4xl",
-  };
+  // Colours adapt: normal = black logo, invertForDark = white logo (used in footer)
+  const primary   = $derived(invertForDark ? "#ffffff" : "#111111");
+  const secondary = "#888888";
+  const accent    = "#c4856a"; // clay — always visible
+  const nodeActive = "#c4856a";
 </script>
 
 <div
-  class="flex items-center gap-3 group cursor-pointer {className}"
+  class="logo-wrap {className}"
+  style="display:inline-flex; align-items:center; gap:10px; cursor:pointer;"
   onmouseenter={() => (isHovered = true)}
   onmouseleave={() => (isHovered = false)}
-  role="button"
-  tabindex="0"
+  role="img"
+  aria-label="OwnYourTwin"
 >
-  <!-- Main Logo Container -->
-  <div class="relative {sizeClasses[size]}">
-    <!-- Background Neural Glow -->
-    <div
-      class="absolute inset-0 bg-cosmic-500/10 blur-[20px] rounded-full transition-opacity duration-1000 {isHovered
-        ? 'opacity-100'
-        : 'opacity-40'}"
-    ></div>
-
-    <svg
-      viewBox="0 0 200 200"
-      class="w-full h-full relative z-10 overflow-visible"
-    >
+  <!-- SVG mark -->
+  <div style="width:{sizeMap[size].svg}px; height:{sizeMap[size].svg}px; position:relative; flex-shrink:0;">
+    <svg viewBox="0 0 200 200" style="width:100%; height:100%; overflow:visible;">
       <defs>
-        <filter id="neon-{size}" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        <filter id="soft-{size}" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feComposite in="SourceGraphic" in2="blur" operator="over"/>
         </filter>
-
-        <linearGradient
-          id="brainGrad-{size}"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="100%"
-        >
-          <stop offset="0%" stop-color={theme.human} />
-          <stop offset="100%" stop-color={theme.cyan} />
-        </linearGradient>
       </defs>
 
-      <!-- LEFT HALF: THE SOVEREIGN MIND (Solid/Structural) -->
-      <path
-        d="M100 35 
-           C70 35, 40 60, 40 100 
-           C40 140, 70 165, 100 165
-           L100 145
-           C80 145, 60 125, 60 100
-           C60 75, 80 55, 100 55
-           Z"
-        fill="url(#brainGrad-{size})"
-        class="transition-all duration-700"
-        style:filter={isHovered ? `url(#neon-${size})` : "none"}
-        style:opacity={0.9}
-        style:transform={isHovered ? "translateX(-5px)" : "none"}
-      />
-
-      <!-- RIGHT HALF: THE DIGITAL TWIN (Neural Mesh/Nodes) -->
-      <g
-        class="transition-all duration-700"
-        style:transform={isHovered ? "translateX(5px)" : "none"}
-      >
-        <!-- Mesh Connections -->
-        <path
-          d="M100 35 C140 35, 170 60, 170 100 C170 140, 140 165, 100 165"
-          stroke={theme.twin}
-          stroke-width="1.5"
-          stroke-dasharray="4 4"
-          fill="none"
-          class="opacity-30"
-        />
-
-        <!-- Neural Nodes (Strategic Processing Points) -->
-        {#each Array(12) as _, i}
-          {@const angle = (i / 11) * Math.PI - Math.PI / 2}
-          {@const r = 65}
-          {@const cx = 100 + Math.cos(angle) * r}
-          {@const cy = 100 + Math.sin(angle) * r}
-          {@const isActive = activeNodes.includes(i)}
-          <g>
-            <!-- Connection Line to Core -->
-            <line
-              x1="100"
-              y1="100"
-              x2={cx}
-              y2={cy}
-              stroke={theme.twin}
-              stroke-width="0.5"
-              class="transition-opacity duration-500 {isActive
-                ? 'opacity-40'
-                : 'opacity-10'}"
-            />
-            <!-- The Node -->
-            <circle
-              {cx}
-              {cy}
-              r={isActive ? 3 : 1.5}
-              fill={isActive ? theme.white : theme.twin}
-              style:filter={isActive ? `url(#neon-${size})` : "none"}
-              class="transition-all duration-300"
-            />
-          </g>
-        {/each}
-      </g>
-
-      <!-- CENTRAL SYNC CORE -->
+      <!-- Outer orbit ring -->
       <circle
-        cx="100"
-        cy="100"
-        r="15"
-        fill={theme.bg}
-        stroke={theme.white}
+        cx="100" cy="100" r="78"
+        fill="none"
+        stroke={accent}
         stroke-width="1"
+        stroke-dasharray="5 7"
+        opacity="0.35"
+        style="transition: opacity 0.4s;"
+        style:opacity={isHovered ? "0.6" : "0.35"}
       />
+
+      <!-- LEFT HALF — solid arc (the Human / sovereign mind) -->
+      <path
+        d="M100 22 C62 22, 32 57, 32 100 C32 143, 62 178, 100 178
+           L100 158 C73 158, 52 132, 52 100 C52 68, 73 42, 100 42 Z"
+        fill={primary}
+        style="transition: transform 0.4s ease;"
+        style:transform={isHovered ? "translateX(-3px)" : "translateX(0)"}
+      />
+
+      <!-- RIGHT HALF — dashed arc (the Digital Twin / neural mesh) -->
+      <path
+        d="M100 22 C138 22, 168 57, 168 100 C168 143, 138 178, 100 178"
+        fill="none"
+        stroke={accent}
+        stroke-width="14"
+        stroke-dasharray="6 6"
+        stroke-linecap="round"
+        style="transition: transform 0.4s ease, opacity 0.4s;"
+        style:transform={isHovered ? "translateX(3px)" : "translateX(0)"}
+        style:opacity={isHovered ? "1" : "0.75"}
+      />
+
+      <!-- Neural nodes on right arc -->
+      {#each Array(8) as _, i}
+        {@const angle = ((i / 7) * Math.PI) - Math.PI / 2}
+        {@const r = 78}
+        {@const cx = 100 + Math.cos(angle) * r}
+        {@const cy = 100 + Math.sin(angle) * r}
+        {@const isActive = activeNodes.includes(i)}
+        {#if cx >= 100}
+          <circle
+            {cx} {cy}
+            r={isActive ? 4 : 2}
+            fill={isActive ? nodeActive : secondary}
+            opacity={isActive ? 1 : 0.4}
+            style="transition: all 0.3s ease;"
+          />
+        {/if}
+      {/each}
+
+      <!-- Central sync dot -->
       <circle
-        cx="100"
-        cy="100"
-        r="6"
-        fill={theme.white}
-        class="animate-pulse"
-        style:filter={`url(#neon-${size})`}
+        cx="100" cy="100" r="8"
+        fill={accent}
+        opacity="0.9"
+        style="transition: r 0.3s ease;"
+        style:r={isHovered ? "10" : "8"}
       />
+      <circle cx="100" cy="100" r="3" fill={primary} />
     </svg>
   </div>
 
-  <!-- Typography -->
+  <!-- Wordmark -->
   {#if showText}
-    <div class="flex flex-col justify-center">
-      <h1
-        class="{textSizes[
-          size
-        ]} font-bold tracking-tighter text-white leading-none"
-      >
-        OWN<span class="text-void-400 font-light">YOUR</span><span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-ethereal-400 to-neural-400"
-          >TWIN</span
-        >
-      </h1>
-      {#if size === "xl" || size === "lg"}
-        <div class="mt-1 flex items-center gap-2">
-          <div class="h-[1px] w-4 bg-cosmic-500/20"></div>
-          <span
-            class="text-[0.6rem] font-medium tracking-[0.2em] text-void-400 uppercase leading-none"
-          >
-            The <span class="text-ethereal-500/80">Neural</span> Income Protocol
-          </span>
-          <div class="h-[1px] w-4 bg-ethereal-500/20"></div>
-        </div>
+    <div style="display:flex; flex-direction:column; justify-content:center; line-height:1;">
+      <span style="
+        font-family:'Montserrat',sans-serif;
+        font-size:{sizeMap[size].text};
+        font-weight:800;
+        letter-spacing:-0.03em;
+        color:{primary};
+        white-space:nowrap;
+      ">
+        OWN<span style="font-weight:400; color:{secondary};">YOUR</span><span style="color:{accent};">TWIN</span>
+      </span>
+      {#if size === "lg" || size === "xl"}
+        <span style="
+          font-family:'Montserrat',sans-serif;
+          font-size:0.58rem;
+          font-weight:600;
+          letter-spacing:0.2em;
+          text-transform:uppercase;
+          color:{secondary};
+          margin-top:4px;
+          opacity:0.7;
+        ">Data Sovereignty Platform</span>
       {/if}
     </div>
   {/if}

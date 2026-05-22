@@ -10,7 +10,7 @@
 
   const testimonials = [
     {
-      quote: "I finally feel like my data is working for me, not against me. The privacy controls are incredible — I choose exactly what gets shared, and I see every penny earned.",
+      quote: "I finally feel like my data is working for me, not against me. The privacy controls are incredible. I choose exactly what gets shared, and I see every penny earned.",
       name: "Sarah M.",
       role: "Early Adopter · Product Designer",
       initial: "S",

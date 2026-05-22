@@ -39,7 +39,7 @@
           margin-bottom:24px;
         ">
           We don't sell your data. We don't scrape your profiles. 
-          We built an architecture where you are always in control — 
+          We built an architecture where you are always in control.
           not just in theory, but by technical design.
         </p>
         <p style="
@@ -64,17 +64,17 @@
         {
           icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
           title: 'Privacy by Design',
-          body: 'Your data is encrypted at rest and in transit. We never access your raw data — only your Twin does, on your instruction.',
+          body: 'Your data is encrypted at rest and in transit. We never access your raw data. Only your Twin does, on your instruction.',
         },
         {
           icon: 'M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2',
           title: 'You Own Your Data',
-          body: 'Your Digital Twin belongs to you — not us, not advertisers. You hold the keys to your digital self, always.',
+          body: 'Your Digital Twin belongs to you, not us, not advertisers. You hold the keys to your digital self, always.',
         },
         {
           icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
           title: 'Granular Control',
-          body: 'Choose exactly what your Twin shares. Toggle permissions per category, per request, per business — at any time.',
+          body: 'Choose exactly what your Twin shares. Toggle permissions per category, per request, per business, at any time.',
         },
       ] as pillar, i}
         <div

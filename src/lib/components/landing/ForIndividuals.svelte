@@ -41,7 +41,7 @@
           margin-bottom:48px;
         " class="animate-fade-in-up">
           Connect once, benefit forever. Your Twin works for you around the clock 
-          — no effort required after setup. You stay in control at every step.
+          - no effort required after setup, and you stay in control at every step.
         </p>
 
         <!-- Benefit cards stacked -->
@@ -49,12 +49,12 @@
           {
             icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
             title: 'Chat in Your Comfort Zone',
-            body: 'Connect through WhatsApp or Telegram. No new apps to learn — your Twin meets you where you already spend your time.',
+            body: 'Connect through WhatsApp or Telegram. No new apps to learn. Your Twin meets you where you already spend your time.',
           },
           {
             icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
             title: 'Your 24/7 AI Companion',
-            body: 'Your Twin learns your values and preferences. It helps with journaling, reflection, and cognitive reframing — like a wise friend who truly knows you.',
+            body: 'Your Twin learns your values and preferences. It helps with journaling, reflection, and cognitive reframing, like a wise friend who truly knows you.',
           },
           {
             icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
@@ -239,7 +239,7 @@
           <!-- Caption -->
           <div style="margin-top:14px; padding:0 4px;">
             <p style="font-family:'Lora',serif; font-style:italic; font-size:0.8rem; color:#666666; line-height:1.5; margin:0;">
-              Your Twin responds to businesses on your behalf — and you earn directly. 
+              Your Twin responds to businesses on your behalf and you earn directly. 
               You see every interaction, every penny.
             </p>
           </div>

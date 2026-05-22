@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-  <title>OwnYourTwin — Own Your Data. Earn From It.</title>
+  <title>OwnYourTwin: Own Your Data. Earn From It.</title>
   <meta
     name="description"
     content="Create an AI-powered Digital Twin that you own, you control, and that earns for you. Ethical consumer insights for businesses. Data sovereignty for individuals."

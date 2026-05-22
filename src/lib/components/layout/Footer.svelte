@@ -1,9 +1,8 @@
 <!--
   Footer — OwnYourTwin Redesign
-  Footer CTA on off-white, then black footer with minimal links
+  CTA strip on off-white, then a black footer with legible light-grey text
 -->
 <script lang="ts">
-  import { APP_CONFIG } from "$lib/constants";
   import { Logo } from "$lib/components/common";
 
   interface Props {
@@ -91,7 +90,7 @@
       margin-bottom:32px;
       line-height:1.6;
     ">
-      Join the early access list. Be among the first to experience 
+      Join the early access list. Be among the first to experience
       data ownership the way it should be.
     </p>
     <button
@@ -118,34 +117,30 @@
       gap:48px;
       margin-bottom:48px;
       padding-bottom:48px;
-      border-bottom:1px solid #222222;
+      border-bottom:1px solid #2a2a2a;
     ">
       <!-- Brand -->
       <div>
-        <div style="margin-bottom:16px; filter:brightness(10);">
-          <Logo size="sm" />
+        <div style="margin-bottom:16px;">
+          <Logo size="sm" invertForDark={true} />
         </div>
         <p style="
           font-family:'Lora',serif;
           font-size:0.875rem;
-          color:#555555;
+          color:#aaaaaa;
           line-height:1.65;
           margin-bottom:20px;
           max-width:280px;
         ">
-          {APP_CONFIG.tagline} Create an AI-powered Digital Twin that gives you control of your data and earns you value.
+          Own Your Data. Earn From It. Create an AI-powered Digital Twin
+          that gives you control of your data and earns you value.
         </p>
         <!-- Trust note -->
-        <div style="
-          display:flex;
-          align-items:center;
-          gap:8px;
-          margin-bottom:20px;
-        ">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;">
           <svg width="13" height="13" fill="none" stroke="#c4856a" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
-          <span style="font-family:'Montserrat',sans-serif; font-size:0.72rem; font-weight:500; color:#555555;">Your data is never sold. Ever.</span>
+          <span style="font-family:'Montserrat',sans-serif; font-size:0.72rem; font-weight:500; color:#888888;">Your data is never sold. Ever.</span>
         </div>
         <!-- Socials -->
         <div style="display:flex; gap:10px;">
@@ -157,13 +152,13 @@
               style="
                 width:34px; height:34px;
                 border-radius:8px;
-                background:#1a1a1a;
-                border:1px solid #2a2a2a;
+                background:#1e1e1e;
+                border:1px solid #2e2e2e;
                 display:flex; align-items:center; justify-content:center;
                 transition:all 0.2s;
               "
             >
-              <svg style="width:14px;height:14px;" fill="#666666" viewBox="0 0 24 24">
+              <svg style="width:14px;height:14px;" fill="#888888" viewBox="0 0 24 24">
                 <path d={social.icon}/>
               </svg>
             </a>
@@ -175,11 +170,11 @@
       <div>
         <h4 style="
           font-family:'Montserrat',sans-serif;
-          font-size:0.7rem;
+          font-size:0.68rem;
           font-weight:700;
-          letter-spacing:0.15em;
+          letter-spacing:0.18em;
           text-transform:uppercase;
-          color:#444444;
+          color:#666666;
           margin-bottom:20px;
         ">Product</h4>
         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
@@ -189,7 +184,6 @@
                 href={link.href}
                 onclick={(e) => handleSmoothScroll(e, link.href)}
                 class="footer-link"
-                style="font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; text-decoration:none; transition:color 0.2s;"
               >{link.label}</a>
             </li>
           {/each}
@@ -200,19 +194,17 @@
       <div>
         <h4 style="
           font-family:'Montserrat',sans-serif;
-          font-size:0.7rem;
+          font-size:0.68rem;
           font-weight:700;
-          letter-spacing:0.15em;
+          letter-spacing:0.18em;
           text-transform:uppercase;
-          color:#444444;
+          color:#666666;
           margin-bottom:20px;
         ">Company</h4>
         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
           {#each footerLinks.company as link}
             <li>
-              <a href={link.href} class="footer-link" style="font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; text-decoration:none; transition:color 0.2s;">
-                {link.label}
-              </a>
+              <a href={link.href} class="footer-link">{link.label}</a>
             </li>
           {/each}
         </ul>
@@ -222,19 +214,17 @@
       <div>
         <h4 style="
           font-family:'Montserrat',sans-serif;
-          font-size:0.7rem;
+          font-size:0.68rem;
           font-weight:700;
-          letter-spacing:0.15em;
+          letter-spacing:0.18em;
           text-transform:uppercase;
-          color:#444444;
+          color:#666666;
           margin-bottom:20px;
         ">Legal</h4>
         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
           {#each footerLinks.legal as link}
             <li>
-              <a href={link.href} class="footer-link" style="font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; text-decoration:none; transition:color 0.2s;">
-                {link.label}
-              </a>
+              <a href={link.href} class="footer-link">{link.label}</a>
             </li>
           {/each}
         </ul>
@@ -249,13 +239,13 @@
       justify-content:space-between;
       gap:16px;
     ">
-      <p style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#333333; margin:0;">
-        © {currentYear} {APP_CONFIG.name}. All rights reserved. Your data is encrypted, protected, and always yours.
+      <p style="font-family:'Montserrat',sans-serif; font-size:0.72rem; color:#666666; margin:0;">
+        &copy; {currentYear} OwnYourTwin. All rights reserved. Your data is encrypted, protected, and always yours.
       </p>
       <div style="display:flex; gap:20px;">
-        <a href="/privacy" class="footer-link" style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#333333; text-decoration:none;">Privacy</a>
-        <a href="/terms" class="footer-link" style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#333333; text-decoration:none;">Terms</a>
-        <a href="/cookies" class="footer-link" style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#333333; text-decoration:none;">Cookies</a>
+        <a href="/privacy" class="footer-link-sm">Privacy</a>
+        <a href="/terms" class="footer-link-sm">Terms</a>
+        <a href="/cookies" class="footer-link-sm">Cookies</a>
       </div>
     </div>
 
@@ -263,16 +253,29 @@
 </footer>
 
 <style>
-  .footer-link:hover {
-    color: #ffffff !important;
+  .footer-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: #aaaaaa;
+    text-decoration: none;
+    transition: color 0.2s;
   }
+  .footer-link:hover { color: #ffffff; }
+
+  .footer-link-sm {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link-sm:hover { color: #aaaaaa; }
+
   .social-link:hover {
     background: #2a2a2a !important;
     border-color: #c4856a !important;
   }
-  .social-link:hover svg {
-    fill: #ffffff !important;
-  }
+  .social-link:hover svg { fill: #ffffff !important; }
 
   @media (max-width: 768px) {
     footer > div > div:first-child {
