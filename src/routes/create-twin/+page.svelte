@@ -60,7 +60,7 @@
       "Registration Closed",
       "Account creation is currently restricted.",
     );
-    setTimeout(() => goto("/login"), 2000);
+    setTimeout(() => goto("/"), 2000);
     return;
 
     const googleAuth = $page.url.searchParams.get("google_auth");

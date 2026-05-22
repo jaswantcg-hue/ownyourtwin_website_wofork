@@ -169,12 +169,7 @@
         </nav>
 
         <div class="hidden md:flex" style="align-items:center; gap:10px;">
-          <a
-            href="/login"
-            onclick={(e) => handleNavClick(e, "/login")}
-            class="btn-ghost-nav"
-            style="text-decoration:none;"
-          >Login</a>
+
           <button class="btn-clay" onclick={onDemoClick}>
             Get Early Access
           </button>
@@ -219,7 +214,7 @@
           {/each}
         </nav>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <a href="/login" onclick={(e) => handleNavClick(e, "/login")} class="btn-ghost-nav" style="text-decoration:none; text-align:center; justify-content:center;">Login</a>
+
           <button class="btn-clay" onclick={onDemoClick} style="width:100%;">Get Early Access</button>
         </div>
       </div>
