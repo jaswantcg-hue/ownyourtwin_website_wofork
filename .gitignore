@@ -29,6 +29,9 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Local utility scripts
+view-signups.mjs
+
 /../generated/prisma
 testsprite_tests/*
 
