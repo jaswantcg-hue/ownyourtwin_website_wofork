@@ -6,6 +6,7 @@ on:
       - deploy
       - main
       - remotes/origin/Sonal_V1
+      - new_calm_design
   pull_request:
     branches:
       - deploy
