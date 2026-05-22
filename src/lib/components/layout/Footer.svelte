@@ -171,6 +171,29 @@
             >Your data is never sold. Ever.</span
           >
         </div>
+
+        <!-- Contact Info -->
+        <div style="margin-bottom: 28px;">
+          <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px;">
+             <span style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; width: 65px; margin-top:2px;">Email</span>
+             <a 
+               href="mailto:contact@ownyourtwin.com" 
+               style="font-family:'Lora',serif; font-size:0.9rem; color:#888888; text-decoration:none; transition:color 0.2s;" 
+               onmouseenter={(e) => ((e.currentTarget as HTMLElement).style.color = '#ffffff')} 
+               onmouseleave={(e) => ((e.currentTarget as HTMLElement).style.color = '#888888')}
+             >
+               contact@ownyourtwin.com
+             </a>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+             <span style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; width: 65px; margin-top:2px;">Offices</span>
+             <div style="font-family:'Lora',serif; font-size:0.9rem; color:#888888; line-height:1.6;">
+               Seattle, WA, US<br/>
+               Toronto, ON, Canada<br/>
+               Bangalore, India
+             </div>
+          </div>
+        </div>
         <!-- Socials -->
         <div style="display:flex; gap:10px;">
           {#each socials as social}
