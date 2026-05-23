@@ -1,19 +1,35 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import prisma from '$lib/server/prisma';
+import { sendAcknowledgementEmail } from '$lib/server/email';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email } = data;
+    const { name, email, phone, interests } = data;
 
-    // Basic validation
     if (!name || !email) {
       return json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    // Logic removed as per request.
-    // Database insertion code deleted.
-    console.log('Demo request received (no-op):', { name, email });
+    const existing = await prisma.demoRequest.findUnique({ where: { email: String(email) } });
+    if (existing) {
+      return json({ error: 'Email already registered', field: 'email' }, { status: 409 });
+    }
+
+    await prisma.demoRequest.create({
+      data: {
+        name: String(name),
+        email: String(email),
+        phone: phone ? String(phone) : null,
+        interests: interests ? String(interests) : null,
+      },
+    });
+
+    // Send acknowledgement email (non-blocking — don't fail the request if email fails)
+    sendAcknowledgementEmail(String(email), String(name)).catch((err) =>
+      console.error('Failed to send acknowledgement email:', err)
+    );
 
     return json({ success: true, message: 'Request received' });
   } catch (error) {

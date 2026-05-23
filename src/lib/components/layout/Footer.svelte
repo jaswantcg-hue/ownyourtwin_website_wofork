@@ -1,59 +1,52 @@
 <!--
-  Footer Component
-  Updated with data sovereignty branding, trust statement, and Demo CTA
+  Footer — OwnYourTwin Redesign
+  CTA strip on off-white, then a black footer with legible light-grey text
 -->
 <script lang="ts">
-  import { APP_CONFIG } from "$lib/constants";
   import { Logo } from "$lib/components/common";
 
   interface Props {
-    /** Handler for opening demo request modal */
     onDemoClick?: () => void;
   }
-
   let { onDemoClick }: Props = $props();
 
   const currentYear = new Date().getFullYear();
 
-  // Footer navigation
   const footerLinks = {
     product: [
       { label: "How It Works", href: "#how-it-works" },
       { label: "For Individuals", href: "#for-individuals" },
-      { label: "For Businesses", href: "#for-business" },
-      { label: "Insights", href: "#insights" },
+      { label: "For Businesses", href: "/forBusiness" },
+      { label: "Blog", href: "/blog" },
     ],
     company: [
       { label: "About Us", href: "#" },
       { label: "Careers", href: "#" },
-      { label: "Blog", href: "#insights" },
-      { label: "Contact", href: "#" },
+      { label: "Contact", href: "/ContactPanel" },
     ],
     legal: [
       { label: "Privacy Policy", href: "#" },
       { label: "Terms of Service", href: "#" },
-      { label: "Cookie Policy", href: "#" },
       { label: "Data Rights", href: "#" },
     ],
   };
 
-  // Social links
   const socials = [
     {
       label: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/company/ownyourtwin",
       icon: "M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z",
     },
-    {
-      label: "Twitter/X",
-      href: "#",
-      icon: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
-    },
-    {
-      label: "GitHub",
-      href: "#",
-      icon: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
-    },
+    // {
+    //   label: "Twitter/X",
+    //   href: "#",
+    //   icon: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
+    // },
+    // {
+    //   label: "GitHub",
+    //   href: "#",
+    //   icon: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
+    // },
   ];
 
   function handleSmoothScroll(e: Event, href: string) {
@@ -65,96 +58,163 @@
   }
 </script>
 
-<footer class="relative bg-void-950 border-t border-void-800">
-  <!-- Top CTA strip -->
-  <!-- <div class="border-b border-void-800">
-    <div class="container mx-auto px-4 py-12">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-          <h3 class="text-xl font-bold text-white mb-1">
-            Ready to take control of your data?
-          </h3>
-          <p class="text-void-400">
-            See how Digital Twins can work for you. Request a live demo.
-          </p>
-        </div>
-        <button
-          onclick={onDemoClick}
-          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cosmic-600 to-cosmic-500 hover:from-cosmic-500 hover:to-cosmic-400 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-glow whitespace-nowrap"
-        >
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-            />
-          </svg>
-          Request a Demo
-        </button>
-      </div>
+<!-- Footer CTA strip (off-white) -->
+<div
+  style="
+  background-color: #f8f8f6;
+  padding: 80px 24px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+"
+>
+  <div style="max-width:640px; margin:0 auto;">
+    <div
+      style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:20px;"
+    >
+      <div style="width:40px; height:1px; background:#e0e0e0;"></div>
+      <span class="section-label">Ready to begin?</span>
+      <div style="width:40px; height:1px; background:#e0e0e0;"></div>
     </div>
-  </div> -->
-  <div
-    class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-cosmic-900/50 to-void-900/50 border border-cosmic-500/20 text-center max-w-3xl mx-auto"
-  >
-    <h3 class="text-2xl font-bold text-white mb-4">
-      See how Digital Twins can work for you.
+    <h3
+      style="
+      font-family:'Montserrat',sans-serif;
+      font-weight:800;
+      font-size:clamp(1.6rem,3vw,2.4rem);
+      color:#111111;
+      letter-spacing:-0.02em;
+      line-height:1.2;
+      margin-bottom:16px;
+    "
+    >
+      See how your Twin can<br />work for you.
     </h3>
-    <p class="text-void-300 mb-8 max-w-lg mx-auto text-lg">
-      Request a live demo to see how OwnYourTwin can help you take control of
-      your data and earn value from it.
+    <p
+      style="
+      font-family:'Lora',serif;
+      font-style:italic;
+      font-size:1rem;
+      color:#888888;
+      margin-bottom:32px;
+      line-height:1.6;
+    "
+    >
+      Join the early access list. Be among the first to experience data
+      ownership the way it should be.
     </p>
     <button
-      class="px-8 py-3 bg-cosmic-600 hover:bg-cosmic-500 text-white rounded-full font-medium transition-all shadow-glow hover:shadow-glow-lg text-lg"
+      class="btn-clay"
       onclick={onDemoClick}
+      style="font-size:1rem; padding:0.9rem 2.4rem;"
     >
-      Request a Demo
+      Sign Up for Early Access
     </button>
   </div>
-  <!-- Main footer content -->
-  <div class="container mx-auto px-4 py-12">
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
-      <!-- Brand column -->
-      <div class="col-span-2">
-        <div class="flex items-center gap-2 mb-4">
-          <Logo size="sm" />
+</div>
+
+<!-- Main footer (black) -->
+<footer
+  style="
+  background-color: #111111;
+  padding: 64px 24px 32px;
+"
+>
+  <div style="max-width:1200px; margin:0 auto;">
+    <!-- Top: brand + links -->
+    <div
+      style="
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:48px;
+      margin-bottom:48px;
+      padding-bottom:48px;
+      border-bottom:1px solid #2a2a2a;
+    "
+    >
+      <!-- Brand -->
+      <div>
+        <div style="margin-bottom:16px;">
+          <Logo size="sm" invertForDark={true} />
         </div>
-        <p class="text-void-400 text-sm mb-4 max-w-xs leading-relaxed">
-          {APP_CONFIG.tagline} Create an AI-powered Digital Twin that gives you control
-          of your data and earns you value.
+        <p
+          style="
+          font-family:'Lora',serif;
+          font-size:0.875rem;
+          color:#aaaaaa;
+          line-height:1.65;
+          margin-bottom:20px;
+          max-width:280px;
+        "
+        >
+          Own Your Data. Earn From It. Create an AI-powered Digital Twin that
+          gives you control of your data and earns you value.
         </p>
-        <!-- Trust statement -->
-        <div class="flex items-center gap-2 text-xs text-void-500 mb-6">
+        <!-- Trust note -->
+        <div
+          style="display:flex; align-items:center; gap:8px; margin-bottom:20px;"
+        >
           <svg
-            class="w-3.5 h-3.5 text-ethereal-500"
+            width="13"
+            height="13"
             fill="none"
-            stroke="currentColor"
+            stroke="#c4856a"
+            stroke-width="2"
             viewBox="0 0 24 24"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
               d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
             />
           </svg>
-          <span>Your data is never sold. Ever.</span>
+          <span
+            style="font-family:'Montserrat',sans-serif; font-size:0.72rem; font-weight:500; color:#888888;"
+            >Your data is never sold. Ever.</span
+          >
         </div>
-        <!-- Social links -->
-        <div class="flex gap-3">
+
+        <!-- Contact Info -->
+        <div style="margin-bottom: 28px;">
+          <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px;">
+             <span style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; width: 65px; margin-top:2px;">Email</span>
+             <a 
+               href="mailto:contact@ownyourtwin.com" 
+               style="font-family:'Lora',serif; font-size:0.9rem; color:#888888; text-decoration:none; transition:color 0.2s;" 
+               onmouseenter={(e) => ((e.currentTarget as HTMLElement).style.color = '#ffffff')} 
+               onmouseleave={(e) => ((e.currentTarget as HTMLElement).style.color = '#888888')}
+             >
+               contact@ownyourtwin.com
+             </a>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+             <span style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#aaaaaa; text-transform:uppercase; letter-spacing:0.1em; width: 65px; margin-top:2px;">Offices</span>
+             <div style="font-family:'Lora',serif; font-size:0.9rem; color:#888888; line-height:1.6;">
+               Seattle, WA, US<br/>
+               Toronto, ON, Canada<br/>
+               Bangalore, India
+             </div>
+          </div>
+        </div>
+        <!-- Socials -->
+        <div style="display:flex; gap:10px;">
           {#each socials as social}
             <a
               href={social.href}
-              class="w-9 h-9 rounded-lg bg-void-800 hover:bg-void-700 flex items-center justify-center text-void-400 hover:text-white transition-all duration-200"
               aria-label={social.label}
+              class="social-link"
+              style="
+                width:34px; height:34px;
+                border-radius:8px;
+                background:#1e1e1e;
+                border:1px solid #2e2e2e;
+                display:flex; align-items:center; justify-content:center;
+                transition:all 0.2s;
+              "
             >
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <svg
+                style="width:14px;height:14px;"
+                fill="#888888"
+                viewBox="0 0 24 24"
+              >
                 <path d={social.icon} />
               </svg>
             </a>
@@ -165,20 +225,28 @@
       <!-- Product links -->
       <div>
         <h4
-          class="text-sm font-semibold text-white mb-4 uppercase tracking-wider"
+          style="
+          font-family:'Montserrat',sans-serif;
+          font-size:0.68rem;
+          font-weight:700;
+          letter-spacing:0.18em;
+          text-transform:uppercase;
+          color:#666666;
+          margin-bottom:20px;
+        "
         >
           Product
         </h4>
-        <ul class="space-y-2">
+        <ul
+          style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;"
+        >
           {#each footerLinks.product as link}
             <li>
               <a
                 href={link.href}
                 onclick={(e) => handleSmoothScroll(e, link.href)}
-                class="text-sm text-void-400 hover:text-white transition-colors"
+                class="footer-link">{link.label}</a
               >
-                {link.label}
-              </a>
             </li>
           {/each}
         </ul>
@@ -187,20 +255,32 @@
       <!-- Company links -->
       <div>
         <h4
-          class="text-sm font-semibold text-white mb-4 uppercase tracking-wider"
+          style="
+          font-family:'Montserrat',sans-serif;
+          font-size:0.68rem;
+          font-weight:700;
+          letter-spacing:0.18em;
+          text-transform:uppercase;
+          color:#666666;
+          margin-bottom:20px;
+        "
         >
           Company
         </h4>
-        <ul class="space-y-2">
+        <ul
+          style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;"
+        >
           {#each footerLinks.company as link}
             <li>
-              <a
-                href={link.href}
-                onclick={(e) => handleSmoothScroll(e, link.href)}
-                class="text-sm text-void-400 hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
+              {#if link.label === "Contact"}
+                <a 
+                  href={link.href} 
+                  class="footer-link"
+                  onclick={(e) => { e.preventDefault(); e.stopPropagation(); window.dispatchEvent(new CustomEvent('openContact')); }}
+                >{link.label}</a>
+              {:else}
+                <a href={link.href} class="footer-link">{link.label}</a>
+              {/if}
             </li>
           {/each}
         </ul>
@@ -209,41 +289,92 @@
       <!-- Legal links -->
       <div>
         <h4
-          class="text-sm font-semibold text-white mb-4 uppercase tracking-wider"
+          style="
+          font-family:'Montserrat',sans-serif;
+          font-size:0.68rem;
+          font-weight:700;
+          letter-spacing:0.18em;
+          text-transform:uppercase;
+          color:#666666;
+          margin-bottom:20px;
+        "
         >
           Legal
         </h4>
-        <ul class="space-y-2">
+        <ul
+          style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;"
+        >
           {#each footerLinks.legal as link}
             <li>
-              <a
-                href={link.href}
-                class="text-sm text-void-400 hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
+              <a href={link.href} class="footer-link">{link.label}</a>
             </li>
           {/each}
         </ul>
       </div>
     </div>
-  </div>
 
-  <!-- Bottom bar -->
-  <div class="border-t border-void-800">
+    <!-- Bottom bar -->
     <div
-      class="container mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+      style="
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    "
     >
-      <p class="text-xs text-void-500">
-        © {currentYear}
-        {APP_CONFIG.name}. All rights reserved. Your data is encrypted,
+      <p
+        style="font-family:'Montserrat',sans-serif; font-size:0.72rem; color:#666666; margin:0;"
+      >
+        &copy; {currentYear} OwnYourTwin. All rights reserved. Your data is encrypted,
         protected, and always yours.
       </p>
-      <p class="text-xs text-void-500">
-        <a href="#" class="hover:text-white transition-colors">Privacy</a> ·
-        <a href="#" class="hover:text-white transition-colors">Terms</a> ·
-        <a href="#" class="hover:text-white transition-colors">Cookies</a>
-      </p>
+      <div style="display:flex; gap:20px;">
+        <a href="/privacy" class="footer-link-sm">Privacy</a>
+        <a href="/terms" class="footer-link-sm">Terms</a>
+        <a href="/cookies" class="footer-link-sm">Cookies</a>
+      </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-link {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.875rem;
+    color: #aaaaaa;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover {
+    color: #ffffff;
+  }
+
+  .footer-link-sm {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.72rem;
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link-sm:hover {
+    color: #aaaaaa;
+  }
+
+  .social-link:hover {
+    background: #2a2a2a !important;
+    border-color: #c4856a !important;
+  }
+  .social-link:hover svg {
+    fill: #ffffff !important;
+  }
+
+  @media (max-width: 768px) {
+    footer > div > div:first-child {
+      grid-template-columns: 1fr 1fr !important;
+    }
+    footer > div > div:first-child > div:first-child {
+      grid-column: span 2;
+    }
+  }
+</style>

@@ -4,8 +4,8 @@
   Creates a futuristic digital twin representation
 -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import * as THREE from 'three';
+  import { onMount, onDestroy } from "svelte";
+  import * as THREE from "three";
 
   interface Props {
     /** Animation intensity */
@@ -18,8 +18,8 @@
 
   let {
     intensity = 1,
-    color = '#8b5cf6',
-    class: className = '',
+    color = "#8b5cf6",
+    class: className = "",
   }: Props = $props();
 
   let containerRef: HTMLDivElement;
@@ -39,11 +39,13 @@
   // Convert hex to RGB
   function hexToRgb(hex: string): { r: number; g: number; b: number } {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16) / 255,
-      g: parseInt(result[2], 16) / 255,
-      b: parseInt(result[3], 16) / 255,
-    } : { r: 0.55, g: 0.36, b: 0.96 };
+    return result
+      ? {
+          r: parseInt(result[1], 16) / 255,
+          g: parseInt(result[2], 16) / 255,
+          b: parseInt(result[3], 16) / 255,
+        }
+      : { r: 0.55, g: 0.36, b: 0.96 };
   }
 
   // Initialize Three.js scene
@@ -77,8 +79,8 @@
     animate();
 
     // Handle resize and mouse movement
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
   }
 
   // Handle mouse movement for interactive rotation
@@ -89,7 +91,7 @@
 
   // Create particle system representing neurons
   function createParticles() {
-    const particleCount = 1200;
+    const particleCount = 2000;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -113,12 +115,18 @@
       // More organic brain shape with wrinkles
       const wrinkleFactor = Math.sin(theta * 5) * Math.cos(phi * 3) * 0.1;
 
-      positions[i3] = radius * Math.sin(phi) * Math.cos(theta) * (1 + lobeFactor) + hemisphereGap;
-      positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.7 + wrinkleFactor;
-      positions[i3 + 2] = radius * Math.cos(phi) * (1 + Math.sin(theta * 2) * 0.2);
+      positions[i3] =
+        radius * Math.sin(phi) * Math.cos(theta) * (1 + lobeFactor) +
+        hemisphereGap;
+      positions[i3 + 1] =
+        radius * Math.sin(phi) * Math.sin(theta) * 0.7 + wrinkleFactor;
+      positions[i3 + 2] =
+        radius * Math.cos(phi) * (1 + Math.sin(theta * 2) * 0.2);
 
       // Better color distribution - darker base with gradient
-      const distanceFromCenter = Math.sqrt(positions[i3] ** 2 + positions[i3 + 1] ** 2 + positions[i3 + 2] ** 2);
+      const distanceFromCenter = Math.sqrt(
+        positions[i3] ** 2 + positions[i3 + 1] ** 2 + positions[i3 + 2] ** 2,
+      );
       const normalizedDist = (distanceFromCenter - 1.2) / 0.6;
 
       // Core is darker, outer is brighter with purple/pink gradient
@@ -129,13 +137,13 @@
       colors[i3 + 1] = Math.min(1, rgb.g * (coreBrightness + variation * 0.5));
       colors[i3 + 2] = Math.min(1, rgb.b * (coreBrightness + variation) + 0.2);
 
-      // Smaller particles with variation
-      sizes[i] = Math.random() * 2.5 + 0.8;
+      // Larger particles with variation for prominence
+      sizes[i] = Math.random() * 5 + 4;
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
     // Custom shader material for glowing particles
     const material = new THREE.ShaderMaterial({
@@ -173,8 +181,8 @@
           float dist = length(center);
           if (dist > 0.5) discard;
 
-          // Stronger falloff for more defined particles
-          float alpha = smoothstep(0.5, 0.0, dist) * vAlpha * 0.75;
+          // Stronger falloff, but slightly more opaque base for prominence
+          float alpha = smoothstep(0.5, 0.0, dist) * vAlpha * 0.95;
 
           // Add inner glow
           float glow = smoothstep(0.5, 0.2, dist);
@@ -194,8 +202,9 @@
 
   // Create neural connections between particles
   function createConnections() {
-    const connectionCount = 600;
-    const positions = particles.geometry.attributes.position.array as Float32Array;
+    const connectionCount = 1000;
+    const positions = particles.geometry.attributes.position
+      .array as Float32Array;
     const linePositions = new Float32Array(connectionCount * 6);
     const lineColors = new Float32Array(connectionCount * 6);
     const pulsePositions = new Float32Array(150 * 6);
@@ -262,8 +271,11 @@
 
     // Static connections
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+    geometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(linePositions, 3),
+    );
+    geometry.setAttribute("color", new THREE.BufferAttribute(lineColors, 3));
 
     const material = new THREE.LineBasicMaterial({
       vertexColors: true,
@@ -277,8 +289,14 @@
 
     // Animated pulse connections
     const pulseGeometry = new THREE.BufferGeometry();
-    pulseGeometry.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
-    pulseGeometry.setAttribute('color', new THREE.BufferAttribute(pulseColors, 3));
+    pulseGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(pulsePositions, 3),
+    );
+    pulseGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(pulseColors, 3),
+    );
 
     const pulseMaterial = new THREE.LineBasicMaterial({
       vertexColors: true,
@@ -323,12 +341,13 @@
       pulseConnections.rotation.x = autoRotationX + mouseY * 0.3;
 
       // Animated pulse opacity
-      const pulseMaterial = pulseConnections.material as THREE.LineBasicMaterial;
+      const pulseMaterial =
+        pulseConnections.material as THREE.LineBasicMaterial;
       pulseMaterial.opacity = 0.3 + Math.sin(time * 2) * 0.25;
     }
 
-    // Breathing effect
-    const breathe = 1 + Math.sin(time * 0.4) * 0.04;
+    // Breathing effect (scaled down by ~20% more)
+    const breathe = (1 + Math.sin(time * 0.4) * 0.04) * 0.72;
     particles.scale.set(breathe, breathe, breathe);
     connections.scale.set(breathe, breathe, breathe);
     if (pulseConnections) {
@@ -353,14 +372,14 @@
 
   // Cleanup
   function cleanup() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     if (animationId) {
       cancelAnimationFrame(animationId);
     }
 
-    window.removeEventListener('resize', handleResize);
-    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener("resize", handleResize);
+    window.removeEventListener("mousemove", handleMouseMove);
 
     if (renderer) {
       renderer.dispose();

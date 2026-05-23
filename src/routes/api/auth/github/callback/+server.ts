@@ -104,6 +104,14 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
             }
         }
 
+        const allowedEmail = env.ALLOWED_EMAIL;
+
+        // Check for specific restriction
+        if (!allowedEmail || email !== allowedEmail) {
+            console.warn(`Unauthorized login attempt from GitHub: ${email}`);
+            throw redirect(302, '/login?error=unauthorized');
+        }
+
         const params = new URLSearchParams({
             github_auth: 'success',
             email: email || '',

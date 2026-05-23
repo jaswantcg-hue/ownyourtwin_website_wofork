@@ -54,10 +54,24 @@ function createAuthStore(): AuthStore {
       update(state => ({ ...state, status: 'loading', error: null }));
 
       try {
-        // Simulate API call - replace with actual API integration
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Send credentials to the server for verification
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+          }),
+        });
 
-        // Mock successful login
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}));
+          throw new Error(result.message || 'Invalid email or password');
+        }
+
+        // Mock successful login - In a real app, the server would return a token
         const mockUser: User = {
           id: 'user_123',
           email: credentials.email,
@@ -114,6 +128,11 @@ function createAuthStore(): AuthStore {
       update(state => ({ ...state, status: 'loading', error: null }));
 
       try {
+        // Restriction: Only allow registration for the special ID
+        if (data.email !== 'temp@temp.com') {
+          throw new Error('Registration is currently restricted to authorized users only.');
+        }
+
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
 

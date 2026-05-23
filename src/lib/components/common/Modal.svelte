@@ -78,42 +78,38 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center p-4
-           bg-void-950/80 backdrop-blur-sm
-           animate-fade-in"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
+    style="background:rgba(0,0,0,0.5); backdrop-filter:blur(6px);"
     onclick={handleBackdropClick}
   >
     <!-- Modal content -->
     <div
-      class="relative w-full {sizeClasses[size]} max-h-[90vh]
-             bg-void-900 border border-void-700
-             rounded-2xl shadow-2xl shadow-void-950
-             animate-scale-in overflow-hidden
-             {className}"
+      class="relative w-full {sizeClasses[size]} max-h-[90vh] animate-scale-in overflow-hidden {className}"
+      style="background:#ffffff; border:1px solid #e0e0e0; border-radius:18px; box-shadow:0 24px 64px rgba(0,0,0,0.15);"
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? 'modal-title' : undefined}
     >
       <!-- Header -->
       {#if title || showClose}
-        <div class="flex items-center justify-between px-6 py-4 border-b border-void-700">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid #f0f0f0;">
           {#if title}
-            <h2 id="modal-title" class="text-xl font-semibold text-white">
+            <h2 id="modal-title" style="font-family:'Montserrat',sans-serif; font-size:1.15rem; font-weight:700; color:#111111; margin:0;">
               {title}
             </h2>
           {:else}
             <div></div>
           {/if}
-
           {#if showClose}
             <button
               onclick={handleClose}
-              class="p-2 rounded-lg text-void-400 hover:text-white
-                     hover:bg-void-700 transition-colors"
+              style="width:32px; height:32px; border-radius:8px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;"
+              onmouseenter={(e) => (e.currentTarget as HTMLElement).style.background='#f0f0f0'}
+              onmouseleave={(e) => (e.currentTarget as HTMLElement).style.background='transparent'}
               aria-label="Close modal"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <svg style="width:18px;height:18px;" fill="none" stroke="#888888" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
               </svg>
             </button>
           {/if}
@@ -129,7 +125,7 @@
 
       <!-- Footer -->
       {#if footer}
-        <div class="px-6 py-4 border-t border-void-700 bg-void-800/50">
+        <div style="padding:16px 24px; border-top:1px solid #f0f0f0; background:#fafafa;">
           {@render footer()}
         </div>
       {/if}

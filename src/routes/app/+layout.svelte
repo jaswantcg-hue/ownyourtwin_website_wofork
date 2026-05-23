@@ -46,7 +46,7 @@
 
     // Redirect if not authenticated after check
     if (!$isAuthenticated) {
-      goto("/login");
+      goto("/");
       return;
     }
 

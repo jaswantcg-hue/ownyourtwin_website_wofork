@@ -31,8 +31,6 @@
   let earnings = $state(1250.78);
 
   // Element refs for flow connections
-  let neuralInRef: HTMLDivElement;
-  let neuralOutRef: HTMLDivElement;
   let humanOriginRef: HTMLDivElement;
   let socialNodesRef: HTMLDivElement;
   let strategyCardsRef: HTMLDivElement;
@@ -41,25 +39,25 @@
     brainPoints = [];
     const cx = width / 2;
     const cy = height / 2;
-    const rx = 120;
-    const ry = 90;
+    const rx = 350; // 144 * 1.4
+    const ry = 250; // 108 * 1.4
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 500; i++) {
       const angle = Math.random() * Math.PI * 2;
       const r = Math.sqrt(Math.random());
       let px = Math.cos(angle) * r * rx;
       let py = Math.sin(angle) * r * ry;
       // Create brain-like indent
-      if (Math.abs(px) < 20) py *= 0.85;
+      if (Math.abs(px) < 25) py *= 0.8;
 
       brainPoints.push({
         x: cx + px,
         y: cy + py,
         origX: cx + px,
         origY: cy + py,
-        alpha: 0.15 + Math.random() * 0.4,
-        size: 0.8 + Math.random() * 1.0,
-        pulseSpeed: 0.02 + Math.random() * 0.03,
+        alpha: 0.1 + Math.random() * 0.45,
+        size: 0.66 + Math.random() * 5.2,
+        pulseSpeed: 0.015 + Math.random() * 0.035,
       });
     }
   }
@@ -70,13 +68,9 @@
     const svgRect = containerRef.getBoundingClientRect();
 
     // Get element positions
-    const neuralIn = neuralInRef?.getBoundingClientRect();
-    const neuralOut = neuralOutRef?.getBoundingClientRect();
     const humanOrigin = humanOriginRef?.getBoundingClientRect();
     const socialNodes = socialNodesRef?.querySelectorAll(".social-node");
     const strategyCards = strategyCardsRef?.querySelectorAll(".strategy-card");
-
-    if (!neuralIn || !neuralOut) return;
 
     // Clear existing paths
     svgRef.innerHTML = `
@@ -96,10 +90,11 @@
             </defs>
         `;
 
-    const biX = neuralIn.left - svgRect.left + neuralIn.width / 2;
-    const biY = neuralIn.top - svgRect.top + neuralIn.height / 2;
-    const boX = neuralOut.left - svgRect.left + neuralOut.width / 2;
-    const boY = neuralOut.top - svgRect.top + neuralOut.height / 2;
+    // Targeted brain entry/exit points (relative to SVG/Container)
+    const biX = svgRect.width * (window.innerWidth < 1024 ? 0.3 : 0.38);
+    const biY = svgRect.height / 2;
+    const boX = svgRect.width * (window.innerWidth < 1024 ? 0.7 : 0.62);
+    const boY = svgRect.height / 2;
 
     // 1. Human Direct to Brain (Active Feedback - prominent)
     if (humanOrigin) {
@@ -114,7 +109,8 @@
       directPath.setAttribute("d", dHumanDirect);
       directPath.setAttribute("class", "flow-line");
       directPath.setAttribute("stroke", "url(#grad-direct)");
-      directPath.setAttribute("stroke-width", "2");
+      directPath.setAttribute("stroke-width", "3");
+      directPath.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(directPath);
       addPulse(dHumanDirect, "#a78bfa", 3.5);
     }
@@ -133,15 +129,16 @@
       path.setAttribute("d", d);
       path.setAttribute("class", "flow-line");
       path.setAttribute("stroke", "url(#grad-social)");
-      path.setAttribute("stroke-width", "1");
+      path.setAttribute("stroke-width", "3");
+      path.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(path);
-      addPulse(d, "rgba(99, 102, 241, 0.4)", 5 + Math.random() * 2);
+      addPulse(d, "rgba(99, 102, 241, 0.4)", 5 + Math.random() * 1);
     });
 
-    // 3. Brain to Strategy Cards (Output Processing)
-    strategyCards?.forEach((card) => {
-      const r = card.getBoundingClientRect();
-      const nx = r.left - svgRect.left;
+    // 3. Brain to Strategy Cards (Symmetrical Curved Flows)
+    strategyCards?.forEach((node) => {
+      const r = node.getBoundingClientRect();
+      const nx = r.left - svgRect.left - 120;
       const ny = r.top - svgRect.top + r.height / 2;
       const d = `M ${boX} ${boY} C ${boX + (nx - boX) * 0.5} ${boY}, ${boX + (nx - boX) * 0.5} ${ny}, ${nx} ${ny}`;
 
@@ -152,9 +149,10 @@
       path.setAttribute("d", d);
       path.setAttribute("class", "flow-line");
       path.setAttribute("stroke", "url(#grad-out)");
-      path.setAttribute("stroke-width", "1.5");
+      path.setAttribute("stroke-width", "3");
+      path.setAttribute("stroke-dasharray", "3 5");
       svgRef.appendChild(path);
-      addPulse(d, "#2dd4bf", 4 + Math.random() * 2);
+      addPulse(d, "#2dd4bf", 5 + Math.random() * 2);
     });
   }
 
@@ -165,7 +163,7 @@
       "http://www.w3.org/2000/svg",
       "circle",
     );
-    circle.setAttribute("r", "2");
+    circle.setAttribute("r", "2.2");
     circle.setAttribute("fill", color);
     circle.style.filter = `drop-shadow(0 0 4px ${color})`;
 
@@ -184,8 +182,18 @@
   function init() {
     if (!canvasRef) return;
 
-    width = canvasRef.width = canvasRef.offsetWidth;
-    height = canvasRef.height = canvasRef.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvasRef.getBoundingClientRect();
+
+    width = canvasRef.width = rect.width * dpr;
+    height = canvasRef.height = rect.height * dpr;
+
+    const ctx = canvasRef.getContext("2d");
+    if (ctx) ctx.scale(dpr, dpr);
+
+    // UI logical dimensions
+    width = rect.width;
+    height = rect.height;
 
     generateBrain();
 
@@ -203,14 +211,14 @@
 
     // Draw neural connections
     ctx.beginPath();
-    ctx.lineWidth = 0.4;
-    for (let i = 0; i < brainPoints.length; i += 5) {
-      for (let j = i + 1; j < brainPoints.length; j += 15) {
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < brainPoints.length; i += 6) {
+      for (let j = i + 1; j < brainPoints.length; j += 18) {
         const dx = brainPoints[i].x - brainPoints[j].x;
         const dy = brainPoints[i].y - brainPoints[j].y;
         const dist = dx * dx + dy * dy;
-        if (dist < 1200) {
-          ctx.strokeStyle = `rgba(99, 102, 241, ${0.12 * (1 - dist / 1200)})`;
+        if (dist < 3200) {
+          ctx.strokeStyle = `rgba(99, 102, 241, ${0.15 * (1 - dist / 3200)})`;
           ctx.moveTo(brainPoints[i].x, brainPoints[i].y);
           ctx.lineTo(brainPoints[j].x, brainPoints[j].y);
         }
@@ -229,7 +237,7 @@
       ctx.fillStyle = `rgba(99, 102, 241, ${p.alpha})`;
 
       // Random sparkle effect
-      if (Math.random() > 0.994) {
+      if (Math.random() > 0.992) {
         ctx.fillStyle = "#fff";
         ctx.shadowBlur = 10;
         ctx.shadowColor = "#a78bfa";
@@ -272,35 +280,42 @@
 
 <div
   bind:this={containerRef}
-  class="relative w-full h-full p-0 overflow-hidden {className}"
+  class="relative w-full min-h-[350px] lg:min-h-[700px] lg:h-full p-4 lg:p-0 overflow-hidden {className}"
 >
   <!-- Global Flow SVG -->
   <svg
     bind:this={svgRef}
-    class="absolute inset-0 w-full h-full pointer-events-none z-0"
+    class="absolute inset-0 w-full h-full pointer-events-none z-0 hidden lg:block"
   ></svg>
 
-  <div class="relative z-10 h-full flex">
+  <div
+    class="relative z-10 h-full grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-0"
+  >
     <!-- LEFT: Feedback Loop - Human Direct + Social Sources -->
     <div
       bind:this={socialNodesRef}
-      class="w-1/4 p-8 flex flex-col justify-center gap-4 border-r border-cosmic-500/10"
+      class="hidden lg:flex lg:col-span-1 p-7 lg:p-10 flex-col justify-center gap-6 border-b lg:border-b-0 lg:border-r border-cosmic-500/10"
     >
-      <div class="mb-2">
+      <div class="mb-1">
         <h3
-          class="text-[10px] tracking-[0.4em] uppercase text-cosmic-400 font-bold"
+          class="text-lg tracking-[0.2em] uppercase text-cosmic-400 font-bold"
         >
           Feedback Loop
         </h3>
-        <div class="h-[1px] w-12 bg-cosmic-500/40 mt-1"></div>
+        <div
+          class="h-[2px] w-16 bg-gradient-to-r from-cosmic-500/60 to-transparent mt-2"
+        ></div>
       </div>
 
       <!-- Social Nodes (Passive Ingestion) -->
-      <div class="grid grid-cols-3 gap-3 mb-4 opacity-60">
+      <div class="flex flex-wrap gap-7 mb-7 opacity-80">
         {#each [{ id: "fb", path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" }, { id: "ig", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" }, { id: "x", path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" }] as item}
-          <div class="social-node" data-id={item.id}>
+          <div
+            class="social-node scale-110 hover:scale-125 transition-all duration-300"
+            data-id={item.id}
+          >
             <svg
-              class="w-4 h-4 text-cosmic-400"
+              class="w-5 h-5 text-cosmic-400"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -311,15 +326,15 @@
       </div>
 
       <!-- Human Origin: Direct Link to Twin -->
-      <div bind:this={humanOriginRef} class="human-node">
+      <div bind:this={humanOriginRef} class="human-node group">
         <div class="pulse-ring"></div>
         <div class="pulse-ring" style="animation-delay: 1.5s;"></div>
-        <div class="flex items-center gap-3 mb-2 relative z-10">
+        <div class="flex items-center gap-7 mb-7 relative z-10">
           <div
-            class="w-9 h-9 rounded-full bg-cosmic-500/20 flex items-center justify-center border border-cosmic-400/50"
+            class="w-15 h-15 rounded-2xl bg-cosmic-500/20 flex items-center justify-center border border-cosmic-400/50 group-hover:bg-cosmic-500/30 transition-colors duration-300"
           >
             <svg
-              class="w-4 h-4 text-cosmic-400"
+              class="w-8 h-8 text-cosmic-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -334,28 +349,30 @@
           </div>
           <div>
             <p
-              class="text-[9px] font-bold text-cosmic-400 uppercase tracking-widest"
+              class="text-xs font-bold text-cosmic-400 uppercase tracking-[0.2em]"
             >
               Active Human
             </p>
-            <p class="text-[7px] text-ethereal-400 uppercase font-mono">
+            <p class="text-[10px] text-ethereal-400 uppercase font-mono mt-0.5">
               Status: Direct Uplink
             </p>
           </div>
         </div>
-        <div class="space-y-1 mt-2 relative z-10">
+        <div class="space-y-3 mt-4 relative z-10">
           <div
-            class="flex justify-between text-[7px] text-void-400 uppercase tracking-tight"
+            class="flex justify-between text-[10px] text-void-300 uppercase tracking-wider font-medium"
           >
             <span>Direct Cognitive Response</span>
             <span class="text-cosmic-400 font-bold">12ms Latency</span>
           </div>
-          <div class="h-0.5 w-full bg-void-700 rounded-full overflow-hidden">
+          <div class="h-1 w-full bg-void-800 rounded-full overflow-hidden">
             <div
               class="h-full bg-cosmic-400 w-full animate-pulse shadow-glow-sm"
             ></div>
           </div>
-          <p class="text-[7px] text-void-400 italic mt-1 leading-tight">
+          <p
+            class="text-xs text-void-400 italic mt-2 leading-relaxed opacity-90"
+          >
             "Supplying definitive answers and intent vectors directly to the
             Twin Core."
           </p>
@@ -363,41 +380,53 @@
       </div>
 
       <!-- Interface Integrity -->
-      <div class="stat-card mt-2">
-        <p
-          class="text-[8px] text-void-500 uppercase font-bold tracking-widest mb-2"
-        >
-          Interface Integrity
-        </p>
-        <div class="h-1.5 w-full bg-void-800 rounded-full overflow-hidden">
-          <div class="h-full bg-ethereal-500 w-[98%]"></div>
+      <div
+        class="stat-card mt-4 p-5 bg-void-900/40 border border-void-700/50 rounded-2xl"
+      >
+        <div class="flex justify-between items-center mb-3">
+          <p
+            class="text-[10px] text-void-400 uppercase font-bold tracking-widest"
+          >
+            Interface Integrity
+          </p>
+          <span class="text-[10px] font-mono text-ethereal-400">98%</span>
+        </div>
+        <div class="h-2 w-full bg-void-800 rounded-full overflow-hidden">
+          <div
+            class="h-full bg-gradient-to-r from-ethereal-600 to-ethereal-400 w-[98%] shadow-ethereal"
+          ></div>
         </div>
       </div>
     </div>
 
     <!-- CENTER: Neural Brain + Earnings -->
-    <div class="w-1/2 relative flex flex-col items-center justify-center pt-8">
-      <!-- Neural glow background -->
-      <div class="neural-glow"></div>
+    <div
+      class="col-span-1 lg:col-span-2 relative flex flex-col items-center justify-center py-4 lg:py-10 min-h-[300px] lg:min-h-[500px]"
+    >
+      <!-- Brain Canvas & Ports Wrapper -->
+      <div
+        class="relative w-full flex-1 min-h-[300px] max-h-[300px] flex items-center justify-center"
+      >
+        <!-- Neural glow background -->
+        <div class="neural-glow"></div>
 
-      <!-- Neural input/output points -->
-      <div bind:this={neuralInRef} class="neural-port left-12"></div>
-      <div bind:this={neuralOutRef} class="neural-port right-12"></div>
-
-      <!-- Brain Canvas -->
-      <canvas bind:this={canvasRef} class="w-full h-2/3 z-10"></canvas>
+        <!-- Brain Canvas -->
+        <canvas bind:this={canvasRef} class="w-full h-full z-10"></canvas>
+      </div>
 
       <!-- Earnings Display -->
-      <div class="z-20 mt-[-40px] flex flex-col items-center">
-        <div class="earnings-display mb-6">
+      <div class="z-20 mt-4 hidden lg:flex flex-col items-center w-full px-6">
+        <div class="earnings-display mb-8 w-full max-w-sm">
           <p
-            class="text-[9px] text-ethereal-400/70 uppercase font-bold tracking-[0.3em] mb-1 text-center"
+            class="text-[10px] text-ethereal-400/80 uppercase font-bold tracking-[0.4em] mb-2 text-center"
           >
             Cumulative Neural Income
           </p>
-          <div class="flex items-baseline justify-center gap-1">
-            <span class="text-xs text-ethereal-400/50 font-mono">$</span>
-            <h2 class="text-3xl font-mono font-bold text-ethereal-400">
+          <div class="flex items-baseline justify-center gap-2">
+            <span class="text-lg text-ethereal-400/70 font-mono">$</span>
+            <h2
+              class="text-4xl sm:text-5xl font-mono font-bold text-ethereal-400 tracking-tighter"
+            >
               {earnings.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -408,11 +437,11 @@
 
         <div class="text-center">
           <p
-            class="text-[9px] tracking-[0.5em] text-cosmic-400 uppercase font-semibold"
+            class="text-xs tracking-[0.4em] text-cosmic-400 uppercase font-bold"
           >
             Human Digital Twin
           </p>
-          <p class="text-[7px] text-void-500 uppercase mt-1">
+          <p class="text-[10px] text-void-400 uppercase mt-2 tracking-widest">
             Cognitive Synchronization Active
           </p>
         </div>
@@ -422,93 +451,110 @@
     <!-- RIGHT: Strategic Processing -->
     <div
       bind:this={strategyCardsRef}
-      class="w-1/4 p-8 flex flex-col justify-center gap-4 border-l border-ethereal-500/10"
+      class="hidden lg:flex lg:col-span-1 p-6 lg:p-10 flex-col justify-center gap-6 border-t lg:border-t-0 lg:border-l border-ethereal-500/10"
     >
-      <div class="mb-2 text-right">
+      <div class="mb-4 lg:text-right">
         <h3
-          class="text-[10px] tracking-[0.4em] uppercase text-ethereal-400 font-bold"
+          class="text-lg tracking-[0.2em] uppercase text-ethereal-400 font-bold"
         >
           Strategic Processing
         </h3>
-        <div class="h-[1px] w-12 bg-ethereal-500/40 mt-1 ml-auto"></div>
+        <div
+          class="h-[2px] w-16 bg-gradient-to-l from-ethereal-500/60 to-transparent mt-2 lg:ml-auto"
+        ></div>
       </div>
 
-      <div class="strategy-card">
+      <div class="strategy-card group">
         <div class="scanning-line"></div>
-        <div class="flex items-start justify-between relative z-10">
+        <div class="flex items-start justify-between relative z-10 gap-4">
           <div>
             <p
-              class="text-[10px] font-bold text-ethereal-400 uppercase tracking-wider mb-1"
+              class="text-xs font-bold text-ethereal-400 uppercase tracking-widest mb-2"
             >
               Market Research
             </p>
-            <p class="text-[8px] text-void-400 leading-tight">
-              Analyzing trend vectors & global sentiment metrics.
+            <p class="text-[11px] text-void-300 leading-relaxed opacity-80">
+              Analyzing trend vectors & global sentiment metrics for predictive
+              modeling.
             </p>
           </div>
-          <svg
-            class="w-4 h-4 text-ethereal-400/40"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            stroke-width="2"
+          <div
+            class="p-2 rounded-lg bg-ethereal-500/10 group-hover:bg-ethereal-500/20 transition-colors duration-300"
           >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
+            <svg
+              class="w-5 h-5 text-ethereal-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
         </div>
       </div>
 
-      <div class="strategy-card">
-        <div class="flex items-start justify-between">
+      <div class="strategy-card group">
+        <div class="flex items-start justify-between relative z-10 gap-4">
           <div>
             <p
-              class="text-[10px] font-bold text-ethereal-400 uppercase tracking-wider mb-1"
+              class="text-xs font-bold text-ethereal-400 uppercase tracking-widest mb-2"
             >
               Scenario Simulation
             </p>
-            <p class="text-[8px] text-void-400 leading-tight">
-              Running 10k Monte Carlo path optimizations.
+            <p class="text-[11px] text-void-300 leading-relaxed opacity-80">
+              Running 10k Monte Carlo path optimizations for decision
+              architecture.
             </p>
           </div>
-          <svg
-            class="w-4 h-4 text-ethereal-400/40"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            stroke-width="2"
+          <div
+            class="p-2 rounded-lg bg-ethereal-500/10 group-hover:bg-ethereal-500/20 transition-colors duration-300"
           >
-            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
-            <path d="M21 3v5h-5" />
-          </svg>
+            <svg
+              class="w-5 h-5 text-ethereal-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+            </svg>
+          </div>
         </div>
       </div>
 
-      <div class="strategy-card">
-        <div class="flex items-start justify-between">
+      <div class="strategy-card group">
+        <div class="flex items-start justify-between relative z-10 gap-4">
           <div>
             <p
-              class="text-[10px] font-bold text-ethereal-400 uppercase tracking-wider mb-1"
+              class="text-xs font-bold text-ethereal-400 uppercase tracking-widest mb-2"
             >
               Brainstorming
             </p>
-            <p class="text-[8px] text-void-400 leading-tight">
-              Neural associative mapping for new IP concepts.
+            <p class="text-[11px] text-void-300 leading-relaxed opacity-80">
+              Neural associative mapping for novel IP concepts and data
+              synthesis.
             </p>
           </div>
-          <svg
-            class="w-4 h-4 text-ethereal-400/40"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            stroke-width="2"
+          <div
+            class="p-2 rounded-lg bg-ethereal-500/10 group-hover:bg-ethereal-500/20 transition-colors duration-300"
           >
-            <path
-              d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"
-            />
-            <path d="M9 18h6" />
-            <path d="M10 22h4" />
-          </svg>
+            <svg
+              class="w-5 h-5 text-ethereal-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <path
+                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"
+              />
+              <path d="M9 18h6" />
+              <path d="M10 22h4" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -529,43 +575,49 @@
   }
 
   .social-node {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 2;
   }
 
   .social-node:hover {
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-    transform: scale(1.05);
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    background: rgba(99, 102, 241, 0.1);
   }
 
   .human-node {
     background: linear-gradient(
       135deg,
-      rgba(99, 102, 241, 0.08),
-      rgba(99, 102, 241, 0.03)
+      rgba(99, 102, 241, 0.12),
+      rgba(99, 102, 241, 0.05)
     );
-    border: 1px solid rgba(99, 102, 241, 0.25);
-    border-radius: 1rem;
-    padding: 1rem;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .human-node:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
   }
 
   .pulse-ring {
     position: absolute;
     inset: 0;
-    border: 1px solid rgba(99, 102, 241, 0.4);
+    border: 1.5px solid rgba(99, 102, 241, 0.5);
     border-radius: inherit;
     animation: ring-pulse 4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
     opacity: 0;
@@ -574,19 +626,21 @@
   @keyframes ring-pulse {
     0% {
       transform: scale(1);
-      opacity: 0.5;
+      opacity: 0.6;
     }
     100% {
-      transform: scale(1.5);
+      transform: scale(1.4);
       opacity: 0;
     }
   }
 
   .stat-card {
-    background: rgba(15, 23, 42, 0.5);
-    padding: 1rem;
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    background-color: rgba(15, 23, 42, 0.6);
+    border-color: rgba(45, 212, 191, 0.3);
   }
 
   .neural-glow {
@@ -594,77 +648,59 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20rem;
-    height: 20rem;
+    width: 32rem;
+    height: 32rem;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(80px);
     background: radial-gradient(
       circle,
-      rgba(99, 102, 241, 0.12) 0%,
+      rgba(99, 102, 241, 0.15) 0%,
       transparent 70%
     );
-    animation: neural-pulse 6s ease-in-out infinite;
+    animation: neural-pulse 8s ease-in-out infinite;
   }
 
   @keyframes neural-pulse {
     0%,
     100% {
-      opacity: 0.4;
+      opacity: 0.5;
       transform: translate(-50%, -50%) scale(1);
     }
     50% {
-      opacity: 0.7;
-      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(1.15);
     }
   }
 
-  .neural-port {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    background: rgba(99, 102, 241, 0.05);
-  }
-
-  .neural-port.left-12 {
-    left: 3rem;
-  }
-
-  .neural-port.right-12 {
-    right: 3rem;
-  }
-
   .strategy-card {
-    background: rgba(45, 212, 191, 0.03);
-    border: 1px solid rgba(45, 212, 191, 0.15);
-    border-radius: 1rem;
-    padding: 1rem;
-    transition: all 0.3s ease;
+    background: rgba(45, 212, 191, 0.05);
+    border: 1.5px solid rgba(45, 212, 191, 0.2);
+    border-radius: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
   }
 
   .strategy-card:hover {
-    border-color: rgba(45, 212, 191, 0.4);
-    background: rgba(45, 212, 191, 0.06);
-    transform: translateX(-5px);
+    border-color: rgba(45, 212, 191, 0.5);
+    background: rgba(45, 212, 191, 0.1);
+    transform: translateX(-8px);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.1);
   }
 
   .scanning-line {
     position: absolute;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 2px;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(45, 212, 191, 0.6),
+      rgba(45, 212, 191, 0.8),
       transparent
     );
-    animation: scan 3s linear infinite;
+    animation: scan 4s linear infinite;
   }
 
   @keyframes scan {
@@ -672,7 +708,10 @@
       top: 0%;
       opacity: 0;
     }
-    50% {
+    20% {
+      opacity: 1;
+    }
+    80% {
       opacity: 1;
     }
     100% {
@@ -682,16 +721,23 @@
   }
 
   .earnings-display {
-    background: rgba(45, 212, 191, 0.05);
-    border: 1px solid rgba(45, 212, 191, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 1.5rem;
-    padding: 1rem 2rem;
-    box-shadow: 0 0 30px rgba(45, 212, 191, 0.08);
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(45, 212, 191, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 2rem;
+    padding: 1.5rem 2.5rem;
+    box-shadow: 0 0 40px rgba(45, 212, 191, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .earnings-display:hover {
+    border-color: rgba(45, 212, 191, 0.5);
+    box-shadow: 0 0 50px rgba(45, 212, 191, 0.2);
+    transform: scale(1.02);
   }
 
   canvas {
-    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.15));
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.2));
   }
 
   /* App color integration */
