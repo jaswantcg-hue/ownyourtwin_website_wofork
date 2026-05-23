@@ -1,6 +1,6 @@
 <!--
   Logo — OwnYourTwin Redesign
-  Updated for monochrome + clay palette (removed old dark theme vars)
+
 -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
@@ -12,7 +12,12 @@
     invertForDark?: boolean;
   }
 
-  let { size = "md", showText = true, class: className = "", invertForDark = false }: Props = $props();
+  let {
+    size = "md",
+    showText = true,
+    class: className = "",
+    invertForDark = false,
+  }: Props = $props();
 
   let isHovered = $state(false);
   let activeNodes = $state<number[]>([]);
@@ -20,11 +25,15 @@
 
   onMount(() => {
     interval = setInterval(() => {
-      activeNodes = Array.from({ length: 4 }, () => Math.floor(Math.random() * 12));
+      activeNodes = Array.from({ length: 4 }, () =>
+        Math.floor(Math.random() * 12),
+      );
     }, 900);
   });
 
-  onDestroy(() => { if (interval) clearInterval(interval); });
+  onDestroy(() => {
+    if (interval) clearInterval(interval);
+  });
 
   const sizeMap = {
     sm: { svg: 32, text: "1.1rem" },
@@ -34,9 +43,9 @@
   };
 
   // Colours adapt: normal = black logo, invertForDark = white logo (used in footer)
-  const primary   = $derived(invertForDark ? "#ffffff" : "#111111");
+  const primary = $derived(invertForDark ? "#ffffff" : "#111111");
   const secondary = "#888888";
-  const accent    = "#c4856a"; // clay — always visible
+  const accent = "#c4856a"; // clay — always visible
   const nodeActive = "#c4856a";
 </script>
 
@@ -49,18 +58,26 @@
   aria-label="OwnYourTwin"
 >
   <!-- SVG mark -->
-  <div style="width:{sizeMap[size].svg}px; height:{sizeMap[size].svg}px; position:relative; flex-shrink:0;">
-    <svg viewBox="0 0 200 200" style="width:100%; height:100%; overflow:visible;">
+  <div
+    style="width:{sizeMap[size].svg}px; height:{sizeMap[size]
+      .svg}px; position:relative; flex-shrink:0;"
+  >
+    <svg
+      viewBox="0 0 200 200"
+      style="width:100%; height:100%; overflow:visible;"
+    >
       <defs>
         <filter id="soft-{size}" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
 
       <!-- Outer orbit ring -->
       <circle
-        cx="100" cy="100" r="78"
+        cx="100"
+        cy="100"
+        r="78"
         fill="none"
         stroke={accent}
         stroke-width="1"
@@ -94,14 +111,15 @@
 
       <!-- Neural nodes on right arc -->
       {#each Array(8) as _, i}
-        {@const angle = ((i / 7) * Math.PI) - Math.PI / 2}
+        {@const angle = (i / 7) * Math.PI - Math.PI / 2}
         {@const r = 78}
         {@const cx = 100 + Math.cos(angle) * r}
         {@const cy = 100 + Math.sin(angle) * r}
         {@const isActive = activeNodes.includes(i)}
         {#if cx >= 100}
           <circle
-            {cx} {cy}
+            {cx}
+            {cy}
             r={isActive ? 4 : 2}
             fill={isActive ? nodeActive : secondary}
             opacity={isActive ? 1 : 0.4}
@@ -112,7 +130,9 @@
 
       <!-- Central sync dot -->
       <circle
-        cx="100" cy="100" r="8"
+        cx="100"
+        cy="100"
+        r="8"
         fill={accent}
         opacity="0.9"
         style="transition: r 0.3s ease;"
@@ -124,19 +144,26 @@
 
   <!-- Wordmark -->
   {#if showText}
-    <div style="display:flex; flex-direction:column; justify-content:center; line-height:1;">
-      <span style="
+    <div
+      style="display:flex; flex-direction:column; justify-content:center; line-height:1;"
+    >
+      <span
+        style="
         font-family:'Montserrat',sans-serif;
         font-size:{sizeMap[size].text};
         font-weight:800;
         letter-spacing:-0.03em;
         color:{primary};
         white-space:nowrap;
-      ">
-        OWN<span style="font-weight:400; color:{secondary};">YOUR</span><span style="color:{accent};">TWIN</span>
+      "
+      >
+        OWN<span style="font-weight:400; color:{secondary};">YOUR</span><span
+          style="color:{accent};">TWIN</span
+        >
       </span>
       {#if size === "lg" || size === "xl"}
-        <span style="
+        <span
+          style="
           font-family:'Montserrat',sans-serif;
           font-size:0.58rem;
           font-weight:600;
@@ -145,7 +172,8 @@
           color:{secondary};
           margin-top:4px;
           opacity:0.7;
-        ">Data Sovereignty Platform</span>
+        ">Data Sovereignty Platform</span
+        >
       {/if}
     </div>
   {/if}
