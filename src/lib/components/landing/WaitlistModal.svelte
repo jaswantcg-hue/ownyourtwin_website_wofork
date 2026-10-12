@@ -8,6 +8,8 @@
   import Input from "../common/Input.svelte";
   import { showSuccess, showError } from "$lib/stores/ui";
 
+  const demoMode = import.meta.env.VITE_DEMO_MODE === "true";
+
   interface Props {
     open?: boolean;
     onclose?: () => void;
@@ -41,11 +43,16 @@
     if (hasErrors(errors)) return;
     isSubmitting = true;
     try {
-      const response = await fetch("/api/request-demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = demoMode
+        ? new Response(JSON.stringify({ success: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          })
+        : await fetch("/api/request-demo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         if (response.status === 409 && body.field === 'email') {
@@ -55,7 +62,12 @@
         throw new Error("Failed to submit");
       }
       isSubmitted = true;
-      showSuccess("We've received your request!", "Our team will reach out to you shortly.");
+      showSuccess(
+        demoMode ? "Demo submission successful" : "We've received your request!",
+        demoMode
+          ? "This demo request wasn't saved or sent."
+          : "Our team will reach out to you shortly.",
+      );
       setTimeout(() => {
         open = false;
         isSubmitted = false;
@@ -97,9 +109,11 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
         </svg>
       </div>
-      <h3 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.5rem; color:#111111; margin-bottom:8px;">Thank you!</h3>
+      <h3 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.5rem; color:#111111; margin-bottom:8px;">{demoMode ? "Demo complete!" : "Thank you!"}</h3>
       <p style="font-family:'Lora',serif; font-style:italic; color:#888888; font-size:1rem;">
-        We've received your request. Our team will reach out shortly.
+        {demoMode
+          ? "This demo submission wasn't saved or sent."
+          : "We've received your request. Our team will reach out shortly."}
       </p>
     </div>
   {:else}
@@ -108,6 +122,11 @@
       <p style="font-family:'Lora',serif; font-style:italic; font-size:0.95rem; color:#888888; margin-bottom:24px; line-height:1.65;">
         Share your details and we'll show you how Digital Twins can transform your relationship with data.
       </p>
+      {#if demoMode}
+        <p role="status" style="font-family:'Montserrat',sans-serif; font-size:0.8rem; color:#8a5b16; background:#fff8e8; border:1px solid #f0dfb5; border-radius:8px; padding:10px 12px; margin-bottom:16px;">
+          Demo mode: submissions are not saved or sent.
+        </p>
+      {/if}
 
       <Input
         name="name"
