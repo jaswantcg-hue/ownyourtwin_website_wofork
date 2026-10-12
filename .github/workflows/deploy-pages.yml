@@ -34,7 +34,7 @@ jobs:
         run: npm run build
         env:
           BUILD_TARGET: github-pages
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          BASE_PATH: ''
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
