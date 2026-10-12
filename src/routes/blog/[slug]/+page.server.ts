@@ -3,6 +3,14 @@ import { marked } from 'marked';
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
+import { getPosts } from '$lib/server/posts';
+
+export const prerender = process.env.BUILD_TARGET === 'github-pages';
+export const trailingSlash = process.env.BUILD_TARGET === 'github-pages' ? 'always' : 'never';
+
+export function entries() {
+  return getPosts().map(({ slug }) => ({ slug }));
+}
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {

@@ -3,6 +3,7 @@
   4 article preview cards for the blog
 -->
 <script lang="ts">
+  import { base } from "$app/paths";
   import type { BlogPost } from "$lib/server/posts";
 
   interface Props {
@@ -64,7 +65,7 @@
         <!-- Card Container - conditionally render as 'a' or 'div' -->
         <svelte:element
           this={article.link ? "a" : "div"}
-          href={article.link}
+          href={article.link ? `${base}${article.link}` : undefined}
           class="group p-6 rounded-2xl bg-gradient-to-br {article.gradient} border {article.borderColor} transition-all duration-300 hover:-translate-y-1 block {article.link
             ? 'cursor-pointer'
             : ''} animate-fade-in"

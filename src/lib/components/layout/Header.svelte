@@ -3,6 +3,7 @@
   Monochrome editorial: transparent over hero, white on scroll
 -->
 <script lang="ts">
+  import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { isAuthenticated, currentUser, authStore } from "$lib/stores/auth";
@@ -20,28 +21,30 @@
   let scrolled = $state(false);
   let mobileMenuOpen = $state(false);
 
+  const withBase = (path: string) => `${base}${path}`;
+
   const navItems = [
-    { label: "Journal", href: "/app/chat" },
-    { label: "Dashboard", href: "/app/dashboard" },
-    { label: "Explorer", href: "/app/explorer" },
+    { label: "Journal", href: withBase("/app/chat") },
+    { label: "Dashboard", href: withBase("/app/dashboard") },
+    { label: "Explorer", href: withBase("/app/explorer") },
   ];
 
   const landingNavItems = [
     { label: "How It Works", href: "#how-it-works" },
     { label: "For You", href: "#for-individuals" },
-    { label: "For Business", href: "/forBusiness" },
-    { label: "Blog", href: "/blog" },
+    { label: "For Business", href: withBase("/forBusiness") },
+    { label: "Blog", href: withBase("/blog") },
   ];
 
   async function handleLogout() {
     await authStore.logout();
-    goto("/");
+    goto(withBase("/"));
   }
 
   async function handleLogoClick(e: Event) {
     e.preventDefault();
     if ($isAuthenticated) await authStore.logout();
-    goto("/");
+    goto(withBase("/"));
   }
 
   function handleNavClick(e: Event, href: string) {
@@ -51,13 +54,13 @@
 
   function handleSmoothScroll(e: Event, href: string) {
     mobileMenuOpen = false;
-    if ($page.url.pathname === "/") {
+    if ($page.url.pathname === withBase("/")) {
       e.preventDefault();
       const target = document.querySelector(href);
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       e.preventDefault();
-      goto("/" + href);
+      goto(withBase("/" + href));
     }
   }
 
@@ -84,7 +87,7 @@
     <div style="display:flex; align-items:center; justify-content:space-between; height:64px;">
 
       <!-- Logo -->
-      <a href="/" onclick={handleLogoClick} style="display:flex; align-items:center; gap:8px; text-decoration:none;">
+      <a href={withBase("/")} onclick={handleLogoClick} style="display:flex; align-items:center; gap:8px; text-decoration:none;">
         <Logo size="md" />
       </a>
 
@@ -134,8 +137,8 @@
               </div>
               <div style="padding:8px;">
                 <a
-                  href="/app/dashboard"
-                  onclick={(e) => handleNavClick(e, "/app/dashboard")}
+                  href={withBase("/app/dashboard")}
+                  onclick={(e) => handleNavClick(e, withBase("/app/dashboard"))}
                   style="display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; font-family:'Montserrat',sans-serif; font-size:0.875rem; color:#555555; text-decoration:none; transition:all 0.2s;"
                   onmouseenter={(e) => { (e.currentTarget as HTMLElement).style.background='#f8f8f6'; (e.currentTarget as HTMLElement).style.color='#111111'; }}
                   onmouseleave={(e) => { (e.currentTarget as HTMLElement).style.background='transparent'; (e.currentTarget as HTMLElement).style.color='#555555'; }}

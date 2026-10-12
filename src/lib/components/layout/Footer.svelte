@@ -3,6 +3,7 @@
   CTA strip on off-white, then a black footer with legible light-grey text
 -->
 <script lang="ts">
+  import { base } from "$app/paths";
   import { Logo } from "$lib/components/common";
 
   interface Props {
@@ -11,6 +12,7 @@
   let { onDemoClick }: Props = $props();
 
   const currentYear = new Date().getFullYear();
+  const withBase = (href: string) => (href.startsWith("/") ? `${base}${href}` : href);
 
   const footerLinks = {
     product: [
@@ -243,7 +245,7 @@
           {#each footerLinks.product as link}
             <li>
               <a
-                href={link.href}
+                href={withBase(link.href)}
                 onclick={(e) => handleSmoothScroll(e, link.href)}
                 class="footer-link">{link.label}</a
               >
@@ -274,12 +276,12 @@
             <li>
               {#if link.label === "Contact"}
                 <a 
-                  href={link.href} 
+                  href={withBase(link.href)}
                   class="footer-link"
                   onclick={(e) => { e.preventDefault(); e.stopPropagation(); window.dispatchEvent(new CustomEvent('openContact')); }}
                 >{link.label}</a>
               {:else}
-                <a href={link.href} class="footer-link">{link.label}</a>
+                <a href={withBase(link.href)} class="footer-link">{link.label}</a>
               {/if}
             </li>
           {/each}
@@ -306,7 +308,7 @@
         >
           {#each footerLinks.legal as link}
             <li>
-              <a href={link.href} class="footer-link">{link.label}</a>
+              <a href={withBase(link.href)} class="footer-link">{link.label}</a>
             </li>
           {/each}
         </ul>
@@ -330,9 +332,9 @@
         protected, and always yours.
       </p>
       <div style="display:flex; gap:20px;">
-        <a href="/privacy" class="footer-link-sm">Privacy</a>
-        <a href="/terms" class="footer-link-sm">Terms</a>
-        <a href="/cookies" class="footer-link-sm">Cookies</a>
+        <a href={withBase("/privacy")} class="footer-link-sm">Privacy</a>
+        <a href={withBase("/terms")} class="footer-link-sm">Terms</a>
+        <a href={withBase("/cookies")} class="footer-link-sm">Cookies</a>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from "$app/paths";
   import Header from "$lib/components/layout/Header.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
   import WaitlistModal from "$lib/components/landing/WaitlistModal.svelte";
@@ -31,7 +32,7 @@
   <article class="relative z-10 container mx-auto px-4 max-w-5xl">
     <!-- Back Link -->
     <a
-      href="/#blog"
+      href={`${base}/#blog`}
       class="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors mb-8 group"
     >
       <svg
